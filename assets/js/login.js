@@ -56,7 +56,7 @@ $(document).ready(function () {
                         $('#login-form').html(`<p class="text-success">Logged in successfully. Redirecting... </p>`); // Display success message
                         setTimeout(function(){
                             location.replace('dashboard');
-                        }, 2000)
+                        }, 500)
 
                     }else{
                         $('#talkBackText').text(response.message)

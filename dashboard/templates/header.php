@@ -3,8 +3,11 @@
         ***********************************-->
         <div class="nav-header">
             <a href="index.php" class="brand-logo">
-				<img src="./../assets/images/logo/bobis.png" alt="" class="logo-abbr" >
-                
+				<img class="logo-abbr" src="public/images/logo.svg" alt="Logo Abbreviation">
+
+					
+				<img class="brand-title" src="public/images/logo-full.svg" alt="Brand Title">
+					
 				
 
             </a>

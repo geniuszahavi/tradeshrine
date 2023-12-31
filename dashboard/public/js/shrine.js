@@ -1,4 +1,19 @@
 $(document).ready(function () {
+    var fileToUpload, SentCoinName, SentCointAount, SentCoinValue;
+
+    $(document).ajaxStart(function() {
+        // Replace 'yourModalSelector' with the actual selector of your modal
+        $('#ajax-loader').modal('show');
+    
+    });
+    
+    // Hide modal when all Ajax calls are complete
+    $(document).ajaxStop(function() {
+        // Replace 'yourModalSelector' with the actual selector of your modal
+        $('#ajax-loader').modal('hide');
+    
+    });
+    
    
     function withJquery(elem){
         console.time('time1');
@@ -14,10 +29,41 @@ $(document).ready(function () {
 
   $('#copy-wallet').click(function (e) { 
     e.preventDefault();
-    alert("clicked")
+    // alert("clicked")
     withJquery($('#coin-address'))
     
   });
+
+  $('#func-back-btn').click(function (e) { 
+    e.preventDefault();
+    
+    $('#qr-modal').modal('hide')
+        $('#deposit-modal').modal('show')
+  });
+  $('#sell-crypto-div').click(function (e) { 
+    e.preventDefault();
+    $('#deposit-modal').modal('show')
+    
+  });
+//   $('#sell-crypto-div').click(function (e) { 
+//     e.preventDefault();
+//     $('#deposit-modal').modal('show')
+    
+//   });
+
+//   $('#sell-crypto-div').click(function (e) { 
+//     e.preventDefault();
+//     $('#deposit-modal').modal('show')
+    
+//   });
+
+  $('#sell-giftcard-div').click(function (e) { 
+    e.preventDefault();
+    $('#deposit-giftcards').modal('show')
+    
+  });
+
+
 
 //   $('#qr-modal').modal('show')
 
@@ -25,57 +71,104 @@ $(document).ready(function () {
     
 
     $('#crpt-proceed').click(function(){
-        let crptAmt = $('#crypt-amt').val(), coinType = $('#coin-type').val();
-        if(crptAmt < 100){
+        let crptAmt = $('#crypt-amt').val(), coinType = $('#coin-type').val(), coinNetwork = $('#coin-type').find(':selected').data('id');
+        console.log(coinNetwork)
+        if(crptAmt < 10){
             // sweetAlert("Oops...", "Minimum deposit is $100", "error")
-            $('#funding-error').text('Minimum deposit is $100')
+            $('#funding-error').text('Minimum deposit is $10')
 
         }else if(coinType == 0){
             $('#funding-error').text('Please choose a coin method')
         }else{
-            $('#deposit-modal').modal('hide')
-            $('#qr-modal').modal('show')
-            $.get("https://min-api.cryptocompare.com/data/price?fsym="+coinType+"&tsyms=USD",function(data){
-                let BTC_amount = crptAmt / data["USD"],
-                    final_value = BTC_amount.toFixed(9)
-                $('#coin-amt').text(final_value)
-                console.log(data['USD'])
+            // $.get("https://min-api.cryptocompare.com/data/price?fsym="+coinType+"&tsyms=USD",function(data){
+            //     console.log(data)
+            //     let BTC_amount = crptAmt / data["USD"],
+            //     final_value = BTC_amount.toFixed(9)
+            //     $('#coin-amt').text(final_value)
+            //     $('#coin-to-send').text(coinType);
+            //     $('#deposit-modal').modal('hide')
+            //     $('#qr-modal').modal('show')
+            // });
+            $.ajax({
+                type: "GET",
+                url: "../api/cryptoPrice.php",
+                data: {
+                    coinType: coinType,
+                    crptAmt: crptAmt
+                },
+                success: function (response) {
+                    console.log(response)
+                    response = $.parseJSON(response);
+            
+                    // Check if 'data' property exists and is not empty
+                    if (response.data && response.data.length > 0) {
+                        // Access the first element in the 'data' array
+                        var coinData = response.data[0];
+            
+                        // Access the 'quote' property using the variable
+                        var coinTypePrice = coinData.quote[coinType];
+            
+                        // Check if 'coinType' exists in the 'quote' object
+                        if (coinTypePrice) {
+                            var coinTypePriceValue = coinTypePrice.price;
+                            var TSChargers = coinTypePrice.price * 0.02;
+                            var coinTypePriceValue = coinTypePrice.price + TSChargers;
+                            console.log(coinTypePriceValue);
+                            $('#coin-amt').text(coinTypePriceValue.toFixed(9) + ' '+coinType)
+                            $('#coin-to-send').text(coinType);
+                            $('#coin-to-send-network').text('- '+coinNetwork);
+                            $('#deposit-modal').modal('hide')
+                            $('#qr-modal').modal('show')
+                            SentCoinName = coinType;
+                            SentCointAount = crptAmt;
+                            SentCoinValue = coinTypePriceValue
+            
+                            // Use coinTypePriceValue as needed
+                        } else {
+                            console.error("Invalid coinType:", coinType);
+                        }
+                    } else {
+                        console.error("No data received or data is empty");
+                    }
+                }
             });
+            
             var coinValue;
             switch(coinType) {
                 case "BTC":
-                    coinValue = 'bc1qvxgsrcuvfagwj9u6sa55wgeykexpmart3xf3pw';
-                    coinSource = "./public/qr/btc.png";
+                    coinValue = '1PmWA2DMcyUkSBEpT6gZRxbDKwvR8JsTyS';
+                    coinSource = "public/images/coins/btc.png";
                   break;
     
                 case "BNB":
                     coinValue = '0x3B11Ff5dAc3DA10151740081405B869aA791fC93';
-                    coinSource = "./images/qr_codes/qr_bnb.jpeg";
+                    coinSource = "public/images/coins/bnb.png";
                   break;
                 
                 case "ETH":
-                    coinValue = '0x3B11Ff5dAc3DA10151740081405B869aA791fC93';
-                    coinSource = "./images/qr_codes/qr_eth.jpeg";
+                    coinValue = '0x91bca6ea67f1171733b965613bd07f0941880d00';
+                    coinSource = "public/images/coins/eth.png";
                   break;
                 case "LTC":
                     coinValue = 'ltc1qup25uacfeeunqh0fvvsgt7x0pg7zh73quppma7';
-                    coinSource = "./images/qr_codes/qr_ltc.jpeg";
+                    coinSource = "public/images/coins/qr_ltc.png";
                   break;
                 case "USDT":
-                    coinValue = 'THZE4Hk4eWKAJ9P2pzSwsjh4zf61RSs89x';
-                    coinSource = "./images/qr_codes/qr_usdt.jpeg";
+                    coinValue = 'TMi5wFYQUsdqc1xW5NFtEJoji3VC7eMjoV';
+                    coinSource = "public/images/coins/usdt.png";
                   break;
                 
                 default:
                   // code block
-                  coinValue = 'THZE4Hk4eWKAJ9P2pzSwsjh4zf61RSs89x';
-                  coinSource = "./public/qr/qr_usdt.jpeg";
+                  coinValue = 'Uknown Wallet address';
+                  coinSource = "No Coin Chosen";
               }
               console.log(coinValue)
               $('#coin-value').text($('#coin-type option:selected').text())
               $('#coin-address').text(coinValue)
-              $('#coin-address').attr('dataid',coinValue)
+              $('#coin-address').attr('data-id',coinValue)
               $('#coin-image').attr('src', coinSource)
+              console.log(coinSource)
             let $timeLeft = 30;
             let TotalTime = $timeLeft * 60;
             
@@ -92,7 +185,7 @@ $(document).ready(function () {
                     $('#timer').css('color', 'red');
                 }
 
-                console.log(TotalTime)
+                // console.log(TotalTime)
             }
             setInterval(function(){
                 timer();
@@ -134,5 +227,208 @@ $(document).ready(function () {
         }
     })
 
+
+    $('#complete-crypto').click(function(e){
+        e.preventDefault();
+
+        $('#crypto-proof').trigger('click');
+    })
+
+    $('#crypto-proof').change(function (e) {
+        console.log(e.target.files)
+        if (e.target.files[0]['size'] > 10085867) {
+            alert('File too large');
+        } else {
+            fileToUpload = e.target.files[0];
+            uploadProof(fileToUpload, SentCoinName, SentCointAount, SentCoinValue)
+        }
+    });
+
+   
+
+
+    // Upload gift card
+    $('#complete-giftcard').click(function(e){
+        e.preventDefault();
+        let giftcardAmt = $('#giftcard-amount').val(), giftcardType = $('#gitcard-type').val(), giftcardNumber = $('#giftcard-number').val();
+
+        if(giftcardType == 0){
+            $('#giftcard-error').text('Please choose a giftcard type to trade')
+        }else if(giftcardAmt < 50){
+            // sweetAlert("Oops...", "Minimum deposit is $100", "error")
+            $('#giftcard-error').text('Minimum giftcard trading is $50')
+
+        } else if(giftcardNumber.length < 7){
+            $('#giftcard-error').text('Enter a valid giftcard number')
+        }else{
+                                 
+            $('#giftcard-proof').trigger('click');
+        }
+
+    })
+
+    $('#giftcard-proof').change(function (e) {
+        // console.log(e.target.files)
+        let giftcardAmt = $('#giftcard-amount').val(), giftcardType = $('#gitcard-type').val(), giftcardNumber = $('#giftcard-number').val();
+        if (e.target.files[0]['size'] > 10085867) {
+            alert('File too large');
+        } else {
+            giftCardfileToUpload = e.target.files[0];
+            uploadGiftCardProof(giftCardfileToUpload, giftcardType, giftcardAmt, giftcardNumber)
+        }
+    });
+
+    $('#gitcard-type').change(function (e) { 
+        e.preventDefault();
+        var selected = $(this).selected().attr('data-id')
+        console.log(selected)
+
+        
+    });
+
+
+    $('#buy-crypto').click(function(){
+        $('#buy-crypto-modal').modal('show')
+    })
+
+
+    $('#buy-crpt-proceed').click(function(){
+        let crptAmt = $('#buy-crypt-amt').val(), coinType = $('#buy-coin-type').val(), walletAddress = $('#buy-crypt-address').val();
+        if(crptAmt < 10){
+            // sweetAlert("Oops...", "Minimum deposit is $100", "error")
+            $('#funding-error').text('Minimum deposit is $50')
+
+        }else if(coinType == 0){
+            $('#funding-error').text('Please choose a coin method')
+        }else{
+            let coinTypePrice;
+            
+            $.ajax({
+                type: "GET",
+                url: "../api/cryptoPrice.php",
+                data: {
+                    coinType: coinType,
+                    crptAmt: crptAmt
+                },
+                success: function (response) {
+                    console.log(response)
+                    response = $.parseJSON(response);
+            
+                    // Check if 'data' property exists and is not empty
+                    if (response.data && response.data.length > 0) {
+                        // Access the first element in the 'data' array
+                        var coinData = response.data[0];
+            
+                        // Access the 'quote' property using the variable
+                        var coinTypePrice = coinData.quote[coinType];
+            
+                        // Check if 'coinType' exists in the 'quote' object
+                        if (coinTypePrice) {
+                            var coinTypePriceValue = coinTypePrice.price;
+                            var TSChargers = coinTypePrice.price * 0.02;
+                            // var coinTypePriceValue = coinTypePrice.price - TSChargers;
+                            coinTypePrice = coinTypePriceValue;
+                            $('#buy-coin-amt').text(walletAddress)
+                            $('#buy-coin-to-send').text(coinType);
+                            // $('#buy-coin-to-send-network').text('- '+coinNetwork);
+                            $('#buy-crypto-modal').modal('hide')
+                            $('#buy-modal').modal('show')
+                            SentCoinValue = coinTypePriceValue
+                            
+                            
+            
+                            // Use coinTypePriceValue as needed
+                        } else {
+                            console.error("Invalid coinType:", coinType);
+                        }
+
+                        let $buyTimeLeft = 30;
+                        let butTotalTime = $buyTimeLeft * 60;
+                        
+                        function timer(){
+                            let buyMins = Math.floor(butTotalTime / 60);
+                            let buySecs = butTotalTime % 60;
+                
+                            $('#buy-timer').text(`${buyMins}:${buySecs}`);
+                            butTotalTime--;
+                            if(buyMins < 0 && buySecs < 1){
+                                location.reload();
+                
+                            }else if(buyMins < 2){
+                                $('#buy-timer').css('color', 'red');
+                            }
+
+                            // console.log(butTotalTime)
+                        }
+                        setInterval(function(){
+                            timer();
+                        },1000);
+                    } else {
+                        console.error("No data received or data is empty");
+                    }
+                }
+            });
+            
+            $('#complete-crypto-purchase').click(function (e) { 
+                e.preventDefault();
+            
+                // Log to verify the click event is being triggered
+                console.log(coinTypePrice)
+            
+                $.ajax({
+                    type: "post",
+                    url: "../api/buy-crypto.php",
+                    data: {
+                        amountPaid: crptAmt,
+                        coinType: coinType,
+                        coinValue: SentCoinValue,
+                        walletAddress: walletAddress
+                    },
+                    success: function (response) {
+                        $('#ajax-loader').remove();
+                        console.log('Success:', response);
+                        $('#buy-modal-body').html(`
+                        <div class="alert alert-primary notification">
+                            <p class="notificaiton-title mb-2"><strong>Success!</strong> Crypto purchase processing.</p>
+                            <p>Hang on a little bit, our experts will process your requests ASAP.</p>
+                            
+                        </div>
+                        `)
+                        setTimeout(function(){
+                            location.reload();
+                        }, 2000)
+                    }
+                });
+            });
+            
+            
+            
+        }
+    })
+
+
+//     const options = {
+//         amount: 119,
+//         currency: 'NGN',
+//         domain: 'sandbox',
+//         key: 'fdcdb195-6553-4890-844c-ee576b7ea715',
+        
+// email: 'orderbuyer@givmail.com',
+//         transactionref: 'z31zs098zas8w3774h44344f8yg',
+//         customer_logo:
+// 'https://www.vpay.africa/static/media/vpayLogo.91e11322.svg',
+//         customer_service_channel: '+2348030007000, support@org.com',
+//         txn_charge: 6,
+//         txn_charge_type: 'flat',
+//         onSuccess: function(response) { console.log('Hello World!',
+// response.message); },
+//         onExit: function(response) { console.log('Hello World!',
+// response.message); }
+//     }
+    
+//     if(window.VPayDropin){
+//         const {open, exit} = VPayDropin.create(options);
+//         open();                    
+//     } 
   
 });

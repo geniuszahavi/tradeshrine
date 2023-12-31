@@ -7,9 +7,9 @@
 <body>
 
   <!-- ===============>> Preloader start here <<================= -->
-  <div class="preloader">
+  <!-- <div class="preloader">
     <img src="assets/images/logo/bobis.png"  width="100" alt="preloader icon">
-  </div>
+  </div> -->
   <!-- ===============>> Preloader end here <<================= -->
 
 

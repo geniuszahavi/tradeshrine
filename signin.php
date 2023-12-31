@@ -1,4 +1,5 @@
 <?php
+$page_title = "Login | Tradeshrine"; 
 
 include 'templates/head.php';
 
@@ -7,9 +8,9 @@ include 'templates/head.php';
 <body>
 
   <!-- ===============>> Preloader start here <<================= -->
-  <div class="preloader">
+  <!-- <div class="preloader">
     <img src="assets/images/logo/bobis.png" width="70" alt="preloader icon">
-  </div>
+  </div> -->
   <!-- ===============>> Preloader end here <<================= -->
 
 
@@ -105,7 +106,7 @@ include 'templates/head.php';
 
                 <!-- <div class="col-6 m-auto"> -->
                   <small class="small" id="talkBackText"></small>
-                  <button type="submit" class="trk-btn trk-btn--border trk-btn--primary d-block mt-4">Sign Up</button>
+                  <button type="submit" class="trk-btn trk-btn--border trk-btn--primary d-block mt-4">Login</button>
                 <!-- </div> -->
 
 

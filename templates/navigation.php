@@ -4,7 +4,7 @@
       <div class="header-wrapper">
         <div class="logo">
           <a href="index.php">
-            <img class="dark" src="assets/images/logo/bobis.png" width="40" alt="logo">
+            <img class="dark" src="assets/images/logo/bobis.png" width="150" alt="logo">
           </a>
         </div>
         <div class="menu-area">

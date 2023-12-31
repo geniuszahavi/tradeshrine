@@ -1,9 +1,13 @@
 <?php
 ini_set('display_errors',1);
 require_once '../config/database.php'; // Assuming you have the User class in a separate file
+require_once '../models/functions.php'; // Assuming you have the User class in a separate file
 require_once '../models/Users.php'; // Assuming you have the User class in a separate file
 
+
 extract($_POST);
+
+
 
 // Check if the request is an AJAX request
     // Handle the AJAX request

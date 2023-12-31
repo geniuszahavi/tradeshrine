@@ -1,23 +1,28 @@
 <?php 
-include 'templates/head.php'; ?>
-<body data-theme-version="dark">
+$page_title = "User Account | Tradeshrine";
+include 'templates/head.php';
+ 
+if($userDetails['verified'] == 0){
+	header("Location: ./verify.php");
+    exit();
+}
+
+
+
+?>
+<body data-theme-version="">
+
 
     <!--*******************
         Preloader start
     ********************-->
     <div id="preloader">
-        <div class="loader">
-			<span>S</span>
-			<span>H</span>
-			<span>R</span>
-			<span>I</span>
-			<span>N</span>
-			<span>E</span>
+        <div class="">
+			<span><i class="h1 fa fa-spin fa-spinner "></i></span>
+			
 		</div>
     </div>
-    <!--*******************
-        Preloader end
-    ********************-->
+   
 
     <!--**********************************
         Main wrapper start
@@ -43,17 +48,17 @@ include 'templates/head.php'; ?>
 			<div class="card">
 				<div class="card-body d-flex">
 					<div class="icon me-3">
-						
+					
 					</div>
 					<div>
-						<h2 class="invoice-num">$0</h2>
+						<h2 class="invoice-num">$<?php echo number_format($userDetails['wallet'], 2); ?></h2>
 						<p class="mb-0 invoice-num1">
 							<svg width="21" height="14" viewBox="0 0 21 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M1 13C1.91797 11.9157 4.89728 8.72772 6.5 7L12.5 10L19.5 1" stroke="#13B440" stroke-width="2" stroke-linecap="round"/>
 							</svg>
-							Wallet Balance
+							 <span class="text-success" id="fund-wallet-btn">Fund Wallet</span>
 						</p>
-						<button class="mt-5 btn btn-success btn-small" id="advanced-trading" data-bs-toggle="modal" data-bs-target="#deposit-modal">Trade Now</button>
+						<!-- <button class="mt-5 btn btn-success btn-small" id="advanced-trading" data-bs-toggle="modal" data-bs-target="#deposit-modal">Trade Now</button> -->
 						
 
 					</div>
@@ -61,26 +66,18 @@ include 'templates/head.php'; ?>
 				</div>
 			</div>
 		</div>
+		
 		<div class="col-xl-3 col-xxl-6 col-sm-6">
 			<div class="card">
 				<div class="card-body d-flex">
-					<div class="icon me-3">
-						<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<g opacity="0.99">
-							<circle cx="30" cy="30.0001" r="30" fill="white"/>
-							<path d="M30.5438 0.00514091C13.9681 -0.294871 0.305031 12.8932 0.00501883 29.4563C-0.294993 46.0195 12.893 59.6951 29.4562 59.9951C46.0194 60.2951 59.695 47.1071 59.995 30.5314C60.295 13.9682 47.1069 0.292653 30.5438 0.00514091ZM29.5562 54.3699C16.1182 54.1198 5.38024 42.9944 5.63025 29.5563C5.86776 16.1183 16.9932 5.38036 30.4313 5.61787C43.8818 5.86788 54.6072 16.9933 54.3697 30.4314C54.1322 43.8694 42.9943 54.6074 29.5562 54.3699Z" fill="#FF6600"/>
-							<path d="M30.3938 8.11797C18.3308 7.90546 8.34286 17.5434 8.13035 29.6063C8.0591 33.4015 8.97038 36.9904 10.623 40.1355H17.4995V18.6021C17.4995 17.2858 19.2883 16.8671 19.8696 18.0484L30 38.563L40.1304 18.0496C40.7117 16.8671 42.5005 17.2858 42.5005 18.6021V40.1355H49.3558C50.8933 37.2129 51.8084 33.9128 51.8696 30.3939C52.0821 18.3309 42.4567 8.34298 30.3938 8.11797Z" fill="#FF6600"/>
-							<path d="M40.0004 41.3856V23.9574L31.12 41.9393C30.7 42.7931 29.2987 42.7931 28.8787 41.9393L19.9996 23.9574V41.3856C19.9996 42.0756 19.4408 42.6356 18.7495 42.6356H12.1855C16.0744 48.0996 22.3972 51.7347 29.6062 51.8697C37.1028 52.0023 43.793 48.3271 47.8395 42.6356H41.2504C40.5592 42.6356 40.0004 42.0756 40.0004 41.3856Z" fill="#FF6600"/>
-							</g>
-						</svg>
-					</div>
+					
 					<div>
-						<h2 class="invoice-num">$22,567</h2>
+						<h2 class="invoice-num">$<?php echo $userDetails['referral_wallet'];  ?></h2>
 						<p class="mb-0">
 							<svg width="21" height="14" viewBox="0 0 21 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M1 13C1.91797 11.9157 4.89728 8.72772 6.5 7L12.5 10L19.5 1" stroke="#13B440" stroke-width="2" stroke-linecap="round"/>
 							</svg>
-							<span class="text-success me-1">45%</span> This week
+							 Referral Bonus
 						</p>
 						
 
@@ -90,8 +87,84 @@ include 'templates/head.php'; ?>
 		</div>
 		
 	</div>
+	
 	<div class="row">
-	<div class="col-xl-4 col-xxl-6 col-lg-6">
+		<div class="col-xl-6 col-lg-12">
+			<div class="card" id="sell-crypto-div">
+				
+				<div class="widget-media" >
+					<ul class="timeline">
+						<li>
+							<div class="timeline-panel">
+								<div class="media me-2 media-info p-2">
+									<img src="public/images/Download.gif" width="30" alt="" >
+								</div>
+								<div class="media-body">
+									<h5 class="mb-1"><i></i> Sell Crypto </h5>
+									<small class="d-block">BTC, BNB, ETH, USDT, </small>
+								</div>
+								
+							</div>
+						</li>
+						
+						
+					</ul>	
+				</div>
+				
+			</div>
+		</div>
+		<div class="col-xl-6 col-lg-12">
+			<div class="card"  id="sell-giftcard-div">
+				
+				<div class="widget-media">
+					<ul class="timeline">
+						<li>
+							<div class="timeline-panel">
+								<div class="media me-2 media-info p-2">
+									<img src="public/images/gift-card.png" width="30" alt="" >
+								</div>
+								<div class="media-body">
+									<h5 class="mb-1"><i></i> Sell Gift Cards With </h5>
+									<small class="d-block">Tradehsrine Wallet, Bank, Card, etc </small>
+								</div>
+								
+							</div>
+						</li>
+						
+						
+					</ul>	
+				</div>
+				
+			</div>
+		</div>
+		<div class="col-xl-6 col-lg-12">
+			<div class="card" id="buy-crypto">
+				
+				<div class="widget-media">
+					<ul class="timeline">
+						<li>
+							<div class="timeline-panel">
+								<div class="media me-2 media-info p-2">
+									<img src="public/images/Upload.gif" width="30" alt="" >
+								</div>
+								<div class="media-body">
+									<h5 class="mb-1"><i></i> Buy Crypto With</h5>
+									<small class="d-block">Wallet, Card, Transfer, Chipper Cash</small>
+								</div>
+								
+							</div>
+						</li>
+						
+						
+					</ul>	
+				</div>
+				
+			</div>
+		</div>
+	</div>
+		
+	<div class="row">
+		<div class="col-xl-4 col-xxl-6 col-lg-6">
 			<div class="card">
 				<div class="card-header border-0 pb-0">
 					<h4 class="card-title">FUNDAMENTALS PACKAGE</h4>
@@ -1065,9 +1138,7 @@ include 'templates/head.php'; ?>
 								<p class="fs-12">Lorem ipsum dolor sit amet, consectetur</p>
 							</div>
 							<div class="quick-select">
-								<svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M21 0C9.40213 0 0.00012207 9.40201 0.00012207 20.9999C0.00012207 32.5978 9.40213 41.9998 21 41.9998C32.5979 41.9998 41.9999 32.5978 41.9999 20.9999C41.9867 9.4075 32.5924 0.0132751 21 0ZM28.5 31.5001H16.5002C15.6717 31.5001 15.0001 30.8286 15.0001 30C15.0001 29.929 15.0052 29.8581 15.0152 29.7876L16.1441 21.8843L13.864 22.4547C13.7449 22.4849 13.6227 22.5 13.5 22.5C12.6715 22.4991 12.0009 21.8271 12.0013 20.9985C12.0022 20.311 12.4701 19.7122 13.137 19.5447L16.6018 18.6786L18.015 8.78723C18.1321 7.96692 18.892 7.39746 19.7123 7.51465C20.5327 7.63184 21.1021 8.39172 20.9849 9.21204L19.7444 17.8931L25.1364 16.545C25.9388 16.3403 26.755 16.8251 26.9592 17.6276C27.1638 18.43 26.679 19.2462 25.8766 19.4508C25.872 19.4518 25.8674 19.4531 25.8629 19.454L19.2857 21.0983L18.2287 28.4999H28.5C29.3286 28.4999 30.0001 29.1714 30.0001 30C30.0001 30.8281 29.3286 31.5001 28.5 31.5001Z" fill="#5974D5"/>
-								</svg>
+								
 								<select class="form-control style-2 default-select">
 									<option>23,511 LTC</option>
 									<option>345,455 ETH</option>
@@ -1090,51 +1161,8 @@ include 'templates/head.php'; ?>
 								<h4 class="text-black fs-20 mb-0">Recent Contacts</h4>
 								<a href="javascript:void(0);" class="btn-link">View more</a>
 							</div>
-							<div class="testimonial-two px-4 owl-carousel contacts-slider">
-								<div class="items">
-									<div class="text-center">
-										<img class="mb-3 rounded-circle mx-auto" src="public/images/contacts/pic-5.jpg" alt="">
-										<h5 class="mb-0"><a class="text-black" href="javascript:void(0);">Samuel</a></h5>
-										<span class="fs-12">@sam224</span>
-									</div>
-								</div>
-								<div class="items">
-									<div class="text-center">
-										<img class="mb-3 rounded-circle mx-auto" src="public/images/contacts/pic-2.jpg" alt="">
-										<h5 class="mb-0"><a class="text-black" href="javascript:void(0);">Cindy</a></h5>
-										<span class="fs-12">@cindyss</span>
-									</div>
-								</div>
-								<div class="items">
-									<div class="text-center">
-										<img class="mb-3 rounded-circle mx-auto" src="public/images/contacts/pic-3.jpg" alt="">
-										<h5 class="mb-0"><a class="text-black" href="javascript:void(0);">David</a></h5>
-										<span class="fs-12">@davidxc</span>
-									</div>
-								</div>
-								<div class="items">
-									<div class="text-center">
-										<img class="mb-3 rounded-circle mx-auto" src="public/images/contacts/pic-4.jpg" alt="">
-										<h5 class="mb-0"><a class="text-black" href="javascript:void(0);">Martha</a></h5>
-										<span class="fs-12">@marthaa</span>
-									</div>
-								</div>
-								<div class="items">
-									<div class="text-center">
-										<img class="mb-3 rounded-circle mx-auto" src="public/images/contacts/pic-7.jpg" alt="">
-										<h5 class="mb-0"><a class="text-black" href="javascript:void(0);">Olivia</a></h5>
-										<span class="fs-12">@oliv62</span>
-									</div>
-								</div>
-							</div>
-							<div class="row pt-5 align-items-center">
-								<div class="col-sm-6">
-									<p class="fs-14">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>
-								</div>
-								<div class="col-sm-6">
-									<a href="javascript:void(0);" class="btn btn-primary d-block btn-lg rounded">TRANSFER NOW</a>
-								</div>
-							</div>
+							
+							
 						</div>
 					</div>
 				</div>
@@ -1263,7 +1291,10 @@ include 'templates/head.php'; ?>
 	<script src="public/vendor/sweetalert2/dist/sweetalert2.min.js" type="text/javascript"></script>
     <!-- <script src="public/js/plugins-init/sweetalert.init.js" type="text/javascript"></script> -->
 
+	<script src="https://dropin-sandbox.vpay.africa/dropin/v1/initialise.js"></script>
 
+
+	<script src="public/js/functions.js" type="text/javascript"></script>
 	<script src="public/js/shrine.js" type="text/javascript"></script>
 
     

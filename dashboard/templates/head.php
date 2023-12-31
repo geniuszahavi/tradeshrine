@@ -1,3 +1,32 @@
+<?php
+session_start();
+ini_set('display_errors', 1);
+// Test parameter
+
+
+
+// Check if the user is logged in
+if (!isset($_SESSION['isLoggedIn']) || $_SESSION['isLoggedIn'] !== true) {
+    header("Location: ../signin.php");
+    exit();
+}
+include '../config/database.php';
+include '../models/functions.php';
+include '../models/Users.php';
+include '../models/Payments.php';
+
+
+$userID =  $_SESSION['user_id'];
+$User = new User();
+
+$userDetails = $User->getUserById($userID);
+
+
+
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +34,7 @@
 <head>
 
 	<!-- PAGE TITLE HERE -->
-	<title>Cryptoshrine | Dashboard</title>
+	<title><?php echo $page_title; ?></title>
 
     <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
