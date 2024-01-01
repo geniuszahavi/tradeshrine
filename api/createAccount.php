@@ -24,11 +24,21 @@ extract($_POST);
         echo json_encode(['status' => 'error', 'message' => 'Email already exists']);
 
        }else{
-            $user->createUser($firstName, $lastName, $email, $phone, $password, $countryName, $countryCode);
+            if($refCode  !== 0){
+                $refDetails = $user->findRefCode($refCode);
+                $referID = $refDetails['user_id'];
+                $user->createReferral($referID, $email);
+                $user->createUser($firstName, $lastName, $email, $phone, $password, $countryName, $countryCode);
 
+            }else{
+
+                $user->createUser($firstName, $lastName, $email, $phone, $password, $countryName, $countryCode);
+            }
             // Send a response (you can customize the response based on your needs)
+
+            
        }
-        
+
        
     } else {
         // Invalid request method
