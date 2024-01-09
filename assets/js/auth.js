@@ -106,12 +106,15 @@ $(document).ready(function () {
         }else if($('#pass-1').val() !== $('#pass-2').val()){
             $('#talkBackText').html('Passwords do not match.');
 
-        } else {
+        }else if($('#terms-check').is(':checked') == false){
+            $('#talkBackText').text('Kindly agree to our terms and conditions')
+        }else {
             var formData = {
                 firstName: $('#first-name').val(),
                 lastName: $('#last-name').val(),
                 email: $('#email').val(),
                 phone: $('#phone').val(),
+                refCode : $('#ref-code').val(),
                 password: $('#pass-1').val(),
                 isValidPassword: validatePassword($('#pass-1').val()),
           
@@ -148,6 +151,13 @@ $(document).ready(function () {
       });
 
 
+      if ($('#terms-check').is(':checked')) {
+        console.log('Checkbox is checked');
+        // Your code here
+    } else {
+        console.log('Checkbox is not checked');
+        // Your code here
+    }
      
 
 

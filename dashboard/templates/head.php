@@ -56,8 +56,13 @@ $userDetails = $User->getUserById($userID);
 
 
     <link href="public/vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css"/>
+	<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" /> -->
 
 
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0/css/select2.min.css" rel="stylesheet">
+	</head>
 
     <link href="public/vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet" type="text/css"/>
     <link href="public/css/style.css" rel="stylesheet" type="text/css"/>

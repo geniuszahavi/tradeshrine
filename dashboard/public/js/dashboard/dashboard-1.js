@@ -34,8 +34,8 @@
 		 colors:['#FFAF65', '#4441DE','#60C695','#F34F80'],
 		};
 
-		var chart = new ApexCharts(document.querySelector("#currentChart"), options);
-		chart.render();
+		// var chart = new ApexCharts(document.querySelector("#currentChart"), options);
+		// chart.render();
 	}
 	
 	var marketChart = function(){
@@ -109,8 +109,8 @@
         },
         };
 
-        var chart = new ApexCharts(document.querySelector("#marketChart"), options);
-        chart.render();
+        // var chart = new ApexCharts(document.querySelector("#marketChart"), options);
+        // chart.render();
 	}
 	var recentContact = function(){
 		jQuery('.card-slide').owlCarousel({

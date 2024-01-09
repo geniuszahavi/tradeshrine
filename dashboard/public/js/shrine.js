@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var fileToUpload, SentCoinName, SentCointAount, SentCoinValue;
+    var fileToUpload, SentCoinName, SentCointAount, SentCoinValue, chipperSentAmount;
 
     $(document).ajaxStart(function() {
         // Replace 'yourModalSelector' with the actual selector of your modal
@@ -15,7 +15,7 @@ $(document).ready(function () {
     });
     
    
-    function withJquery(elem){
+    function withJquery(elem, alert){
         console.time('time1');
           var temp = $("<input>");
         $("body").append(temp);
@@ -23,14 +23,18 @@ $(document).ready(function () {
         document.execCommand("copy");
         temp.remove();
           console.timeEnd('time1');
-      }
+          alert.text('Copied to clipboard')
+          setTimeout(() => {
+            alert.hide();
+          }, 1000);
+    }
    
 
 
   $('#copy-wallet').click(function (e) { 
     e.preventDefault();
     // alert("clicked")
-    withJquery($('#coin-address'))
+    withJquery($('#coin-address'), $('#w-copy-msg'))
     
   });
 
@@ -407,28 +411,160 @@ $(document).ready(function () {
     })
 
 
-//     const options = {
-//         amount: 119,
-//         currency: 'NGN',
-//         domain: 'sandbox',
-//         key: 'fdcdb195-6553-4890-844c-ee576b7ea715',
+    $('#fiat-proceed').click(function (e) { 
+        e.preventDefault();
+        var amount = $('#fiat-depo-amt').val();
+        var depositMethod = $('#pay-method').val();
+
+        if(amount < 10){
+            $('#fiat-fund-error').text("Amount must be $10 and above");
+
+        }else if(depositMethod =='chipper'){
+            chipperSentAmount = amount;
+            $('#fiat-fund-back').fadeIn();
+            $('#fiat-fund-area').fadeOut(200);
+            $('#chipper-cash-area').fadeIn(300);
+
+        }else{
+
+            let payRef  = generateRandomString(30)
+
+            const options = {
+                amount: amount,
+                currency: 'NGN',
+                domain: 'sandbox',
+                key: payRef,
+                
+                email: 'orderbuyer@givmail.com',
+                        transactionref: 'z31zs098zas8w3774h44344f8yg',
+                        customer_logo:
+                'https://www.vpay.africa/static/media/vpayLogo.91e11322.svg',
+                        customer_service_channel: '+2348030007000, support@org.com',
+                        txn_charge: 6,
+                        txn_charge_type: 'flat',
+                        onSuccess: function(response) { 
+                            console.log('Hello World!',
+                            response.message);
+                            $.ajax({
+                                type: "post",
+                                url: "../api/fundWallet.php",
+                                data: {
+                                    amountToFund: amount,
+                                    payRef: payRef
+                                },
+                                success: function (response) {
+                                    console.log(response)
+                                    if(response ==1){
+                                        swal({
+                                            title: "Successful!",
+                                            text: "Your transaction was successful and your wallet has been credited. If there are concerns, kindly contact support for immediate assistance",
+                                            icon: "tick"
+                                        }).then(() => {
+                                            location.reload();
+                                        });
+                                    }
+                                }
+                            });
+                        },
+                        onExit: function(response) { 
+                            console.log('Hello World!',
+                            response.message); 
+                        }
+
+
+            }
+
+            if(window.VPayDropin){
+                const {open, exit} = VPayDropin.create(options);
+                open();                    
+            } 
+            
+        }
+    });
+
+    $('#complete-chipper').click(function (e) { 
+        e.preventDefault();
+        $('#chipper-proof').trigger('click');
         
-// email: 'orderbuyer@givmail.com',
-//         transactionref: 'z31zs098zas8w3774h44344f8yg',
-//         customer_logo:
-// 'https://www.vpay.africa/static/media/vpayLogo.91e11322.svg',
-//         customer_service_channel: '+2348030007000, support@org.com',
-//         txn_charge: 6,
-//         txn_charge_type: 'flat',
-//         onSuccess: function(response) { console.log('Hello World!',
-// response.message); },
-//         onExit: function(response) { console.log('Hello World!',
-// response.message); }
-//     }
+    });
+
+    $('#chipper-proof').change(function (e) { 
+        e.preventDefault();
+        console.log(e.target.files)
+        if (e.target.files[0]['size'] > 10085867) {
+            alert('File too large');
+        } else {
+            fileToUpload = e.target.files[0];
+            uploadProof(fileToUpload, 'Chiiper Cash', chipperSentAmount, chipperSentAmount)
+        }
+        
+    });
+
+
+    $('#fiat-fund-back').click(function (e) { 
+        e.preventDefault();
+        $('#chipper-cash-area').fadeOut();
+        $('#fiat-fund-area').fadeIn();
+        $(this).fadeOut(100)
+        
+    });
     
-//     if(window.VPayDropin){
-//         const {open, exit} = VPayDropin.create(options);
-//         open();                    
-//     } 
+
+    
+    
+//test for getting url value from attr
+// var img1 = $('.test').attr("data-thumbnail");
+// console.log(img1);
+
+//test for iterating over child elements
+var langArray = [];
+$('.vodiapicker option').each(function(){
+  var img = $(this).attr("data-thumbnail");
+  var text = this.innerText;
+  var value = $(this).val();
+  var item = '<li><img src="'+ img +'" alt="" value="'+value+'"/><span>'+ text +'</span></li>';
+  langArray.push(item);
+})
+
+$('#a').html(langArray);
+
+//Set the button value to the first el of the array
+    $('.btn-select').html(langArray[0]);
+    $('.btn-select').attr('value', 'btc');
+
+//change button stuff on click
+    $('#a li').click(function(){
+        var img = $(this).find('img').attr("src");
+        var value = $(this).find('img').attr('value');
+        var text = this.innerText;
+        var item = '<li><img src="'+ img +'" alt="" /><span>'+ text +'</span></li>';
+        $('.btn-select').html(item);
+        $('.btn-select').attr('value', value);
+        $(".b").toggle();
+        console.log(value);
+    });
+
+    $(".btn-select").click(function(){
+        $(".b").toggle();
+    });
+
+    //check local storage for the lang
+    var sessionLang = localStorage.getItem('lang');
+    if (sessionLang){
+        //find an item with value of sessionLang
+        var langIndex = langArray.indexOf(sessionLang);
+        $('.btn-select').html(langArray[langIndex]);
+        $('.btn-select').attr('value', sessionLang);
+    } else {
+        var langIndex = langArray.indexOf('usdt');
+        console.log(langIndex);
+        $('.btn-select').html(langArray[langIndex]);
+        //$('.btn-select').attr('value', 'en');
+    }
+
+
+
+    
+
   
 });

@@ -63,19 +63,19 @@
 			<div class="deznav-scroll">
 				<div class="dropdown header-profile">
 					<a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
-						<img src="public/images/profile/pic1.jpg" width="20" alt=""/>
+						<img src="public/images/profile/<?php echo $userDetails['profile_image']; ?>" width="20" alt=""/>
 						<div class="header-info">
-							<span class="font-w400 mb-0">Hello,<b>William</b></span>
-							<small class="text-end font-w400">williamfrancisson@mail.com</small>
+							<span class="font-w400 mb-0">Hello,<b> <?php echo $userDetails['first_name']; ?></b></span>
+							<small class="text-end font-w400"><?php echo $userDetails['email']; ?></small>
 						</div>
 					</a>
 					<div class="dropdown-menu dropdown-menu-end">
-						<a href="app-profile.html" class="dropdown-item ai-icon">
+						<a href="profile.php" class="dropdown-item ai-icon">
 							<svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
 							<span class="ms-2">Profile </span>
 						</a>
 						
-						<a href="page-login.html" class="dropdown-item ai-icon">
+						<a href="logout.php" class="dropdown-item ai-icon">
 							<svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
 							<span class="ms-2">Logout </span>
 						</a>
@@ -89,7 +89,7 @@
 						
 
 					</li>
-					<li><a class=" ai-icon" href="profile.html" aria-expanded="false">
+					<li><a class=" ai-icon" href="profile.php" aria-expanded="false">
                         <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
 							<span class="nav-text">Profile</span>
 						</a>
@@ -97,33 +97,26 @@
 					</li>
 					
 					
-					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-045-heart"></i>
-							<span class="nav-text">Plugins</span>
-						</a>
-						
-					</li>
-					<li><a href="widget-basic.html" class="ai-icon" aria-expanded="false">
-							<i class="flaticon-013-checkmark"></i>
-							<span class="nav-text">Widget</span>
-						</a>
-					</li>
-					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-072-printer"></i>
-							<span class="nav-text">Forms</span>
-						</a>
-						
-					</li>
-					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+					<li><a class=" ai-icon" href="transactions.php" aria-expanded="false">
 							<i class="flaticon-043-menu"></i>
-							<span class="nav-text">Table</span>
+							<!-- flaticon-045-heart  -->
+							<span class="nav-text">Transactions</span>
 						</a>
-						<ul aria-expanded="false">
-							<li><a href="table-bootstrap-basic.html">Bootstrap</a></li>
-							<li><a href="table-datatable-basic.html">Datatable</a></li>
-						</ul>
+						
 					</li>
-					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+					<li><a href="settings.php" class="ai-icon" aria-expanded="false">
+							<i class="flaticon-013-checkmark"></i>
+							<span class="nav-text">Settings</span>
+						</a>
+					</li>
+					<li><a class=" ai-icon" href="logout.php" aria-expanded="false">
+					<svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+							<span class="nav-text">Logout</span>
+						</a>
+						
+					</li>
+					
+					<!-- <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
 							<i class="flaticon-022-copy"></i>
 							<span class="nav-text">Pages</span>
 						</a>
@@ -142,7 +135,7 @@
 							<li><a href="page-lock-screen.html">Lock Screen</a></li>
 							<li><a href="empty-page.html">Empty Page</a></li>
 						</ul>
-					</li>
+					</li> -->
 				</ul>
 				<div class="copyright">
 					<p class="fs-12">Made with <span class="heart"></span> by CodeRigi</p>

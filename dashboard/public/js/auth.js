@@ -30,6 +30,8 @@ $(document).ready(function () {
                     response = $.parseJSON(response)
 
                     if (response.status == 'success') {
+                        $('#error-report').removeClass('text-danger')
+                        $('#error-report').addClass('text-success')
                         $('#error-report').text('Verification successful!');
                         setTimeout(function () {
                             $('#error-report').text('')

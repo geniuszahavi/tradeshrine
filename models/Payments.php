@@ -59,7 +59,7 @@ class Payments extends Dbh{
         return $stmt->fetchAll();
     }
 
-    function buyCrypto($amountPaid, $coinValue, $coinType, $walletAddress,  $userID){
+    public function buyCrypto($amountPaid, $coinValue, $coinType, $walletAddress,  $userID){
         $pdo = $this->connect();
 
         $tableName = 'buy_requests';
@@ -69,6 +69,84 @@ class Payments extends Dbh{
 
         // coin_value, amount, coin_type, user_id,
     }
+
+    public function allTransactions($userID){
+        $sql = "SELECT * FROM transaction_history WHERE user_id = '$userID'";
+
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    public function checkWithdrawal($userID){
+        $sql = "SELECT * FROM profit_q WHERE user_id = '$userID'";
+
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->rowCount();
+    }
+
+    public function bankWithdrawal($wAmount, $wMethod, $traderName, $userID){
+        
+        $tableName = 'profit_q';
+        $columns = ['user_id', 'amt', 'trader', 'w_method'];
+        $values = [$userID, $wAmount, $traderName, $wMethod];
+        $insertData =  insertDataAdvanced($tableName, $columns, $values);
+
+        $insertId = $insertData['lastInsertId'];
+        if($insertData['rowCount'] = 1){
+            $transTableName = 'transaction_history';
+            $transColumns = ['user_id', 'amount', 't_type', 'destination', 't_status', 'pending_id'];
+            $transValues = [$userID, $wAmount, 'debit', 'Bank Account', 'pending', $insertId];
+
+            echo insertData($transTableName, $transColumns, $transValues);
+
+
+        }else{
+            echo json_encode(["msg"=>"Error initiating crypto trade ", "stats"=>$insertData]);
+        }
+    }
+
+    public function chipperWithdrawal($wAmount, $wMethod, $traderName, $chipperTag, $userID){
+        
+        $tableName = 'profit_q';
+        $columns = ['user_id', 'amt', 'trader', 'w_method', 'chipper_tag'];
+        $values = [$userID, $wAmount, $traderName, $wMethod, $chipperTag];
+        $insertData =  insertDataAdvanced($tableName, $columns, $values);
+
+        $insertId = $insertData['lastInsertId'];
+        if($insertData['rowCount'] = 1){
+            $transTableName = 'transaction_history';
+            $transColumns = ['user_id', 'amount', 't_type', 'destination', 't_status', 'pending_id'];
+            $transValues = [$userID, $wAmount, 'debit', 'Chipper Tag', 'pending', $insertId];
+
+            echo insertData($transTableName, $transColumns, $transValues);
+        }else{
+            echo json_encode(["msg"=>"Error initiating crypto trade ", "stats"=>$insertData]);
+        }
+    }
+
+    public function cryptoWithdrawal($wAmount, $wMethod, $traderName, $wcoinType, $wAddress, $userID){
+        
+        $tableName = 'profit_q';
+        $columns = ['user_id', 'amt', 'trader', 'w_address', 'w_method', 'coin_type'];
+        $values = [$userID, $wAmount, $traderName, $wAddress, $wMethod, $wcoinType];
+        $insertData =  insertDataAdvanced($tableName, $columns, $values);
+
+        $insertId = $insertData['lastInsertId'];
+        if($insertData['rowCount'] = 1){
+            $transTableName = 'transaction_history';
+            $transColumns = ['user_id', 'amount', 't_type', 'destination', 't_status', 'pending_id'];
+            $transValues = [$userID, $wAmount, 'debit', 'Chipper Tag', 'pending', $insertId];
+
+            echo insertData($transTableName, $transColumns, $transValues);
+        }else{
+            echo json_encode(["msg"=>"Error initiating crypto trade ", "stats"=>$insertData]);
+        }
+    }
+    
 
 
 }

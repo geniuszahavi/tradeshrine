@@ -35,6 +35,15 @@ class User extends Dbh {
         }
     }
 
+    public function findRefCode($ref){
+        $sql = "SELECT * FROM users WHERE referl_code = ?";
+
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$ref]);
+
+        return $stmt->fetch();
+    }
+
     public function createVerificationCode($user_id, $code, $email){
       
 
@@ -103,6 +112,20 @@ class User extends Dbh {
         return $stmt->rowCount();
     }
 
+    public function fundWallet($amountToFund, $userID){
+        $userDetails = $this->getUserById($userID);
+        $wallet = $userDetails['wallet'] + $amountToFund;
+
+        $tableName = 'users';
+        $columns = ['wallet'];
+        $values = [$wallet];
+        $conditionColumn = 'user_id';
+        $conditionValue = $userID;
+
+        return updateData($tableName, $columns, $values, $conditionColumn, $conditionValue);
+
+    }
+
 
 
     // Create transaction history
@@ -153,5 +176,42 @@ class User extends Dbh {
             // Handle any other exceptions that might occur
             echo "Error: " . $e->getMessage();
         }
+    }
+
+    public function checkBankDetails($userID) {
+        $sql = "SELECT * FROM acc_details WHERE user_id = ?";
+
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$userID]);
+
+        return $stmt->rowCount();
+    }
+
+    public function getBankDetails($userID) {
+        $sql = "SELECT * FROM acc_details WHERE user_id = ?";
+
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$userID]);
+
+        if($details = $stmt->fetch()){
+            return $details;
+        }else{
+            $details = [];
+            $details['account_number'] = 'Not Set';
+            $details['account_name'] = 'Not Set';
+            $details['bank_name'] = 'Not Set';
+
+            return $details;
+
+        }
+    }
+
+    public function createReferral($referID, $referredEmail){
+        $tableName = 'referrals';
+        $columns = ['referer_id', 'referred_email', ];
+        $values = [$referID, $referredEmail];
+        insertDataAdvanced($tableName, $columns, $values);
+
+        
     }
 }

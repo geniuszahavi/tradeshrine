@@ -2,6 +2,13 @@
 
 include 'templates/head.php';
 
+if(isset($_GET['ref'])){
+  $ref_code =  $_GET['ref'];
+  
+}else{
+  $ref_code = 0;
+}
+
 ?>
 
 <body>
@@ -87,7 +94,7 @@ include 'templates/head.php';
                   <div class="col-12 col-md-6">
                     <div>
                       <label for="first-name" class="form-label">First Name *</label>
-                      <input class="form-control" type="text" id="first-name" placeholder="first Name" required>
+                      <input class="form-control" type="text" id="first-name" placeholder="First Name" required>
                     </div>
                   </div>
                   <div class="col-12 col-md-6">
@@ -130,15 +137,28 @@ include 'templates/head.php';
                     </div>
                   </div>
                 </div>
+                <div class="account__check">
+
+                  <div class="account__check-remember">
+                    <input type="checkbox" class="form-check-input" value="" id="terms-check">
+                    <label for="terms-check" class="form-check-label">
+                      By completing this registration form, you agree to Tradeshrine <a href="terms.php">Terms of Service</a>.
+                    </label>
+                  </div>
+                  
+                </div>
+                
 
 
 
 
                 <small class="small" id="talkBackText"></small>
                 <button type="submit" class="trk-btn trk-btn--border trk-btn--primary d-block mt-4">Sign Up</button>
-
+                
+ 
 
                 <div id="success"></div>
+
               </form>
 
 
@@ -159,7 +179,7 @@ include 'templates/head.php';
 
 
 
-
+<input type="hidden" value="<?php echo $ref_code;?>" id="ref-code">
 
   <!-- ===============>> footer start here <<================= -->
   <footer class="footer brand-1">
@@ -171,7 +191,7 @@ include 'templates/head.php';
               <div class="footer__about">
                 <a href="index-3.html" class="footer__about-logo"><img width="60" src="assets/images/logo/bobis.png"
                     alt="Logo"></a>
-                <p class="footer__about-moto ">Bobis Resources is committed to empowering users and broadening their
+                <p class="footer__about-moto ">Tradeshrine is committed to empowering users and broadening their
                   financial knowledge so they can make informed decisions and manage their finances effectively.</p>
                 <div class="footer__app">
                   <div class="footer__app-item footer__app-item--apple">
@@ -265,7 +285,7 @@ include 'templates/head.php';
         <div class="footer__bottom">
           <div class="footer__end">
             <div class="footer__end-copyright">
-              <p class=" mb-0"><a href="#">Bobis Resources</a> © 2023 </p>
+              <p class=" mb-0"><a href="#">Tradeshrine</a> © 2024 </p>
             </div>
             <div>
               <ul class="social">
