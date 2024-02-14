@@ -153,12 +153,12 @@ $(document).ready(function () {
    
 
 
-  $('#ref-link-cp').click(function (e) { 
-    e.preventDefault();
-    // alert("clicked")
-    withJquery($('#referral-link'), $('#ref-cp-alert'))
+    $('#ref-link-cp').click(function (e) { 
+        e.preventDefault();
+        // alert("clicked")
+        withJquery($('#referral-link'), $('#ref-cp-alert'))
     
-  });
+    });
 
     $('#w-method').change(function (e) { 
         e.preventDefault();

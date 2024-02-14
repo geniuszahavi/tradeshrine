@@ -23,7 +23,7 @@ extract($_POST);
     
 
 
-echo $Payments->buyCrypto($amountPaid, $coinValue, $coinType, $walletAddress,  $userID);
+echo $Payments->buyCrypto($amountPaid, $coinValue, $coinType, $walletAddress,  $userID); 
 
     
 

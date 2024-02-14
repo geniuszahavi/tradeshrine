@@ -42,7 +42,7 @@ class User extends Dbh {
         $stmt->execute([$ref]);
 
         return $stmt->fetch();
-    }
+    } 
 
     public function createVerificationCode($user_id, $code, $email){
       

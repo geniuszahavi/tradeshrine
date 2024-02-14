@@ -55,7 +55,7 @@ $(document).ready(function () {
       $('#registration-form').submit(function(event) {
         event.preventDefault();
 
-        var firstName = $('#first-name').val();
+        var firstName = $('#first-name').val(); 
         var lastName = $('#last-name').val();
         var email = $('#email').val();
         var phone = $('#phone').val();

@@ -203,19 +203,39 @@
                 <div id="first-area">
                     <p>What asset would you be trading? Select a list of coin below to proceed</p>
                     <!-- <form> -->
-                        <!-- <div class="mb-3 form-group">
-  
-                        <select class=" form-control wide" id="buy-coin-type">
-                            <option value="BTC" data-id="">&#x20BF; <img src="public/images/svg/btc1.svg" alt="BTC" height="22" width="22" loading="lazy">BTC</option>
-                            <option value="BNB" data-id="BEP20">🔶 BNB (BEP20)</option>
-                            <option value="ETH" data-id="ERC20"><span class="text-" style="color:blue">&#x27E0;</span> ETH (ERC20)</option>
-                            <option value="USDT" data-id="TRC20"> ₮ USDT (TRC20)</option>
-                        </select>
+                    <div class="dashboard">
+                        <div class="tabs">
+                            <button onclick="openTab('buy')">Buy</button>
+                            <button onclick="openTab('sell')">Sell</button>
+                        </div>
 
-                        </div>  -->
+                        <div id="buy" class="tabcontent">
+                            <select id="buyCrypto">
+                            <!-- Options for available cryptocurrencies -->
+                            <option value="BTC">Bitcoin</option>
+                            <option value="ETH">Ethereum</option>
+                            <!-- Add other crypto options -->
+                            </select>
+                            <input type="number" id="buyAmount" placeholder="Amount">
+                            <button onclick="buyCrypto()">Buy</button>
+                        </div>
 
-                        <div class="form-group">
+                        <div id="sell" class="tabcontent">
+                            <select id="sellCrypto">
+                            <!-- Options for available cryptocurrencies -->
+                            <option value="BTC">Bitcoin</option>
+                            <option value="ETH">Ethereum</option>
+                            <!-- Add other crypto options -->
+                            </select>
+                            <input type="number" id="sellAmount" placeholder="Amount">
+                            <button onclick="sellCrypto()">Sell</button>
+                        </div>
+                        </div>
+
+                        <!-- <div class="form-group">
                             <select class="vodiapicker " id="buy-coin-type">
+                            <option value="BTC" data-icon="fab fa-bitcoin">Bitcoin</option>
+    <option value="ETH" data-icon="fab fa-ethereum">Ethereum</option>
                                 <option value="BTC" class="test" data-thumbnail="public/images/svg/btc1.svg">Bitcoin (BTC)</option>
                                 <option value="BNB" data-id="BEP20" data-thumbnail="public/images/svg/bnb.png">BNB (BEP20)</option>
                                 <option value="ETH" data-id="ERC20" data-thumbnail="public/images/svg/eth.png">Etherium (ERC20) </option>
@@ -228,7 +248,7 @@
                                 <ul id="a"></ul>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         
 
                        <!-- <div class="form-group">
@@ -241,7 +261,7 @@
                             </div>
                        </div> -->
                         <div class="mb-3 form-group">
-                            <input type="number" class="form-control" id="buy-crypt-amt" placeholder="Enter amount">
+                            <input type="number" class="form-control" id="buy-crypt-amt" placeholder="$0.00">
                         </div>
                         <div class="form-group">
                             <p class="small">

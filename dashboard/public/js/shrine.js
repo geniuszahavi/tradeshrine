@@ -517,7 +517,7 @@ $(document).ready(function () {
 // console.log(img1);
 
 //test for iterating over child elements
-var langArray = [];
+var langArray = [], coinToBuy = 'btc';
 $('.vodiapicker option').each(function(){
   var img = $(this).attr("data-thumbnail");
   var text = this.innerText;
@@ -532,6 +532,7 @@ $('#a').html(langArray);
     $('.btn-select').html(langArray[0]);
     $('.btn-select').attr('value', 'btc');
 
+
 //change button stuff on click
     $('#a li').click(function(){
         var img = $(this).find('img').attr("src");
@@ -542,6 +543,7 @@ $('#a').html(langArray);
         $('.btn-select').attr('value', value);
         $(".b").toggle();
         console.log(value);
+        coinToBuy = value;
     });
 
     $(".btn-select").click(function(){
@@ -563,6 +565,54 @@ $('#a').html(langArray);
     }
 
 
+    $('#buy-crypt-amt').keyup(function (e) { 
+        amountToSell = $(this).val()
+        $.ajax({
+            type: "GET",
+            url: "../api/cryptoPrice.php",
+            data: {
+                coinType: coinToBuy,
+                crptAmt: amountToSell
+            },
+            success: function (response) {
+                console.log(response)
+                response = $.parseJSON(response);
+        
+                // Check if 'data' property exists and is not empty
+                if (response.data && response.data.length > 0) {
+                    // Access the first element in the 'data' array
+                    var coinData = response.data[0];
+        
+                    // Access the 'quote' property using the variable
+                    var coinTypePrice = coinData.quote[coinType];
+        
+                    // Check if 'coinType' exists in the 'quote' object
+                    if (coinTypePrice) {
+                        var coinTypePriceValue = coinTypePrice.price;
+                        var TSChargers = coinTypePrice.price * 0.019;
+                        // var coinTypePriceValue = coinTypePrice.price - TSChargers;
+                        coinTypePrice = coinTypePriceValue - TSChargers;
+                        $('#buy-coin-amt').text(walletAddress)
+                        $('#buy-coin-to-send').text(coinType);
+                        // $('#buy-coin-to-send-network').text('- '+coinNetwork);
+                        $('#buy-crypto-modal').modal('hide')
+                        $('#buy-modal').modal('show')
+                        SentCoinValue = coinTypePrice
+                        
+                        
+        
+                        // Use coinTypePriceValue as needed
+                    } else {
+                        console.error("Invalid coinType:", coinType);
+                    }
+                    
+                    
+                } else {
+                    console.error("No data received or data is empty");
+                }
+            }
+        });
+    });
 
     
 
