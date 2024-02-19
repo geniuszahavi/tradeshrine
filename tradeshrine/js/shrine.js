@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var fileToUpload, SentCoinName, SentCointAount, SentCoinValue, chipperSentAmount;
+    var fileToUpload, SentCoinName, SentCointAount, SentCoinValue, chipperSentAmount, buyWalletAddress;
 
     $(document).ajaxStart(function() {
         // Replace 'yourModalSelector' with the actual selector of your modal
@@ -370,8 +370,20 @@ $(document).ready(function () {
                             coinTypePrice = coinTypePriceValue;
                             
                             // $('#buy-coin-to-send-network').text('- '+coinNetwork);
+                            console.log(coinTypePrice)
                             
                             SentCoinValue = coinTypePriceValue
+                            
+                            SentCoinName = coinType;
+                            SentCointAount = amount;
+                            buyWalletAddress = walletAddress;
+
+                            $('#buy-sell-area').hide();
+                            $('#buy-sell-result').show();
+
+                            $('.coin-value-buy').text(coinTypePrice)
+                            $('.coin-name-buy').text(SentCoinName)
+                            $('.buy-coin-amount').text(SentCointAount)
                             
                             // Use coinTypePriceValue as needed
                         } else {
@@ -387,6 +399,39 @@ $(document).ready(function () {
         }
 
     })
+
+    $('#complete-crypto-purchase').click(function (e) { 
+        e.preventDefault();
+    
+        // Log to verify the click event is being triggered
+        // console.log(coinTypePrice)
+    
+        $.ajax({
+            type: "post",
+            url: "../api/buy-crypto.php",
+            data: {
+                amountPaid: SentCointAount,
+                coinType: SentCoinName,
+                coinValue: SentCoinValue,
+                walletAddress: buyWalletAddress
+            },
+            success: function (response) {
+                $('#ajax-loader').remove();
+                console.log('Success:', response);
+                $('#buy-modal-body').html(`
+                <div class="alert alert-primary notification">
+                    <p class="notificaiton-title mb-2"><strong>Success!</strong> Crypto purchase processing.</p>
+                    <p>Hang on a little bit, our experts will process your requests ASAP.</p>
+                    
+                </div>
+                `)
+                setTimeout(function(){
+                    location.replace('pending-buy.php');
+
+                }, 2000)
+            }
+        });
+    });
 
     // Show rate
     $('#buy-coin-amount').on('keyup', function(){
@@ -476,6 +521,7 @@ $(document).ready(function () {
                 }
             });
             
+            // Zahavi come here
             $('#complete-crypto-purchase').click(function (e) { 
                 e.preventDefault();
             
@@ -501,8 +547,9 @@ $(document).ready(function () {
                             
                         </div>
                         `)
+                        
                         setTimeout(function(){
-                            location.reload();
+                            location.replace('pending-buy.php');
                         }, 2000)
                     }
                 });
@@ -536,43 +583,42 @@ $(document).ready(function () {
                 amount: amount,
                 currency: 'NGN',
                 domain: 'sandbox',
-                key: payRef,
+                key: 'b7c493ad-9a1d-4576-9210-b415bb806648',
                 
                 email: 'orderbuyer@givmail.com',
-                        transactionref: 'z31zs098zas8w3774h44344f8yg',
-                        customer_logo:
-                'https://www.vpay.africa/static/media/vpayLogo.91e11322.svg',
-                        customer_service_channel: '+2348030007000, support@org.com',
-                        txn_charge: 6,
-                        txn_charge_type: 'flat',
-                        onSuccess: function(response) { 
-                            console.log('Hello World!',
-                            response.message);
-                            $.ajax({
-                                type: "post",
-                                url: "../api/fundWallet.php",
-                                data: {
-                                    amountToFund: amount,
-                                    payRef: payRef
-                                },
-                                success: function (response) {
-                                    console.log(response)
-                                    if(response ==1){
-                                        swal({
-                                            title: "Successful!",
-                                            text: "Your transaction was successful and your wallet has been credited. If there are concerns, kindly contact support for immediate assistance",
-                                            icon: "tick"
-                                        }).then(() => {
-                                            location.reload();
-                                        });
-                                    }
-                                }
-                            });
+                transactionref: payRef,
+                customer_logo:'https://www.vpay.africa/static/media/vpayLogo.91e11322.svg',
+                customer_service_channel: '+2348030007000, support@org.com',
+                txn_charge: 6,
+                txn_charge_type: 'flat',
+                onSuccess: function(response) { 
+                    console.log('Hello World!',
+                    response.message);
+                    $.ajax({
+                        type: "post",
+                        url: "../api/fundWallet.php",
+                        data: {
+                            amountToFund: amount,
+                            payRef: payRef
                         },
-                        onExit: function(response) { 
-                            console.log('Hello World!',
-                            response.message); 
+                        success: function (response) {
+                            console.log(response)
+                            if(response ==1){
+                                swal({
+                                    title: "Successful!",
+                                    text: "Your transaction was successful and your wallet has been credited. If there are concerns, kindly contact support for immediate assistance",
+                                    icon: "tick"
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            }
                         }
+                    });
+                },
+                onExit: function(response) { 
+                    console.log('Hello World!',
+                    response.message); 
+                }
 
 
             }

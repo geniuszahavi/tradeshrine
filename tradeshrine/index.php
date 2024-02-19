@@ -9,7 +9,7 @@ if($userDetails['verified'] !== 1){
     exit();
 }
 
-$page_header = 'Balances;'; 
+$page_header = 'Dashboard;'; 
 
 
 
@@ -95,10 +95,10 @@ $page_header = 'Balances;';
 								<div class="card card-wiget">
 									<div class="card-body">
 										<div class="card-wiget-info rewards">
-											<h4 class="count-num">$52,478.90</h4>
+											<h4 class="count-num">$<?php echo number_format($userDetails['wallet']); ?></h4>
 											<p>Your Balance</p>
 											<div>
-												<span class="text-primary">+200 This Month</span>
+												<!-- <span class="text-primary">+200 This Month</span> -->
 											</div> 
 											<div class="d-flex align-items-baseline reward-earn">
 												<button class="btn btn-primary">Fund Account</button>

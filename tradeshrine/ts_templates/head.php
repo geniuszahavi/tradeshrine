@@ -18,7 +18,7 @@ include '../models/Payments.php';
 
 $userID =  $_SESSION['user_id'];
 $User = new User();
-
+ 
 
 
 $userDetails = $User->getUserById($userID);

@@ -93,7 +93,7 @@ $page_header = 'Buy & Sell';
 							<div class="col-xl-12 col-sm-6">
 								<div class="card h-auto">
 									<div class="card-body px-0 pt-1">
-										<div class="">
+										<div class="" id="buy-sell-area">
 											<nav class="buy-sell">
 											  <div class="nav nav-tabs" id="nav-tab2" role="tablist">
 												<button class="nav-link active" id="nav-buy-tab" data-bs-toggle="tab" data-bs-target="#nav-buy" type="button" role="tab" aria-controls="nav-buy" aria-selected="true">buy</button>
@@ -103,10 +103,7 @@ $page_header = 'Buy & Sell';
 											<div class="tab-content" id="nav-tabContent">
 												<div class="tab-pane fade show active" id="nav-buy" role="tabpanel" aria-labelledby="nav-buy-tab">
 													<nav class="limit-sell">
-														<!-- <div class="nav nav-tabs" id="nav-tab3" role="tablist">
-															<button class="nav-link active" id="nav-market-order-tab1" data-bs-toggle="tab" data-bs-target="#nav-market-order1" type="button" role="tab" aria-controls="nav-market-order1" aria-selected="true">Bulk order</button>
-															<button class="nav-link" id="nav-limit-order-tab1" data-bs-toggle="tab" data-bs-target="#nav-limit-order1" type="button" role="tab" aria-controls="nav-limit-order1" aria-selected="false">Unit order</button>
-													  </div> -->
+														
 													</nav>
 													<div class="tab-content" id="nav-tabContent1">
 														<div class="tab-pane fade show active" id="nav-market-order1" role="tabpanel" aria-labelledby="nav-market-order-tab1">
@@ -145,7 +142,7 @@ $page_header = 'Buy & Sell';
 																</div>
 															</div>
                                                             <div class="sell-blance">
-																<label class="form-label text-primary"><b>Fee</b>: 1.7% </label>
+																<!-- <label class="form-label text-primary"><b>Fee</b>: 1.7% </label> -->
 																<div class="form-label blance"><span>Total:</span>$<p id="buy-coin-total">0.00</p></div><br>
                                                                 <p class="text-justify"><small>Ensure you provide a wallet address for the exact coin and network type you select. Sending anything else may result at a loss.</small></p>
 															</div>
@@ -203,6 +200,44 @@ $page_header = 'Buy & Sell';
 												</div>
 											</div>
 										</div>
+
+										<!-- Result area -->
+										<div class="" id="buy-sell-result" style="display: none;">
+											
+											<div class="tab-content" id="nav-tabContent">
+												<div class="tab-pane fade show active" id="nav-buy" role="tabpanel" aria-labelledby="nav-buy-tab">
+													<nav class="limit-sell">
+														
+													</nav>
+													<div class="tab-content" id="nav-tabContent1">
+														<div class="tab-pane fade show active" id="nav-market-order1" role="tabpanel" aria-labelledby="nav-market-order-tab1">
+														</div>
+														<div class="tab-pane fade" id="nav-limit-order1" role="tabpanel" aria-labelledby="nav-limit-order-tab1">
+														</div>
+													</div>
+													<div class="sell-element">
+														
+															<h4>Confirm</h4>
+															<p>You're about to purchase <b> <span class="coin-value-buy"></span></b> of <b><span class="coin-name-buy">BTC</span></b>. For this, a total of <b>$<span class="buy-coin-amount"></span></b> will be deducted from your Tradeshrine wallet.</p>
+															<p>After that, the wallet address you provided will be credited with 5 - 30 minutes.</p>
+															
+														<div class="sell-blance">
+															<!-- <label class="form-label text-primary"><b>Fee</b>: 1.7% </label> -->
+															<p></p>
+														</div>
+														<div class="text-">
+															<p class="small text-danger" id="buy-crypto-report"></p>
+															<button class="btn btn-dark">Back</button>
+															<button id="complete-crypto-purchase" class="btn btn-primary w-75">Continue <span id="buy-coin-name"></span></button>
+														</div>	
+													</div>	
+											  
+												</div>
+											
+											</div>
+										</div>
+
+
 									</div>
 								</div>
 							</div>
@@ -263,7 +298,7 @@ $page_header = 'Buy & Sell';
 	<!-- <script src="js/dashboard/dashboard-1.js"></script> -->
     <script src="js/custom.js"></script>
 	<script src="js/deznav-init.js"></script>
-	<script src="js/dashboard/tradingview-2.js"></script>
+	<!-- <script src="js/dashboard/tradingview-2.js"></script> -->
 	<script src="js/demo.js"></script>
     <script src="js/shrine.js"></script>
 	

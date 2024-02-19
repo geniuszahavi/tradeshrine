@@ -195,4 +195,26 @@ function digitsLength(){
     });
 }
 
+function startTimer(duration, display) {
+    let minutes, seconds;
+    let interval = setInterval(function () {
+        let now = new Date().getTime();
+        let distance = duration - now;
+        console.log(duration + ' - ' +now)
+
+        minutes = Math.floor(distance / (1000 * 60)); // Calculate remaining minutes
+        seconds = Math.floor((distance % (1000 * 60)) / 1000); // Calculate remaining seconds
+
+        minutes = minutes < 10 ? "0" + minutes : minutes; // Add leading zero if needed
+        seconds = seconds < 10 ? "0" + seconds : seconds; // Add leading zero if needed
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (distance <= 0) { // Adjusted to also clear the interval when the timer reaches zero
+            // Timer expired, perform any necessary action here
+            clearInterval(interval);
+            display.textContent = "Transaction pending!";
+        }
+    }, 1000);
+}
 

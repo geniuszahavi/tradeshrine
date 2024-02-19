@@ -23,7 +23,19 @@ extract($_POST);
     
 
 
-echo $Payments->buyCrypto($amountPaid, $coinValue, $coinType, $walletAddress,  $userID); 
+if($Payments->buyCrypto($amountPaid, $coinValue, $coinType, $walletAddress,  $userID) == 1){
+    // Set the buy time left in minutes
+
+    // Set the duration for the timer in seconds (30 minutes)
+    $duration = 30*60;
+
+    // Calculate the expiration time
+    $expirationTime = time() + $duration;
+
+    // Store the expiration time in the session
+    $_SESSION['expirationTime'] = $expirationTime;
+    echo 1;
+}
 
     
 
