@@ -4,7 +4,7 @@ class Dbh {
 
 
     public function connect() {
-        $userName = "harry";
+        $userName = "root";
         $password = "harry1234";
         $host = "localhost";
         $dbname = "bobis";

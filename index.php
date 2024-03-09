@@ -1,5 +1,5 @@
 <?php
-
+$page_title = 'Tradeshrine | Home';
 include 'templates/head.php';
 
 ?>
@@ -48,9 +48,9 @@ include 'templates/head.php';
         <div class="row flex-md-row-reverse gx-5">
           <div class="col-lg-6 col-md-7">
             <div class="banner__content" data-aos="fade-left" data-aos-duration="1000">
-            <h1 class="banner__content-heading text-white">Learn to trade and succeed 
-                  in the  <span>financial markets</span></h1>
-                  <p class="banner__content-moto text-white">Access comprehensive education on digital currency, trading, and more with our comprehensive courses and premium trading services
+            <h1 class="banner__content-heading text-white">Learn to Trade Crypto Like a Boss  
+                  or  <span>Join our Sure Signal Community!</span></h1>
+                  <p class="banner__content-moto text-white">You too can become a master trader! Our courses provide comprehensive education and offer step-by-step guidance, and our signal community provides real time updates that keep you earning.
                   </p>
               <div class="btn-group">
                 <a href="signin.php" class="trk-btn trk-btn--primary trk-btn--arrowplay">Get Started
@@ -64,21 +64,7 @@ include 'templates/head.php';
                     </svg>
                   </span> </a>
                 <a href="https://www.youtube.com/watch?v=MHhIzIgFgJo&amp;ab_channel=NoCopyrightFootages" class="trk-btn trk-btn--outline3" data-fslightbox>
-                  <span class="style1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                      viewBox="0 0 24 24" fill="none">
-                      <g clip-path="url(#clip0_1397_814)">
-                        <path
-                          d="M10.5547 7.03647C9.89015 6.59343 9 7.06982 9 7.86852V16.1315C9 16.9302 9.89015 17.4066 10.5547 16.9635L16.7519 12.8321C17.3457 12.4362 17.3457 11.5638 16.7519 11.1679L10.5547 7.03647Z"
-                          stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                      </g>
-                      <rect x="-0.75" y="0.75" width="22.5" height="22.5" rx="11.25" transform="matrix(-1 0 0 1 22.5 0)"
-                        stroke="#fff" stroke-width="1.5" />
-                      <defs>
-                        <clipPath id="clip0_1397_814">
-                          <rect width="24" height="24" fill="white" />
-                        </clipPath>
-                      </defs>
-                    </svg></span> Watch Video
+                   Explore Courses
                 </a>
               </div>
 
@@ -189,8 +175,8 @@ include 'templates/head.php';
         <div class="row g-5 align-items-center">
           <div class="col-lg-6">
             <div class="section-header mb-50">
-              <h2>Experienced trading <span class="style2">platform</span>
-                to grow
+              <h2>Buy, Trade and Exchange <span class="style2">Digital  </span>Assets
+                
               </h2>
             </div>
             <div class="about__content about__content--style2" data-aos="fade-right" data-aos-duration="800">
@@ -202,7 +188,7 @@ include 'templates/head.php';
                 </div>
                 <div class="about__content-details">
                   <h5>Trade Crypto For Cash</h5>
-                  <p class="mb-0">It's easy and fast. Quick trade your cryptocurrencies for instant cash on your Tradeshrine dashboard.</p>
+                  <p class="mb-0">It's easy and fast. You can trade your cryptocurrencies for instant cash on your Tradeshrine dashboard.</p>
                 </div>
               </div>
             </div>
@@ -215,7 +201,7 @@ include 'templates/head.php';
                 </div>
                 <div class="about__content-details">
                   <h5>Buy Crypto</h5>
-                  <p class="mb-0">Do you have cash and in need of cryptocurrencies, on Tradeshrine we are here to make the process swift for you.</p>
+                  <p class="mb-0">Do you have cash and are in need of cryptocurrencies? On Tradeshrine, we are here to make the process swift for you.</p>
                 </div>
               </div>
             </div>
@@ -227,8 +213,8 @@ include 'templates/head.php';
                   </div>
                 </div>
                 <div class="about__content-details">
-                  <h5>Giftcards</h5>
-                  <p class="mb-0">Giftcards are not left out as we help you redeem your giftcards for immediate withdrawals.
+                  <h5>Exchange</h5>
+                  <p class="mb-0">Gift cards are not left out! We help you redeem your gift cards for immediate withdrawals.
                   </p>
                 </div>
               </div>
@@ -268,15 +254,15 @@ include 'templates/head.php';
                  <img class="dark" src="assets/images/about/1.png" alt="about-image">
                  <div class="floating-content__top-left">
                    <div class="floating-content__item">
-                     <h3> <span class="purecounter" data-purecounter-start="0" data-purecounter-end="10">30</span>
+                     <h3> <span class="purecounter" data-purecounter-start="0" data-purecounter-end="10">10</span>
                        Years
                      </h3>
-                     <p>Consulting Experience</p>
+                     <p>Analysis Experience</p>
                    </div>
                  </div>
                  <div class="floating-content__bottom-right">
                    <div class="floating-content__item">
-                     <h3> <span class="purecounter" data-purecounter-start="0" data-purecounter-end="25">25K</span>K+
+                     <h3> <span class="purecounter" data-purecounter-start="0" data-purecounter-end="25">25</span>K+
                      </h3>
                      <p>Satisfied Customers</p>
                    </div>
@@ -379,17 +365,16 @@ include 'templates/head.php';
                    <div class="floating-content__top-right floating-content__top-right--style2" data-aos="fade-left"
                      data-aos-duration="1000">
                      <div class="floating-content__item floating-content__item--style2 text-center">
-                       <img src="assets/images/feature/5.png" alt="rating">
-                       <p class="style2">Interest Rate For Loan</p>
+                       <!-- <img src="assets/images/feature/5.png" alt="rating"> -->
+                       <p class="style2">Reliable</p>
                      </div>
                    </div>
                    <div class="floating-content__bottom-left floating-content__bottom-left--style2"
                      data-aos="fade-left" data-aos-duration="1000">
                      <div class="floating-content__item floating-content__item--style3  d-flex align-items-center">
-                       <h3 class="style2"> <span class="purecounter" data-purecounter-start="0"
-                           data-purecounter-end="10">10M</span>M
+                       <h3 class="style2"> 
                        </h3>
-                       <p class="ms-3 style2">Available for loan</p>
+                       <p class="ms-3 style2">Fast</p>
                      </div>
                    </div>
                  </div>
@@ -401,17 +386,18 @@ include 'templates/head.php';
                    <div class="floating-content__top-right floating-content__top-right--style2" data-aos="fade-left"
                      data-aos-duration="1000">
                      <div class="floating-content__item floating-content__item--style2 text-center">
-                       <img src="assets/images/feature/6.png" alt="rating">
-                       <p class="style2">Interest Rate For Loan</p>
+                       <!-- <img src="assets/images/feature/6.png" alt="rating"> -->
+                       <p class="style2">Safe</p>
                      </div>
                    </div>
                    <div class="floating-content__bottom-left floating-content__bottom-left--style2"
                      data-aos="fade-left" data-aos-duration="1000">
                      <div class="floating-content__item floating-content__item--style3  d-flex align-items-center">
-                       <h3 class="style2"> <span class="purecounter" data-purecounter-start="0"
-                           data-purecounter-end="18">10M</span>M
+                       <h3 class="style2"> 
+                        <!-- <span class="purecounter" data-purecounter-start="0" -->
+                           <!-- data-purecounter-end="18">10M</span>M -->
                        </h3>
-                       <p class="ms-3 style2">Available for loan</p>
+                       <p class="ms-3 style2">Secure</p>
                      </div>
                    </div>
                  </div>
@@ -430,10 +416,11 @@ include 'templates/head.php';
                    <div class="floating-content__bottom-left floating-content__bottom-left--style2"
                      data-aos="fade-left" data-aos-duration="1000">
                      <div class="floating-content__item floating-content__item--style3  d-flex align-items-center">
-                       <h3 class="style2"> <span class="purecounter" data-purecounter-start="0"
-                           data-purecounter-end="30">10M</span>M
+                       <h3 class="style2"> 
+                        <!-- <span class="purecounter" data-purecounter-start="0" -->
+                           <!-- data-purecounter-end="30">10M</span>M -->
                        </h3>
-                       <p class="ms-3 style2">Available for loan</p>
+                       <p class="ms-3 style2">24/7 support</p>
                      </div>
                    </div>
                  </div>
@@ -452,10 +439,11 @@ include 'templates/head.php';
                    <div class="floating-content__bottom-left floating-content__bottom-left--style2"
                      data-aos="fade-left" data-aos-duration="1000">
                      <div class="floating-content__item floating-content__item--style3  d-flex align-items-center">
-                       <h3 class="style2"> <span class="purecounter" data-purecounter-start="0"
-                           data-purecounter-end="28">10M</span>M
+                       <h3 class="style2"> 
+                        <!-- <span class="purecounter" data-purecounter-start="0" -->
+                           <!-- data-purecounter-end="28">10M</span>M -->
                        </h3>
-                       <p class="ms-3 style2">Available for loan</p>
+                       <p class="ms-3 style2">Easy</p>
                      </div>
                    </div>
                  </div>
@@ -513,7 +501,7 @@ include 'templates/head.php';
              </div>
              <div class="service__content">
                <h5 class="mb-15"> <a class="stretched-link" href="service-details.html">	Payment solutions</a> </h5>
-               <p class="mb-0  text-success">We offer a variety of payment solutions, including gift card trading and peer-to-peer (P2P) trading.
+               <p class="mb-0  text-success">We offer a variety of payment solutions, including gift card and digital assets trading.
                </p>
              </div>
            </div>
@@ -529,7 +517,7 @@ include 'templates/head.php';
              </div>
              <div class="service__content">
                <h5 class="mb-15"> <a class="stretched-link" href="service-details.html">	Financial literacy education</a> </h5>
-               <p class="mb-0 text-success">We also offer courses on becoming a marketer through affiliate earning programs and becoming a crypto vendor/picker for international transactions.</p>
+               <p class="mb-0 text-success">We also offer courses on becoming a marketer through affiliate earning programs and becoming a crypto vendor for international transactions.</p>
              </div>
            </div>
          </div>
@@ -560,7 +548,7 @@ include 'templates/head.php';
              </div>
              <div class="service__content">
                <h5 class="mb-15"> <a class="stretched-link" href="service-details.html">Crypto Vendor/Crypto Remittance Services</a> </h5>
-               <p class="mb-0 text-success">We offer crypto vendor/picker services for international transactions.</p>
+               <p class="mb-0 text-success">We offer crypto vendor services for international transactions.</p>
              </div>
            </div>
          </div>
@@ -590,9 +578,9 @@ include 'templates/head.php';
 <!-- ========== Roadmap Section start Here========== -->
 <section class="roadmap roadmap--style1 padding-top  padding-bottom bg-color" id="roadmap">
  <div class="container">
-   <div class="section-header section-header--max50">
-     <h2 class="mb-15 mt-minus-5">Our  <span> Academy</span></h2>
-     <p>Unlock Crypto trading mastery with the Shrine Premium Family and obtain access to the Shrine Premium Academy for the greatest trading instruction available. The Shrine Premium Academy is your guide to financial freedom and success in the ever-changing crypto ecosystem. Dive deep into blockchain insights, professionally evaluate markets, manage risk, and have access to a variety of strategies, pro insights, and live updates. Practice without fear. Evolve with confidence. Begin right away.</p>
+   <div class="section-header text-center">
+     <h2 class="mb-15 mt-minus-2">Our  <span> Academy</span></h2>
+     <p> <span class="h6"><b>Unlock Crypto trading mastery with the Shrine Premium Family and obtain access to the Shrine Premium Academy for the greatest trading instruction available.</b></span> <br>The Shrine Premium Academy is your guide to financial freedom and success in the ever-changing crypto ecosystem. Dive deep into blockchain insights, professionally evaluate markets, manage risk, and have access to a variety of strategies, pro insights, and live updates. Practice without fear. Evolve with confidence. Begin right away.</p>
    </div>
    <div class="roadmap__wrapper">
      <div class="row gy-4 gy-md-0 gx-5">
@@ -658,10 +646,10 @@ include 'templates/head.php';
            <div class="roadmap__item-inner">
              <div class="roadmap__item-content">
                <div class="roadmap__item-header">
-                 <h3>	Crypto Vendor/Picker Program</h3>
+                 <h3>	Crypto Vendor </h3>
                  <!-- <span>P5</span> -->
                </div>
-               <p class="text-success">Learn how to become a crypto vendor or picker and earn money by helping others buy and sell cryptocurrencies.</p>
+               <p class="text-success">Learn how to become a crypto vendor and earn money by helping others buy and sell cryptocurrencies.</p>
              </div>
            </div>
          </div>
@@ -1079,10 +1067,11 @@ include 'templates/head.php';
   <!-- ===============>> Pricing section start here <<================= -->
   <section class="pricing padding-top padding-bottom">
    <div class="section-header section-header--max50">
-     <h2 class="mb-15 mt-minus-5">Our <span>pricings </span>plan</h2>
-     <p>BONUS COURSES ACROSS PACKAGES: 
-       Becoming a marketer through affiliate earning program.
-       Becoming a crypto vendor/picker for international transactions
+     <h2 class="mb-15 mt-minus-5">SHRINE'S <span> PREMIUM ACADEMY 
+ </span></h2>
+     <p>BONUS COURSES ACROSS PACKAGES: CRYPTO TOPICS TO COVER
+       Becoming a guru in crypto through our academy program.
+       CRYPTO TOPICS TO COVER include:
        </p>
    </div>
    <div class="container">
@@ -1102,18 +1091,25 @@ include 'templates/head.php';
                  <!-- pricing middle part -->
                  <div class="pricing__item-middle">
                    <ul class="pricing__list">
+                     <li class="pricing__list-item">
+                      <span>
+                        
+                        <img src="assets/images/icon/check.svg" alt="check" class="dark"></span>
+                           Understanding Blockchain Technology </li>
+                     <li class="pricing__list-item">
+                        <span>
+                          <img src="assets/images/icon/check.svg" alt="check" class="dark">
+                        </span>
+                            What is a currency pair
+                      </li>
+                     <li class="pricing__list-item">
+                        <span>
+                          <img src="assets/images/icon/check.svg" alt="check" class="dark"></span>
+                           What is profit and loss (P&L)
+                          </li>
                      <li class="pricing__list-item"><span><img src="assets/images/icon/check.svg" alt="check"
                            class="dark"></span>
-                               Understanding digital currency & exchange companies</li>
-                     <li class="pricing__list-item"><span><img src="assets/images/icon/check.svg" alt="check"
-                           class="dark"></span>
-                             What is a wallet & uses of wallets</li>
-                     <li class="pricing__list-item"><span><img src="assets/images/icon/check.svg" alt="check"
-                           class="dark"></span>
-                           Advantages/disadvantages of wallets/digital currency</li>
-                     <li class="pricing__list-item"><span><img src="assets/images/icon/check.svg" alt="check"
-                           class="dark"></span>
-                               Market/digital customers or users</li>
+                           How to calculate profit (%)</li>
                      <li class="pricing__list-item"><span><img src="assets/images/icon/check.svg" alt="check"
                                class="dark"></span>
                                    Who is a trader?</li> 

@@ -14,7 +14,7 @@ $Server = new Dbh();
 
 
 
-$query = "SELECT * FROM buy_requests WHERE user_id = '$userID'";
+$query = "SELECT * FROM deposit_requests WHERE user_id = '$userID'";
 // Execute the query and fetch the result
 $result = $Server->connect()->query($query);
 

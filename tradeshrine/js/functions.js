@@ -55,25 +55,20 @@ function uploadProof(fileToUpload, coinName, coinAmount, coinValue){
                 console.log(this.responseText)
 
                 if (this.responseText ==1){
-                    $('#qr-modal').modal('hide')
-                    swal({
-                        title: "Successful!",
-                        text: "Your cryptocurrency transaction is confirming...",
-                        icon: "success"
-                    }).then(() => {
-                        location.reload();
-                    });
+                    $('#crypto-sell-area').hide()
+                    $('#sell-crypto-text').show()
+
+                    $('#sell-crypto-report').removeClass('text-danger')
+                    $('#sell-crypto-report').addClass('text-success');
+                    $('#sell-crypto-report').text('Transaction initiated and currently processing. ')
+                    // setTimeout(() => {
+                    //     location.replace('pending-sell.php');
+                    // }, 2000);
                     fileToUpload = "";
                 }else{
 
                    
-                    swal({   
-                        title: "Error!",   
-                        text: "Cannot complete request at this moment, please try again later",   
-                        type: "warning",   
-                        confirmButtonColor: "#DD6B55",   
-                        closeOnConfirm: false 
-                  });
+                    alert("Cannot complete request at this moment, please try again later")
 
                 }
 

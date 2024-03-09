@@ -1,18 +1,22 @@
 <?php 
-
+ini_set('display_errors', 1);
 $page_title = "User Account | Tradeshrine";
 include 'ts_templates/head.php';
 // print_r(($userDetails));
+
+$userID =  $_SESSION['user_id'];
+ 
+$Server = new Dbh();
  
 if($userDetails['verified'] !== 1){
 	header("Location: ./verify.php");
 	echo $userDetails['email'];
     exit();
 }
-$timerStats = $_SESSION['expirationTime'];
+// $timerStats = $_SESSION['expirationTime'];
 
 
-$page_header = 'Pending Purchase';
+$page_header = 'Pending Sell';
 
 // echo var_dump($_SESSION);
 // die();
@@ -93,7 +97,7 @@ $page_header = 'Pending Purchase';
 			<div class="container-fluid">
 				<div class="row">
 					
-					<div class="col-xl-5">
+					<div class="col-xl-8">
 						<div class="row">
 							<div class="col-xl-12 col-sm-6">
 								<div class="card h-auto">
@@ -113,14 +117,67 @@ $page_header = 'Pending Purchase';
 														</div>
 													</div>
 
-													<div class="sell-element text-center">
+													<div class="sell-element ">
 														
-                                                        <img src="../assets/images/icon/notification.png" width="50">
-                                                        <h4>Processing</h4>
-                                                        <h1 id="timer">10:10</h1>
-                                                        <!-- <img src="" alt=""> -->
+                                                    <div class="table-responsive">
+                                                            <table class="table table-responsive-md">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="width:80px;"><strong>#</strong></th>
+                                                                        <th><strong>Amount</strong></th>
+                                                                        <th><strong>Value / Method</strong></th>
+                                                                        <th><strong>DATE</strong></th>
+                                                                        <th><strong>STATUS</strong></th>
+                                                                        <th><strong>Action</strong></th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php
+                                                                            $query = "SELECT * FROM deposit_requests WHERE user_id = '$userID'";
+                                                                            // Execute the query and fetch the result
+                                                                            $result = $Server->connect()->query($query);
+                                                                            $count = 1;
 
-                                                        <p>Your transaction is currently processing and if it exceeds <b>30</b> minutes, kindly contact the admin </p>
+                                                                            while($row = $result->fetch()){
+                                                                                
+                                                                                $dateTimeString = $row['req_date'];
+
+                                                                                // Create a DateTime object
+                                                                                $dateTime = new DateTime($dateTimeString);
+
+                                                                                // Format the date and time
+                                                                                $formattedDateTime = $dateTime->format('F j, Y \a\t g:ia');
+                                                                                
+                                                                                ?>
+
+                                                                            
+                                                                    <tr>
+                                                                        <td><strong><?php echo $count; ?></strong></td>
+                                                                        <td><?php echo number_format($row['amount']); ?></td>
+                                                                        <td><?php echo number_format($row['coin_value'], 5) .' '.$row['coin_type']; ?></td>
+                                                                        <td><?php echo $formattedDateTime; ?></td>
+                                                                        <td><span class="badge light badge-warning">Pending</span></td>
+                                                                        <!-- <td>$21.56</td> -->
+                                                                        <td>
+                                                                            <div class="dropdown">
+                                                                                <button type="button" class="btn btn-warning light sharp" data-bs-toggle="dropdown">
+                                                                                    <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
+                                                                                </button>
+                                                                                <div class="dropdown-menu">
+                                                                                    <a class="dropdown-item" href="#">Contact Support</a>
+                                                                                    
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <?php $count++;  } ?>
+                                                                   
+                                                                    
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
 															
 														
 													</div>	
@@ -130,35 +187,7 @@ $page_header = 'Pending Purchase';
 											</div>
 										</div>
 
-                                        <div class="" id="buy-sell-done"  style="display: none;">
-											
-											<div class="tab-content" id="nav-tabContent">
-												<div class="tab-pane fade show active" id="nav-buy" role="tabpanel" aria-labelledby="nav-buy-tab">
-													
-													<div class="tab-content" id="nav-tabContent1">
-														<div class="tab-pane fade show active" id="nav-market-order1" role="tabpanel" aria-labelledby="nav-market-order-tab1">
-														</div>
-														<div class="tab-pane fade" id="nav-limit-order1" role="tabpanel" aria-labelledby="nav-limit-order-tab1">
-														</div>
-													</div>
-
-													<div class="sell-element text-center">
-														
-                                                        <img src="../assets/images/icon/notification.png" width="50">
-                                                        <h4>Successful</h4>
-                                                        <!-- <h1 id="timer">10:10</h1> -->
-                                                        <!-- <img src="" alt=""> -->
-
-                                                        <p>Transaction completed. Kindly visit your dashboard to trade more.</p>
-                                                        <a href="index.php"  class="btn btn-primary w-75">Continue </a>
-															
-														
-													</div>	
-											  
-												</div>
-											
-											</div>
-										</div>
+                                        
 
 
 									</div>
@@ -240,7 +269,7 @@ $page_header = 'Pending Purchase';
             function timer() {
                 if (butTotalTime <= 0) {
                     clearInterval(interval); // Stop the countdown when time is up
-                    $('#timer').text('Time expired');
+                    $('#timer').text('Processing');
                     return;
                 }
 
@@ -258,7 +287,7 @@ $page_header = 'Pending Purchase';
 
             function checkBuyRequest() {
                 $.ajax({
-                    url: '../api/checkBuyRequest.php', // Endpoint to check if the buy request exists
+                    url: '../api/checkSellRequest.php', // Endpoint to check if the buy request exists
                     method: 'GET',
                     success: function(response) { 
                         console.log(response)

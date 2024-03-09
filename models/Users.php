@@ -81,7 +81,7 @@ class User extends Dbh {
             }
         } catch (Exception $e) {
             // Handle exceptions (e.g., log the error)
-            echo json_encode(['status' => 'error', 'message' => 'An error occurred']);
+            echo json_encode(['status' => 'error', 'message' => 'An error occurred '. $e->getMessage()]);
         }
     }
 

@@ -6,20 +6,30 @@ require_once '../models/Users.php'; // Assuming you have the User class in a sep
 extract($_POST);
 
 // print_r($_POST);
-// die();
+// die(); 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['password'])) {
-      // Retrieve the POST data
-      $email = $_POST['email'];
-      $password = $_POST['password'];
-  
-      // Create an instance of the User class
-      $user = new User();
-  
-      // Call the login method
-      $user->login($email, $password);
-  
-} else {
-      // If it's not a valid AJAX request, return an error response
-      echo json_encode(['status' => 'error', 'message' => 'Invalid request']);
-}
+try{
+
+      
+      if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['password'])) {
+
+            
+            // Retrieve the POST data
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            
+            // Create an instance of the User class
+            $user = new User();
+            
+            // Call the login method
+            // echo "We here";
+            // die();
+            $user->login($email, $password);
+      
+      } else {
+            // If it's not a valid AJAX request, return an error response
+            echo json_encode(['status' => 'error', 'message' => 'Invalid request']);
+      }
+}catch (PDOException $e) {
+      die("Erro: " . $e->getMessage());
+  }

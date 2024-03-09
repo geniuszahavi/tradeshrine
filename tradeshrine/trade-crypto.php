@@ -88,7 +88,7 @@ $page_header = 'Buy & Sell';
 			<div class="container-fluid">
 				<div class="row">
 					
-					<div class="col-xl-5">
+					<div class="col-xl-6">
 						<div class="row">
 							<div class="col-xl-12 col-sm-6">
 								<div class="card h-auto">
@@ -114,7 +114,7 @@ $page_header = 'Buy & Sell';
 													<div class="sell-element">
 														<form id="buy-crypto-form">
 															<div class="sell-blance">
-																<label class="form-label text-primary">Choose Coin To Sell</label>
+																<label class="form-label text-primary">Choose Coin To Buy</label>
 
 																<div class="input-group">
                                                                     
@@ -155,45 +155,50 @@ $page_header = 'Buy & Sell';
 											  
 												</div>
 												<div class="tab-pane fade" id="nav-sell" role="tabpanel" aria-labelledby="nav-sell-tab">
-													<nav class="limit-sell">
-														<div class="nav nav-tabs" id="nav-tab4" role="tablist">
-															<button class="nav-link active" id="nav-market-order-tab" data-bs-toggle="tab" data-bs-target="#nav-market-order" type="button" role="tab" aria-controls="nav-market-order" aria-selected="true">market order</button>
-															<button class="nav-link" id="nav-limit-order-tab" data-bs-toggle="tab" data-bs-target="#nav-limit-order" type="button" role="tab" aria-controls="nav-limit-order" aria-selected="false">limit order</button>
-													  </div>
-													</nav>
+													
 													<div class="tab-content" id="nav-tabContent2">
 													  <div class="tab-pane fade show active" id="nav-market-order" role="tabpanel" aria-labelledby="nav-market-order-tab"></div>
 													  <div class="tab-pane fade" id="nav-limit-order" role="tabpanel" aria-labelledby="nav-limit-order-tab">...</div>
 													</div>
 													<div class="sell-element">
-														<form>
+														<form id="sell-crypto-form">
 															<div class="sell-blance">
-																<label class="form-label text-primary">Price</label>
-																<div class="form-label blance"><span>BALANCE:</span><p>$3,123.9</p></div>
+																<label class="form-label text-primary">Choose Coin To Sell</label>
+
 																<div class="input-group">
-																	<input type="text" class="form-control" placeholder="0.00">
-																	<span class="input-group-text">USDT</span>
+                                                                    
+                                                                    <select name="" id="sell-cointype" class="form-control">
+                                                                        <option value="USDC" data-id="USDC">USDC (USDC)</option>
+                                                                        <option value="BTC" data-id="">BTC</option>
+                                                                        <option value="ETH" data-id="ERC20">ETH (ERC20)</option>
+                                                                        <option value="USDT" data-id="TRC20">USDT (TRC20)</option>
+                                                                    </select>
+                                                                    <span class="input-group-text"> <img id="sell-coin-image" src="images/btc-logo.png" width="30" alt=""></span>
+																	
 																</div>
 															</div>
 															<div class="sell-blance">
 																<label class="form-label text-primary">Amount</label>
 																<div class="input-group">
-																	<input type="text" class="form-control" placeholder="Amount">
-																	<span class="input-group-text">BTC</span>
+																	<input type="number" id="sell-coin-amount" class="form-control" placeholder="Amount">
+																	<span class="input-group-text">$</span>
 																</div>
 															</div>
-															<div class="sell-blance">
-																<label class="form-label text-primary">Total</label>
+															<!-- <div class="sell-blance">
+																<label class="form-label text-primary">Wallet Address</label>
 																<div class="input-group">
-																	<input type="text" class="form-control" placeholder="Total">
-																	<span class="input-group-text">USDT</span>
+																	<input type="text" id="sell-coin-address" class="form-control" placeholder="Wallet Address">
 																</div>
+															</div> -->
+                                                            <div class="sell-blance">
+																<!-- <label class="form-label text-primary"><b>Fee</b>: 1.7% </label> -->
+																<div class="form-label blance"><span>Amount To Send:</span>$<p id="sell-coin-total">0.00</p></div><br>
+                                                                <!-- <p class="text-justify"><small>Ensure you provide a wallet address for the exact coin and network type you select. Sending anything else may result at a loss.</small></p> -->
 															</div>
-															<div class="slider-wrapper">
-															  <div id="employees1"></div>
-															</div>
+															<p><small id="sell-crypto-report"></small></p>
 															<div class="text-center">
-																<a href="exchange.html" class="btn btn-primary w-75">SELL BTC</a>
+                                                                <p class="small text-danger" id="sell-crypto-report"></p>
+																<button id="sell-coin-btn" class="btn btn-primary w-75">Sell <span id="sell-coin-name"></span></button>
 															</div>	
 														</form>
 													</div>	
@@ -219,7 +224,7 @@ $page_header = 'Buy & Sell';
 														
 															<h4>Confirm</h4>
 															<p>You're about to purchase <b> <span class="coin-value-buy"></span></b> of <b><span class="coin-name-buy">BTC</span></b>. For this, a total of <b>$<span class="buy-coin-amount"></span></b> will be deducted from your Tradeshrine wallet.</p>
-															<p>After that, the wallet address you provided will be credited with 5 - 30 minutes.</p>
+															<p>After that, the wallet address you provided will be credited within 5 - 30 minutes.</p>
 															
 														<div class="sell-blance">
 															<!-- <label class="form-label text-primary"><b>Fee</b>: 1.7% </label> -->
@@ -236,6 +241,56 @@ $page_header = 'Buy & Sell';
 											
 											</div>
 										</div>
+
+										<div class="" id="sell-sell-result" style="display: none;">
+											
+											<div class="tab-content" id="nav-tabContent">
+												<div class="tab-pane fade show active" id="nav-buy" role="tabpanel" aria-labelledby="nav-buy-tab">
+													<nav class="limit-sell">
+														
+													</nav>
+													<div class="tab-content" id="nav-tabContent1">
+														<div class="tab-pane fade show active" id="nav-market-order1" role="tabpanel" aria-labelledby="nav-market-order-tab1">
+														</div>
+														<div class="tab-pane fade" id="nav-limit-order1" role="tabpanel" aria-labelledby="nav-limit-order-tab1">
+														</div>
+													</div>
+													<div class="sell-element" id="crypto-sell-area">
+														
+														<div class="text-center mt-4">
+																<h4 id="sell-timer"></h4>
+																<img src="" alt="" id="sell-coin-image-qr" width="200">
+
+															</div>
+															<h6 class="text-center" id="sell-coin-address-display"></h6>
+															<p class="text-center">  Send only <b> 
+																
+															<span class="coin-name-sell"></span></b> (<span class="sell-coin-network"></span>) to the address provided. Sending any other coin or network will result on loss.</p>
+															<h5 class="text-center">Sub-total: <span class="sell-coin-amount"></span></b> </h5>
+															<h5 class="text-center">Coin Value: <span class="coin-value-sell"></span></h5>
+															
+														<div class="sell-blance">
+															<!-- <label class="form-label text-primary"><b>Fee</b>: 1.7% </label> -->
+															<p></p>
+														</div>
+														<div class="text-center">
+															<p class="small text-danger" id="buy-crypto-report"></p>
+															<!-- <button class="btn btn-dark">Back</button> -->
+															<input style="display:none" type="file" name="" id="crypto-proof">
+															<small id="sell-crypto-report" class="text-danger"></small>
+															<button id="complete-crypto" class="btn btn-primary w-75">Upload Proof <span id="buy-coin-name"></span></button>
+														</div>	
+													</div>	
+													<div id="sell-crypto-text"  style="padding:12px">
+														<h6 class="text-success">Processing</h6>
+														<p>Transaction initiated and currently processing. </p>
+													</div>
+											  
+												</div>
+											
+											</div>
+										</div>
+
 
 
 									</div>
@@ -300,6 +355,7 @@ $page_header = 'Buy & Sell';
 	<script src="js/deznav-init.js"></script>
 	<!-- <script src="js/dashboard/tradingview-2.js"></script> -->
 	<script src="js/demo.js"></script>
+	<script src="js/functions.js"></script>
     <script src="js/shrine.js"></script>
 	
 </body>

@@ -1,5 +1,7 @@
 <?php
 
+$page_title = 'Sign Up | Tradeshrine';
+
 include 'templates/head.php';
 
 if(isset($_GET['ref'])){
