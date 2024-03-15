@@ -88,7 +88,7 @@ $page_header = 'Dashboard;';
                 <div class="col-xl-4  col-lg-6">
                         <div class="card">
                             <div class="card-header border-0 pb-0">
-                                <h4 class="card-title">Timeline</h4>
+                                <h4 class="card-title">INTRODUCTION</h4>
                             </div>
                             <div class="card-body p-0">
                                 <div id="DZ_W_TimeLine" class="widget-timeline dz-scroll height370 my-4 px-4">
@@ -96,248 +96,318 @@ $page_header = 'Dashboard;';
                                         <li>
                                             <div class="timeline-badge primary"></div>
                                             <a class="timeline-panel " href="#">
-                                                <span>10 minutes ago</span>
-                                                <h6 class="mb-0">Youtube, a video-sharing website, goes live <strong class="text-primary">$500</strong>.</h6>
+                                                <span>Course Duration: 1 Month</span>
+                                                <p class="mb-0">FEE: $200</p>
                                             </a>
                                         </li>
                                         <li>
-                                            <div class="timeline-badge info">
+                                            <div class="timeline-badge warning"></div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">Understanding Blockchain Technology</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
                                             </div>
                                             <a class="timeline-panel " href="#">
-                                                <span>20 minutes ago</span>
-                                                <h6 class="mb-0">New order placed <strong class="text-info">#XF-2356.</strong></h6>
-												<p class="mb-0">Quisque a consequat ante Sit amet magna at volutapt...</p>
+                                                <!-- <span>20 minutes ago</span> -->
+                                                <h6 class="mb-0">What is a currency pair?</strong></h6>
+												
                                             </a>
                                         </li>
                                         <li>
-                                            <div class="timeline-badge danger">
+                                            <div class="timeline-badge warning">
                                             </div>
                                             <a class="timeline-panel " href="#">
-                                                <span>30 minutes ago</span>
-                                                <h6 class="mb-0">john just buy your product <strong class="text-warning">Sell $250</strong></h6>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <div class="timeline-badge success">
-                                            </div>
-                                            <a class="timeline-panel" href="#">
-                                                <span>15 minutes ago</span>
-                                                <h6 class="mb-0">StumbleUpon is acquired by eBay. </h6>
+                                                <!-- <span>30 minutes ago</span> -->
+                                                <h6 class="mb-0">What is profit and loss (P&L)</h6>
                                             </a>
                                         </li>
                                         <li>
                                             <div class="timeline-badge warning">
                                             </div>
                                             <a class="timeline-panel" href="#">
-                                                <span>20 minutes ago</span>
-                                                <h6 class="mb-0">Mashable, a news website and blog, goes live.</h6>
+                                                <!-- <span>15 minutes ago</span> -->
+                                                <h6 class="mb-0">How to calculate profit (%) </h6>
                                             </a>
                                         </li>
                                         <li>
-                                            <div class="timeline-badge dark">
+                                            <div class="timeline-badge warning">
                                             </div>
                                             <a class="timeline-panel" href="#">
-                                                <span>20 minutes ago</span>
-                                                <h6 class="mb-0">Mashable, a news website and blog, goes live.</h6>
+                                                <h6 class="mb-0">What is leverage/Margin and how does it work </h6>
                                             </a>
                                         </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Different types of Exchanges and how they work.</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Master a trading platform (Binance, Tradeshrine & Tradeview)</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge info">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">What is Long vs Short in trading.</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge primary">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">What are the entries, stops & Target.</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Types of orders in trading.</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">How to place entries, stops and targets.</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Different position sizes.</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">How to calculate Market rate </h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">What is order book and how does it work.</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Understanding digital currency</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">What is a wallet?</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Uses of wallets </h6>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Advantages/disadvantages of wallets/digital currency.</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Market/digital customers. </h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Who is a trader.</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">How to be a successful trader</h6>
+                                            </a>
+                                        </li>
+                                        
                                     </ul>
                                 </div>
+                                
                             </div>
+                            <button class="btn btn-success subscribe-btn" data-id="2" >ENRROL ($200)</button>
                         </div>
 					</div>
 					<div class="col-xl-4  col-lg-6">
                         <div class="card">
                             <div class="card-header border-0 pb-0">
-                                <h4 class="card-title">Timeline 2</h4>
+                                <h4 class="card-title">ADVANCE STUDIES </h4>
                             </div>
                             <div class="card-body p-0">
-                                <div id="DZ_W_TimeLine11" class="widget-timeline dz-scroll style-1 height370 my-4 px-4">
+                                <div id="DZ_W_TimeLine11" class="widget-timeline dz-scroll  height370 my-4 px-4">
                                     <ul class="timeline">
                                         <li>
                                             <div class="timeline-badge primary"></div>
                                             <a class="timeline-panel" href="#">
-                                                <span>10 minutes ago</span>
-                                                <h6 class="mb-0">Youtube, a video-sharing website, goes live <strong class="text-primary">$500</strong>.</h6>
+                                                <span>Course Duration: 1-6 Months</span>
+                                                <p>FEE: $300</p>
                                             </a>
                                         </li>
                                         <li>
                                             <div class="timeline-badge info">
                                             </div>
                                             <a class="timeline-panel" href="#">
-                                                <span>20 minutes ago</span>
-                                                <h6 class="mb-0">New order placed <strong class="text-info">#XF-2356.</strong></h6>
-												<p class="mb-0">Quisque a consequat ante Sit amet magna at volutapt...</p>
+                                                <h6 class="mb-0">Trading Spot</h6>
+												
                                             </a>
                                         </li>
                                         <li>
                                             <div class="timeline-badge danger">
                                             </div>
                                             <a class="timeline-panel" href="#">
-                                                <span>30 minutes ago</span>
-                                                <h6 class="mb-0">john just buy your product <strong class="text-warning">Sell $250</strong></h6>
+                                                <h6 class="mb-0">Trading Futures </h6>
                                             </a>
                                         </li>
                                         <li>
                                             <div class="timeline-badge success">
                                             </div>
                                             <a class="timeline-panel " href="#">
-                                                <span>15 minutes ago</span>
-                                                <h6 class="mb-0">StumbleUpon is acquired by eBay. </h6>
+                                                <h6 class="mb-0">Becoming A lead or Copy trader.. </h6>
                                             </a>
                                         </li>
                                         <li>
                                             <div class="timeline-badge warning">
                                             </div>
                                             <a class="timeline-panel " href="#">
-                                                <span>20 minutes ago</span>
-                                                <h6 class="mb-0">Mashable, a news website and blog, goes live.</h6>
+                                                <h6 class="mb-0">⁠Online and offline trades (P2P)</h6>
                                             </a>
                                         </li>
-                                        <li>
-                                            <div class="timeline-badge dark">
-                                            </div>
-                                            <a class="timeline-panel " href="#">
-                                                <span>20 minutes ago</span>
-                                                <h6 class="mb-0">Mashable, a news website and blog, goes live.</h6>
-                                            </a>
-                                        </li>
+                                        
                                     </ul>
                                 </div>
                             </div>
+                            <button class="btn btn-success subscribe-btn" data-id="2" >ENRROL ($200)</button>
                         </div>
 					</div>
 					<div class="col-xl-4  col-lg-6">
                         <div class="card">
-                            <div class="card-header  border-0 pb-0">
-                                <h4 class="card-title">Notifications</h4>
+                            <div class="card-header border-0 pb-0">
+                                <h4 class="card-title">TECHNICAL ANALYSIS </h4>
                             </div>
-                            <div class="card-body p-0"> 
-                                <div id="DZ_W_Todo1" class="widget-media dz-scroll height370 my-4 px-4">
+                            <div class="card-body p-0">
+                                <div id="DZ_W_TimeLine11" class="widget-timeline dz-scroll  height370 my-4 px-4">
                                     <ul class="timeline">
                                         <li>
-                                            <div class="timeline-panel">
-												<div class="media me-2">
-													<img alt="image" width="50" src="images/avatar/1.jpg">
-												</div>
-                                                <div class="media-body">
-													<h5 class="mb-1">Dr sultads Send you Photo</h5>
-													<small class="d-block">29 July 2020 - 02:26 PM</small>
-												</div>
-												<div class="dropdown">
-													<button type="button" class="btn btn-primary light sharp" data-bs-toggle="dropdown">
-														<svg width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-													</button>
-													<div class="dropdown-menu dropdown-menu-end">
-														<a class="dropdown-item" href="#">Edit</a>
-														<a class="dropdown-item" href="#">Delete</a>
-													</div>
-												</div>
-											</div>
+                                            <div class="timeline-badge primary"></div>
+                                            <a class="timeline-panel" href="#">
+                                                <span>Duration: | LIFETIME  MENTORSHIP</span>
+                                                <p>FLIGHT TICKET OUTSIDE ABUJA </p>
+                                            </a>
                                         </li>
                                         <li>
-                                            <div class="timeline-panel">
-												<div class="media me-2 media-info">
-													KG
-												</div>
-												<div class="media-body">
-													<h5 class="mb-1">Resport created successfully</h5>
-													<small class="d-block">29 July 2020 - 02:26 PM</small>
-												</div>
-												<div class="dropdown">
-													<button type="button" class="btn btn-info light sharp" data-bs-toggle="dropdown">
-														<svg width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-													</button>
-													<div class="dropdown-menu dropdown-menu-end">
-														<a class="dropdown-item" href="#">Edit</a>
-														<a class="dropdown-item" href="#">Delete</a>
-													</div>
-												</div>
-											</div>
+                                            <div class="timeline-badge info">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Candle stick pattern</h6>
+												
+                                            </a>
                                         </li>
                                         <li>
-                                            <div class="timeline-panel">
-                                                <div class="media me-2 media-success">
-													<i class="fa fa-home"></i>
-												</div>
-												<div class="media-body">
-													<h5 class="mb-1">Reminder : Treatment Time!</h5>
-													<small class="d-block">29 July 2020 - 02:26 PM</small>
-												</div>
-												<div class="dropdown">
-													<button type="button" class="btn btn-success light sharp" data-bs-toggle="dropdown">
-														<svg width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-													</button>
-													<div class="dropdown-menu dropdown-menu-end">
-														<a class="dropdown-item" href="#">Edit</a>
-														<a class="dropdown-item" href="#">Delete</a>
-													</div>
-												</div>
-											</div>
-                                        </li>
-										 <li>
-                                            <div class="timeline-panel">
-												<div class="media me-2">
-													<img alt="image" width="50" src="images/avatar/1.jpg">
-												</div>
-                                                <div class="media-body">
-													<h5 class="mb-1">Dr sultads Send you Photo</h5>
-													<small class="d-block">29 July 2020 - 02:26 PM</small>
-												</div>
-												<div class="dropdown">
-													<button type="button" class="btn btn-primary light sharp" data-bs-toggle="dropdown">
-														<svg width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-													</button>
-													<div class="dropdown-menu dropdown-menu-end">
-														<a class="dropdown-item" href="#">Edit</a>
-														<a class="dropdown-item" href="#">Delete</a>
-													</div>
-												</div>
-											</div>
+                                            <div class="timeline-badge danger">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Indicators (Bollinger bands, hybrid Ema, RSI, MA, Support, Resistance) </h6>
+                                            </a>
                                         </li>
                                         <li>
-                                            <div class="timeline-panel">
-												<div class="media me-2 media-danger">
-													KG
-												</div>
-												<div class="media-body">
-													<h5 class="mb-1">Resport created successfully</h5>
-													<small class="d-block">29 July 2020 - 02:26 PM</small>
-												</div>
-												<div class="dropdown">
-													<button type="button" class="btn btn-danger light sharp" data-bs-toggle="dropdown">
-														<svg width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-													</button>
-													<div class="dropdown-menu dropdown-menu-end">
-														<a class="dropdown-item" href="#">Edit</a>
-														<a class="dropdown-item" href="#">Delete</a>
-													</div>
-												</div>
-											</div>
+                                            <div class="timeline-badge success">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">Entry , Stop loss & Take profits </h6>
+                                            </a>
                                         </li>
                                         <li>
-                                            <div class="timeline-panel">
-                                                <div class="media me-2 media-primary">
-													<i class="fa fa-home"></i>
-												</div>
-												<div class="media-body">
-													<h5 class="mb-1">Reminder : Treatment Time!</h5>
-													<small class="d-block">29 July 2020 - 02:26 PM</small>
-												</div>
-												<div class="dropdown">
-													<button type="button" class="btn btn-primary light sharp" data-bs-toggle="dropdown">
-														<svg width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-													</button>
-													<div class="dropdown-menu dropdown-menu-end">
-														<a class="dropdown-item" href="#">Edit</a>
-														<a class="dropdown-item" href="#">Delete</a>
-													</div>
-												</div>
-											</div>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">Identifying trends</h6>
+                                            </a>
                                         </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">⁠Chart patterns </h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">Breakout patterns</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">Strategy (Scalping, Day trading & Swing trading)</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">Trading Psychology </h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">Risk Management</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0"> ⁠Break and Retest Strategy</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">⁠ ⁠C.E.S.T (Rules to remain profitable)</h6>
+                                            </a>
+                                        </li>
+                                        
                                     </ul>
                                 </div>
                             </div>
+                            <button class="btn btn-success subscribe-btn" data-id="3" >Subscribe ($500)</button>
                         </div>
 					</div>
 				</div>

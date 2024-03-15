@@ -6,7 +6,7 @@ class Dbh {
     public function connect() {
         $userName = "root";
         $password = "harry1234";
-        $host = "localhost";
+        $host = "127.0.0.1";
         $dbname = "bobis";
         try {
             $conn = new PDO("mysql:host=$host;dbname=$dbname", $userName, $password);

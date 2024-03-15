@@ -35,8 +35,8 @@
         <div class="header-action">
           <div class="menu-area">
             <div class="header-btn">
-              <a href="signup.php" class="trk-btn trk-btn--border trk-btn--primary">
-                <span class="text-white">Get Started</span>
+              <a href="signin.php" class="trk-btn trk-btn--border trk-btn--primary">
+                <span class="text-white">My Account</span>
               </a>
             </div>
 
