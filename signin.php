@@ -1,5 +1,10 @@
 <?php
 $page_title = "Login | Tradeshrine"; 
+// Check if the user is logged in
+if (!isset($_SESSION['isLoggedIn']) || $_SESSION['isLoggedIn'] !== true) {
+  header("Location: ./tradeshrine");
+  exit();
+}
 
 include 'templates/head.php';
 

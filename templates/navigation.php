@@ -14,11 +14,15 @@
              
             </li>
             <li>
+                <a href="about.php">About Us</a>
+              
+            </li>
+            <li>
               <a href="services.php">Services</a>
               
             </li>
             <li>
-                <a href="about.php">About Us</a>
+                <a href="academy.php">Academy</a>
               
             </li>
                            

@@ -9,7 +9,7 @@ if($userDetails['verified'] !== 1){
     exit();
 }
 
-$page_header = 'Dashboard;'; 
+$page_header = 'Academy'; 
 
 
 
@@ -97,7 +97,7 @@ $page_header = 'Dashboard;';
                                             <div class="timeline-badge primary"></div>
                                             <a class="timeline-panel " href="#">
                                                 <span>Course Duration: 1 Month</span>
-                                                <p class="mb-0">FEE: $200</p>
+                                                <p class="mb-0">FEE: $50</p>
                                             </a>
                                         </li>
                                         <li>
@@ -256,7 +256,7 @@ $page_header = 'Dashboard;';
                                 </div>
                                 
                             </div>
-                            <button class="btn btn-success subscribe-btn" data-id="2" >ENRROL ($200)</button>
+                            <button class="btn btn-success subscribe-btn" data-id="1" >ENRROL ($50)</button>
                         </div>
 					</div>
 					<div class="col-xl-4  col-lg-6">
@@ -271,7 +271,7 @@ $page_header = 'Dashboard;';
                                             <div class="timeline-badge primary"></div>
                                             <a class="timeline-panel" href="#">
                                                 <span>Course Duration: 1-6 Months</span>
-                                                <p>FEE: $300</p>
+                                                <p>FEE: $100</p>
                                             </a>
                                         </li>
                                         <li>
@@ -307,7 +307,7 @@ $page_header = 'Dashboard;';
                                     </ul>
                                 </div>
                             </div>
-                            <button class="btn btn-success subscribe-btn" data-id="2" >ENRROL ($200)</button>
+                            <button class="btn btn-success subscribe-btn" data-id="2" >ENRROL ($100)</button>
                         </div>
 					</div>
 					<div class="col-xl-4  col-lg-6">
@@ -322,7 +322,7 @@ $page_header = 'Dashboard;';
                                             <div class="timeline-badge primary"></div>
                                             <a class="timeline-panel" href="#">
                                                 <span>Duration: | LIFETIME  MENTORSHIP</span>
-                                                <p>FLIGHT TICKET OUTSIDE ABUJA </p>
+                                                <p>FLIGHT TICKET | VIP SIGNALS </p>
                                             </a>
                                         </li>
                                         <li>
@@ -407,7 +407,7 @@ $page_header = 'Dashboard;';
                                     </ul>
                                 </div>
                             </div>
-                            <button class="btn btn-success subscribe-btn" data-id="3" >Subscribe ($500)</button>
+                            <button class="btn btn-success subscribe-btn" data-id="3" >Subscribe ($300)</button>
                         </div>
 					</div>
 				</div>
@@ -438,6 +438,58 @@ $page_header = 'Dashboard;';
 
 
 	</div>
+
+    <!-- modal -->
+    <div class="modal fade" id="pay-method-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Payment Method</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body" id="pay-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12" id="make-payment-area">
+                                <p>How do you want to make your payment</p>
+                                <div class="mb-3 form-group">
+                                    <label class="form-label">Select list (select one):</label>
+                                    <select class="default-select form-control wide" id="aca-pay-method" >
+                                        <option value="vpay">VPay (Card, Bank Transfer, etc)</option>
+                                        <!-- <option value="chipper" data-id="chipper">Chipper Cash</option> -->
+                                        <option value="wallet" data-id="wallet">Shrine Wallet</option>
+                                        
+                                        <!-- <option value="SOLANA">SOLANA</option> -->
+                                        <!-- <option value="SHIBA INU">SHIBA INU</option>
+                                        <option value="DODGECOIN">DODGECOIN</option>
+                                        <option value="XRP">XRP</option>
+                                        <option value="TRX">TRX</option> -->
+                                    </select>
+                                </div> <br> <br>
+                                                                  
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+                <p class="container mb-3">
+                    <small class="text-danger" id="pay-method-error"></small>
+
+                </p>  
+                <div class="modal-footer" id="pay-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="pay-method-btn" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" name="" id="hidden-email" value="<?php echo $userDetails['email']; ?>">
+    <input type="hidden" name="" id="hidden-phone" value="<?php echo $userDetails['phone']; ?>">
+
+
     <!--**********************************
         Main wrapper end
     ***********************************-->
@@ -464,8 +516,12 @@ $page_header = 'Dashboard;';
     <script src="js/custom.js"></script>
 	<script src="js/deznav-init.js"></script>
 	<script src="js/demo.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="js/shrine.js"></script>
     <!-- <script src="js/styleSwitcher.js"></script> -->
 	<!-- <script src="js/dashboard/tradingview-1.js"></script> -->
+	<script src="https://dropin.vpay.africa/dropin/v1/initialise.js"></script>
+
 	
 </body>
 

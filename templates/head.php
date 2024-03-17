@@ -13,19 +13,19 @@
 
   <!-- Sites meta Data -->
   <meta name="application-name" 
-    content="Learn to Trade and Succeed with Bobis Resources">
+    content="Learn to Trade and Succeed with Tradeshrine">
   <meta name="author" content="thetork">
-  <meta name="keywords" content="Bobis Resources, financial education, trading courses, digital currency, cryptocurrency">
+  <meta name="keywords" content="Tradeshrine, financial education, trading courses, digital currency, cryptocurrency">
   <meta name="description"
-    content="Discover comprehensive financial education on digital currency, trading, and more with Bobis Resources. Start your journey today!">
+    content="Discover comprehensive financial education on digital currency, trading, and more with Tradeshrine. Start your journey today!">
 
   <!-- OG meta data -->
   <meta property="og:title"
     content="Learn to Trade and Succeed on Tradeshrine">
   <meta property="og:site_name" content=Bitrader>
-  <meta property="og:url" content="index.html">
+  <meta property="og:url" content="index.php">
   <meta property="og:description"
-    content="Discover comprehensive financial education on digital currency, trading, and more with Bobis Resources. Start your journey today!">
+    content="Discover comprehensive financial education on digital currency, trading, and more with Tradeshrine. Start your journey today!">
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/images/logo/favicon.png">
 

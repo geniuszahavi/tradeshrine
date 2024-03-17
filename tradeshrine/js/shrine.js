@@ -49,17 +49,17 @@ $(document).ready(function () {
     $('#deposit-modal').modal('show')
     
   });
-//   $('#sell-crypto-div').click(function (e) { 
-//     e.preventDefault();
-//     $('#deposit-modal').modal('show')
-    
-//   });
+    //   $('#sell-crypto-div').click(function (e) { 
+    //     e.preventDefault();
+    //     $('#deposit-modal').modal('show')
+        
+    //   });
 
-//   $('#sell-crypto-div').click(function (e) { 
-//     e.preventDefault();
-//     $('#deposit-modal').modal('show')
-    
-//   });
+    //   $('#sell-crypto-div').click(function (e) { 
+    //     e.preventDefault();
+    //     $('#deposit-modal').modal('show')
+        
+    //   });
 
   $('#sell-giftcard-div').click(function (e) { 
     e.preventDefault();
@@ -69,7 +69,7 @@ $(document).ready(function () {
 
 
 
-//   $('#qr-modal').modal('show')
+    //   $('#qr-modal').modal('show')
 
     // sweetAlert("Oops...", "Something went wrong !!", "error")
     
@@ -889,6 +889,15 @@ $(document).ready(function () {
 
 
     // Fiat Purcchase
+
+    // Show modal
+    // $('#fund-fiat-modal').modal('show');
+
+
+    $('#fiat-btn').click(function () { 
+        $('#fund-fiat-modal').modal('show');
+        
+    });
     $('#fiat-proceed').click(function (e) { 
         e.preventDefault();
         var amount = $('#fiat-depo-amt').val();
@@ -906,7 +915,7 @@ $(document).ready(function () {
         }else{
 
             let payRef  = generateRandomString(30)
-
+            console.log('...Here')
             const options = {
                 amount: amount,
                 currency: 'NGN',
@@ -915,7 +924,7 @@ $(document).ready(function () {
                 
                 email: 'orderbuyer@givmail.com',
                 transactionref: payRef,
-                customer_logo:'https://www.vpay.africa/static/media/vpayLogo.91e11322.svg',
+                customer_logo:'https://dropin.vpay.africa/dropin/v1/initialise.js',
                 customer_service_channel: '+2348030007000, support@org.com',
                 txn_charge: 6,
                 txn_charge_type: 'flat',
@@ -1090,6 +1099,115 @@ $('#a').html(langArray);
             }
         });
     });
+
+    let coursePrice =0;
+    $('.subscribe-btn').click(function(){
+        var classCategory = $(this).attr('data-id')
+        console.log(classCategory)
+        if(classCategory == 1){
+            coursePrice = 50;
+
+            console.log(classCategory)
+            console.log(coursePrice)
+
+            
+        }else if (classCategory == 2){
+
+            coursePrice = 100;
+            console.log(classCategory)
+            console.log(coursePrice)
+
+        }else if(classCategory == 3){
+
+            coursePrice = 300;
+            console.log(classCategory)
+            console.log(coursePrice)
+        }else{
+            coursePrice = 0;
+            console.log(classCategory)
+            console.log(coursePrice)
+        }
+
+        $('#pay-method-modal').modal('show')
+
+        $('#pay-method-btn').click(function(){
+            var chosenMethod = $('#aca-pay-method').val()
+            if(chosenMethod == 'wallet'){
+                $.ajax({
+                    type: "post",
+                    url: "../api/academySubscription.php",
+                    data: {
+                        coursePrice:coursePrice,
+                        chosenMethod:chosenMethod,
+                        classCategory: classCategory,
+                        payMethod: 1
+                    },
+                    success: function (response) {
+                        console.log(response)
+
+                        if(response == 1){
+                            $('#make-payment-area').html(`
+                                <p class="text-success"> Your enrollment was successful. Check your email for further instructions </p>
+                            `)
+                            setTimeout(function(){
+                                location.reload();
+                            },3000)
+                        }else{
+                            $('#pay-method-error').text('Error: '+response)
+                        }
+
+                    }
+                });
+            }else{
+                let payRef  = generateRandomString(30)
+                const options = {
+                    amount: coursePrice,
+                    currency: 'NGN',
+                    domain: 'sandbox',
+                    key: 'b7c493ad-9a1d-4576-9210-b415bb806648',
+                    
+                    email: $('#hidden-email').val(),
+                    transactionref: payRef,
+                    customer_logo:'https://dropin.vpay.africa/dropin/v1/initialise.js',
+                    customer_service_channel: '+2348030007000, support@org.com',
+                    txn_charge: 6,
+                    txn_charge_type: 'flat',
+                    onSuccess: function(response) { 
+                        console.log('Hello World!',
+                        response.message);
+                        $.ajax({
+                            type: "post",
+                            url: "../api/academySubscription.php",
+                            data: {
+                                coursePrice:coursePrice,
+                                chosenMethod:chosenMethod,
+                                classCategory: classCategory,
+                                payMethod: 2
+                            },
+                            success: function (response) {
+                                console.log(response)
+        
+                            }
+                        });
+                    },
+                    onExit: function(response) { 
+                        console.log('Hello World!',
+                        response.message); 
+                    }
+
+
+                }
+
+                if(window.VPayDropin){
+                    const {open, exit} = VPayDropin.create(options);
+                    open();                    
+                } 
+            }
+        })
+
+
+    })
+
 
     
 

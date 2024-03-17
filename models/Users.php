@@ -126,6 +126,20 @@ class User extends Dbh {
 
     }
 
+    public function debitWallet($chargeAmount, $userID){
+        $userDetails = $this->getUserById($userID);
+        $wallet = $userDetails['wallet'] - $chargeAmount;
+
+        $tableName = 'users';
+        $columns = ['wallet'];
+        $values = [$wallet];
+        $conditionColumn = 'user_id';
+        $conditionValue = $userID;
+
+        return updateData($tableName, $columns, $values, $conditionColumn, $conditionValue);
+
+    }
+
 
 
     // Create transaction history
@@ -214,4 +228,41 @@ class User extends Dbh {
 
         
     }
+
+    // Academy
+
+    public function getAcademyDetails($userID) {
+        $sql = "SELECT * FROM academy WHERE user_id = ?";
+
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$userID]);
+        return $stmt->fetch();
+    }
+
+    public function academySignUp($userName, $chosenMethod, $coursePrice, $classCategory, $expDate, $userID){
+
+        if($coursePrice >= 300){
+            $signal = 1;
+        }else{
+            $signal = 0;
+
+        }
+        $tableName = "academy";
+        $columns = ["user_id", "student_name", "payment_method", "amount_paid", "course_chosen", "signal_status", "exp_date"];
+        $values = [$userID, $userName, $chosenMethod, $coursePrice, $classCategory, $signal, $expDate];
+
+        $insertedId = insertData($tableName, $columns, $values);
+
+
+        if ($insertedId) {
+        //    return $insertedId;
+        // echo "Done";
+        return true;
+        } else {
+            echo "Failed to insert data.";
+        }
+        return true;
+
+    }
+
 }

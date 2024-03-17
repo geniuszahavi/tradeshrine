@@ -7,7 +7,7 @@
               <div class="footer__about">
                 <a href="index-3.html" class="footer__about-logo"><img width="100" src="assets/images/logo/favicon.png"
                     alt="Logo"></a>
-                <p class="footer__about-moto ">Bobis Resources is committed to empowering users and broadening their financial knowledge so they can make informed decisions and manage their finances effectively.</p>
+                <p class="footer__about-moto ">Tradeshrine is committed to empowering users and broadening their financial knowledge so they can make informed decisions and manage their finances effectively.</p>
                 <div class="footer__app">
                   <div class="footer__app-item footer__app-item--apple">
                     <div class="footer__app-inner">
@@ -99,7 +99,7 @@
         <div class="footer__bottom">
           <div class="footer__end">
             <div class="footer__end-copyright">
-              <p class=" mb-0"><a href="#">Tradeshrine</a> © 2023 </p>
+              <p class=" mb-0"><a href="#">Tradeshrine</a> © 2024 </p>
             </div>
             <div>
               <ul class="social">
