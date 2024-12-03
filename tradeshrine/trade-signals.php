@@ -1,5 +1,5 @@
 <?php 
-$page_title = "Transactions | Tradeshrine";
+$page_title = "Signals | Tradeshrine";
 include 'ts_templates/head.php';
 // print_r(($userDetails));
  
@@ -13,7 +13,7 @@ $Payment = new Payments();
 $histroy = $Payment->allTransactions($userID);
 
 
-$page_header = 'History'; 
+$page_header = 'Signals'; 
 
 
 ?>

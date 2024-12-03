@@ -9,7 +9,7 @@ if($userDetails['verified'] !== 1){
     exit();
 }
 
-$page_header = 'Dashboard;'; 
+$page_header = 'VIP Trading Signals'; 
 
 
 
@@ -94,10 +94,11 @@ $page_header = 'Dashboard;';
 											<div>
 												<h2>Trade the market with DeOracle's Guide</h2>
 												<p>Why would you be worried about loosing your money when you have an expert do the analysis for you? Let us watch the waters while you make your profit.</p>
-												<a href="trade-signals.php" class="btn btn-primary">See Signals</a>
+												<!-- <a href="trade-signals.php" class="btn btn-primary">See Signals</a> -->
+												<button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#start-signal">Start Signal</button>
 											</div>
 											<div class="coin-img">
-												<!-- <img src="images/coin.png" class="img-fluid" alt=""> -->
+												<img src="images/coin.png" class="img-fluid" alt="">
 											</div>
 										</div>
 									</div>
@@ -136,6 +137,37 @@ $page_header = 'Dashboard;';
         <!--**********************************
             Content body end
         ***********************************-->
+
+		
+			<!-- Modal -->
+			<div class="modal fade" id="start-signal">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Activate VIP Signal</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal">
+							</button>
+						</div>
+						<div class="modal-body">
+							<p>Choose your preferred signal subscription</p>
+							<form id="signal-subscription-form" action="signal-sub-form">
+								<div class="form-group">
+									<select id="subscription-select" class="default-select form-control wide mb-3 form-control-lg">
+										<option value="1" data-price="10">1 Month VIP Signals - $10</option>
+										<option value="2" data-price="20">3 Months VIP Signals - $20</option>
+										<option value="3" data-price="50">6 Months VIP Signals - $50</option>
+										<option value="4" data-price="100">12 Months VIP Signals - $100</option>
+										<option value="5" data-price="200">Lifetime - $200</option>
+									</select>
+								</div>
+							</form>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Cancel</button>
+								<button type="button" class="btn btn-primary" id="activate-signal">Activate Signals</button>
+							</div>
+					</div>
+				</div>
+			</div>
 		
 		
 		
@@ -183,6 +215,8 @@ $page_header = 'Dashboard;';
     <script src="js/custom.js"></script>
 	<script src="js/deznav-init.js"></script>
 	<script src="js/demo.js"></script>
+	<script src="js/shrine.js"></script>
+    <!-- <script src="js/styleSwitcher.js"></script> -->
     <!-- <script src="js/styleSwitcher.js"></script> -->
 	<!-- <script src="js/dashboard/tradingview-1.js"></script> -->
 	

@@ -9,7 +9,7 @@ if($userDetails['verified'] !== 1){
     exit();
 }
 
-$page_header = 'Academy'; 
+$page_header = 'Tradeshrine Programmes'; 
 
 
 
@@ -85,7 +85,46 @@ $page_header = 'Academy';
             <!-- row -->
 			<div class="container-fluid">
 				<div class="row">
-                <div class="col-xl-4  col-lg-6">
+                    <?php
+
+
+                        $userDetails = $User->getUserById($userID);
+
+                        $academyDetails = $User->getAcademyDetails($userID); 
+                        // Assuming function name is getAcademyDetails
+                            // var_dump($academyDetails); 
+                            
+                            
+                        
+
+                            // Check if academy details exist and have an expiry date
+                            // $expiryDate = strtotime($academyDetails['exp_date']); 
+                            // Convert expiry date to timestamp
+
+                            // Check if current time is past the expiry date
+                            if ($academyDetails !== false && $academyDetails['status'] !== 'pending') { ?>
+                                <div class="col-xl-6  col-lg-6">
+                    
+                                    <div class="card">
+                                        <div class="card-header border-0 pb-0">
+                                            <h4 class="card-title">Your Academy Subscription Is Active</h4>
+                                        </div>
+                                        <div class="card-body p-0">
+                                            <div id="DZ_W_TimeLine" class="widget-timeline dz-scroll height70 my-4 px-4">
+                                            <p>🎉 Your academy subscription is active! You have full access to all the resources and materials for your enrolled courses. Keep learning and enjoy the journey!</p>
+                                            
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <?php     
+                            }else{
+                         
+                    ?>
+                    <div class="col-xl-4  col-lg-6">
+                    
                         <div class="card">
                             <div class="card-header border-0 pb-0">
                                 <h4 class="card-title">INTRODUCTION</h4>
@@ -93,13 +132,13 @@ $page_header = 'Academy';
                             <div class="card-body p-0">
                                 <div id="DZ_W_TimeLine" class="widget-timeline dz-scroll height370 my-4 px-4">
                                     <ul class="timeline">
-                                        <li>
+                                        <!-- <li>
                                             <div class="timeline-badge primary"></div>
                                             <a class="timeline-panel " href="#">
                                                 <span>Course Duration: 1 Month</span>
                                                 <p class="mb-0">FEE: $50</p>
                                             </a>
-                                        </li>
+                                        </li> -->
                                         <li>
                                             <div class="timeline-badge warning"></div>
                                             <a class="timeline-panel " href="#">
@@ -256,7 +295,7 @@ $page_header = 'Academy';
                                 </div>
                                 
                             </div>
-                            <button class="btn btn-success subscribe-btn" data-id="1" >ENRROL ($50)</button>
+                            <button class="btn btn-success subscribe-btn" data-id="1" >ENRROL NOW</button>
                         </div>
 					</div>
 					<div class="col-xl-4  col-lg-6">
@@ -267,13 +306,13 @@ $page_header = 'Academy';
                             <div class="card-body p-0">
                                 <div id="DZ_W_TimeLine11" class="widget-timeline dz-scroll  height370 my-4 px-4">
                                     <ul class="timeline">
-                                        <li>
+                                        <!-- <li>
                                             <div class="timeline-badge primary"></div>
                                             <a class="timeline-panel" href="#">
                                                 <span>Course Duration: 1-6 Months</span>
                                                 <p>FEE: $100</p>
                                             </a>
-                                        </li>
+                                        </li> -->
                                         <li>
                                             <div class="timeline-badge info">
                                             </div>
@@ -307,7 +346,7 @@ $page_header = 'Academy';
                                     </ul>
                                 </div>
                             </div>
-                            <button class="btn btn-success subscribe-btn" data-id="2" >ENRROL ($100)</button>
+                            <button class="btn btn-success subscribe-btn" data-id="2" >ENRROL NOW</button>
                         </div>
 					</div>
 					<div class="col-xl-4  col-lg-6">
@@ -318,13 +357,13 @@ $page_header = 'Academy';
                             <div class="card-body p-0">
                                 <div id="DZ_W_TimeLine11" class="widget-timeline dz-scroll  height370 my-4 px-4">
                                     <ul class="timeline">
-                                        <li>
+                                        <!-- <li>
                                             <div class="timeline-badge primary"></div>
                                             <a class="timeline-panel" href="#">
                                                 <span>Duration: | LIFETIME  MENTORSHIP</span>
                                                 <p>FLIGHT TICKET | VIP SIGNALS </p>
                                             </a>
-                                        </li>
+                                        </li> -->
                                         <li>
                                             <div class="timeline-badge info">
                                             </div>
@@ -407,9 +446,11 @@ $page_header = 'Academy';
                                     </ul>
                                 </div>
                             </div>
-                            <button class="btn btn-success subscribe-btn" data-id="3" >Subscribe ($300)</button>
+                            <button class="btn btn-success subscribe-btn" data-id="3" >ENROLL NOW</button>
                         </div>
 					</div>
+
+                    <?php } ?>
 				</div>
             </div>
         </div>
@@ -417,7 +458,6 @@ $page_header = 'Academy';
         <!--**********************************
             Content body end
         ***********************************-->
-		
 		
 		
         <!--**********************************
@@ -444,47 +484,131 @@ $page_header = 'Academy';
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Payment Method</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal">
-                    </button>
+                    <h5 class="modal-title" id="modal-title">Purchase A Course</h5>
+                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                    
+                    <h6 id="transfer-countdown" style="display: none;">00:00</h6>
                 </div>
-                <div class="modal-body" id="pay-body">
+
+                <div class="modal-body" id="pay-body"  >
+                    <form id="payment-form">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12" id="make-payment-area">
+                                    <p>Select the course duration and payment method that suits you.</p>
+
+                                    <!-- Course Plan Selection -->
+                                    <div class="mb-3 form-group">
+                                        <label for="course-plan" class="form-label">Select Course Plan</label>
+                                        <select class="form-control" id="course-plan" name="course_plan" required>
+                                            <option value="">Select Course Plan</option>
+                                            <option value="online-1">Online (1 Month) - $75 (₦112,875)</option>
+                                            <option value="online-3">Online (3 Months) - $197 (₦296,485)</option>
+                                            <option value="online-6">Online (6 Months) - $399 (₦510,195)</option>
+                                            <option value="online-12">Online (1 Year) - $599 (₦901,495)</option>
+                                            <option value="physical">Physical - ₦300,000/Month</option>
+                                            <option value="one-on-one">One-on-One With De Crypto Oracle - $2,000</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Payment Method Selection -->
+                                    <div class="mb-3 form-group">
+                                        <label for="aca-pay-method" class="form-label">Select Payment Method</label>
+                                        <select class="form-control" id="aca-pay-method" name="payment_method" required>
+                                            <option value="wallet" data-id="wallet">Tradeshrine Wallet</option>
+                                            <option value="bank-transfer">Bank Transfer</option>
+                                            <option value="vpay">VPay (Card, Bank Transfer, etc.)</option>
+                                            <option value="crypto">Pay With Crypto</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Error Message Display -->
+                                    <div class="mb-3">
+                                        <small class="text-danger" id="pay-method-error"></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" id="modal-footer-course">
+                    
+                            <button type="submit" form="payment-form" id="pay-method-btn" class="btn btn-primary btn-left">Enroll Now</button>
+                            <button type="button" class="btn btn-primary "><i class="fa fa-spin fa-spinner"></i></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-body" id="bank-transfer-area" style="display:none">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12" id="make-payment-area">
-                                <p>How do you want to make your payment</p>
+                                <p>Kindly transfer the payment to the following bank details and upload the payment proof. This typical takes 2 - 5 minutes.</p>
+
+                                <!-- Bank Details -->
                                 <div class="mb-3 form-group">
-                                    <label class="form-label">Select list (select one):</label>
-                                    <select class="default-select form-control wide" id="aca-pay-method" >
-                                        <option value="vpay">VPay (Card, Bank Transfer, etc)</option>
-                                        <!-- <option value="chipper" data-id="chipper">Chipper Cash</option> -->
-                                        <option value="wallet" data-id="wallet">Shrine Wallet</option>
-                                        
-                                        <!-- <option value="SOLANA">SOLANA</option> -->
-                                        <!-- <option value="SHIBA INU">SHIBA INU</option>
-                                        <option value="DODGECOIN">DODGECOIN</option>
-                                        <option value="XRP">XRP</option>
-                                        <option value="TRX">TRX</option> -->
-                                    </select>
-                                </div> <br> <br>
-                                                                  
+                                    <p><strong>Bank Name:</strong> First Bank of Nigeria</p>
+                                    <p><strong>Account Name:</strong> De Crypto Oracle Academy</p>
+                                    <p>
+                                        <strong>Account Number:</strong> 
+                                        <span id="account-number">1234567890</span> 
+                                        <i class="fa fa-copy" id="copy-account-number"></i>
+                                    </p>
+                                </div>                             
+
+                                <!-- Error Message Display -->
+                                <div class="mb-3">
+                                    <small class="text-danger" id="pay-method-error"></small>
+                                </div>
                             </div>
                         </div>
-                        
-                        
+                    </div>
+                    <div class="modal-footer">
+                        <button id="back-to-method" class="btn btn-warning">Back</button>
+                        <button type="button" id="transfer-proceed" class="btn btn-primary btn-left">Enroll Now</button>
+                        <input type="file" style="display:none;" id="transfer-screenshot">
                     </div>
                 </div>
-                <p class="container mb-3">
-                    <small class="text-danger" id="pay-method-error"></small>
 
-                </p>  
-                <div class="modal-footer" id="pay-footer">
-                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                    <button type="button" id="pay-method-btn" class="btn btn-primary">Save changes</button>
-                </div>
+
+                
             </div>
         </div>
     </div>
+
+    <!-- Transfer Modal -->
+    <div class="modal-body" id="bank-transfer-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" id="make-payment-area">
+                    <p>Please transfer the payment to the following bank details and upload the payment proof.</p>
+
+                    <!-- Bank Details -->
+                    <div class="mb-3 form-group">
+                        <label for="bank-details" class="form-label"><strong>Bank Details</strong></label>
+                        <p><strong>Bank Name:</strong> First Bank of Nigeria</p>
+                        <p><strong>Account Name:</strong> De Crypto Oracle Academy</p>
+                        <p>
+                            <strong>Account Number:</strong> 
+                            <span id="account-number">1234567890</span> 
+                            <button class="btn btn-sm btn-secondary" id="copy-account-number">Copy</button>
+                        </p>
+                    </div>
+
+                    
+
+                    <!-- Error Message Display -->
+                    <div class="mb-3">
+                        <small class="text-danger" id="pay-method-error"></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="back-to-method" class="btn btn-warning">Back</button>
+            <button type="button" id="transfer-proceed" class="btn btn-primary btn-left">Upload Proof <i class="fa fa-upload"></i></button>
+            <input type="file" style="display:none;" id="transfer-screenshot">
+        </div>
+    </div>
+
+
 
     <input type="hidden" name="" id="hidden-email" value="<?php echo $userDetails['email']; ?>">
     <input type="hidden" name="" id="hidden-phone" value="<?php echo $userDetails['phone']; ?>">

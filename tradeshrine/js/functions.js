@@ -29,6 +29,7 @@ function uploadProof(fileToUpload, coinName, coinAmount, coinValue){
             formData.append('cointype', coinName);
             formData.append('amountPaid', coinAmount);
             formData.append('coinValue', coinValue);
+            console.log(coinAmount)
 
             xhr.upload.addEventListener('progress', function (e) {
                 if (e.lengthComputable) {
@@ -57,13 +58,15 @@ function uploadProof(fileToUpload, coinName, coinAmount, coinValue){
                 if (this.responseText ==1){
                     $('#crypto-sell-area').hide()
                     $('#sell-crypto-text').show()
+                    $('#form-holder').hide();
+                    $('#fund-success-modal').show();
 
                     $('#sell-crypto-report').removeClass('text-danger')
                     $('#sell-crypto-report').addClass('text-success');
                     $('#sell-crypto-report').text('Transaction initiated and currently processing. ')
-                    // setTimeout(() => {
-                    //     location.replace('pending-sell.php');
-                    // }, 2000);
+                    setTimeout(() => {
+                        location.replace('pending-sell.php');
+                    }, 2000);
                     fileToUpload = "";
                 }else{
 

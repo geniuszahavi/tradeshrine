@@ -91,7 +91,7 @@ class User extends Dbh {
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$email]);
 
-        return $stmt->fetch();
+        return $stmt->fetch(); 
     }
 
     public function getUserById($userID) {
@@ -148,7 +148,7 @@ class User extends Dbh {
             $conn = $this->connect();
             
             // Prepare the SQL statement
-            $stmt = $conn->prepare("INSERT INTO transactions_history (user_id, amount, t_type, destination, t_status) VALUES (:user_id, :amount, :t_type, :destination, :t_status)");
+            $stmt = $conn->prepare("INSERT INTO transaction_history (user_id, amount, t_type, destination, t_status) VALUES (:user_id, :amount, :t_type, :destination, :t_status)");
 
             // Bind parameters
             $stmt->bindParam(':user_id', $user_id);
@@ -236,6 +236,7 @@ class User extends Dbh {
 
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$userID]);
+    
         return $stmt->fetch();
     }
 
@@ -248,8 +249,8 @@ class User extends Dbh {
 
         }
         $tableName = "academy";
-        $columns = ["user_id", "student_name", "payment_method", "amount_paid", "course_chosen", "signal_status", "exp_date"];
-        $values = [$userID, $userName, $chosenMethod, $coursePrice, $classCategory, $signal, $expDate];
+        $columns = ["user_id", "student_name", "payment_method", "amount_paid", "course_chosen", "status", "signal_status", "exp_date"];
+        $values = [$userID, $userName, $chosenMethod, $coursePrice, $classCategory, 'pending', $signal, $expDate];
 
         $insertedId = insertData($tableName, $columns, $values);
 

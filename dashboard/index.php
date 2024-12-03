@@ -2,10 +2,10 @@
 $page_title = "User Account | Tradeshrine";
 include 'templates/head.php';
  
-if($userDetails['verified'] == 0){
-	header("Location: ./verify.php");
-    exit();
-}
+// if($userDetails['verified'] == 0){
+// 	header("Location: ./verify.php");
+//     exit();
+// }
 
 
 

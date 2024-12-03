@@ -265,7 +265,8 @@ $allTransactions = $Payments->allTransactions($userID);
 
 	<div class="modal fade" id="fund-fiat-modal">
 		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
+
+			<div class="modal-content" id="form-holder">
 				<div class="modal-header">
 					<h5 class="modal-title">Fund Your Wallet With Fiat</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal">
@@ -304,17 +305,37 @@ $allTransactions = $Payments->allTransactions($userID);
 							<h4>Visa Direct Tag: tradeshrine</h4>
 							<h4> 4173 9600 5448 2037</h4>
 							<input type="file" name="" id="chipper-proof" style="display: none;">
-							<button type="button" class="btn btn-dark" id="complete-chipper">Upload Screehsot</button>
+							<!-- <button type="button" class="btn btn-dark" id="complete-chipper">Upload Screehsot</button>  -->
 						</div>
 					</div>
 					<div id="" class="text-center">
 						<p id="fiat-fund-error" class="text-danger"></p>
 					</div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger light" id="fiat-fund-back">Back</button>
-                <button type="button" class="btn btn-primary" id="fiat-proceed">Proceed</button>
-            </div>
+            	</div>
+			
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger light" id="fiat-fund-back">Back</button>
+					<button type="button" class="btn btn-dark" id="complete-chipper" style="display:none">Upload Screehsot</button> 
+					<button type="button" class="btn btn-primary" id="fiat-proceed">Proceed</button>
+				</div>
+			</div>
+			<div class="modal-content" id="fund-success-modal" style="display:none">
+				<div class="modal-header">
+					<h5 class="modal-title">Successful</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal">
+					</button>
+				</div>
+				<div class="modal-body">
+					
+					<p>
+						<small>Your transaction was successful and is currently being processed. </small> <br>
+						<br>
+						Cheers.
+							</p>
+							
+            	</div>
+			
+				
 			</div>
 		</div>
 	</div>

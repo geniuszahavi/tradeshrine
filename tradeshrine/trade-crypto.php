@@ -10,7 +10,7 @@ if($userDetails['verified'] !== 1){
 }
 
 
-$page_header = 'Buy & Sell';
+$page_header = 'Pay With Crypto';
 
 
 ?>
@@ -95,10 +95,10 @@ $page_header = 'Buy & Sell';
 									<div class="card-body px-0 pt-1">
 										<div class="" id="buy-sell-area">
 											<nav class="buy-sell">
-											  <div class="nav nav-tabs" id="nav-tab2" role="tablist">
+											  <!-- <div class="nav nav-tabs" id="nav-tab2" role="tablist">
 												<button class="nav-link active" id="nav-buy-tab" data-bs-toggle="tab" data-bs-target="#nav-buy" type="button" role="tab" aria-controls="nav-buy" aria-selected="true">buy</button>
 												<button class="nav-link" id="nav-sell-tab" data-bs-toggle="tab" data-bs-target="#nav-sell" type="button" role="tab" aria-controls="nav-sell" aria-selected="false">sell</button>
-											  </div>
+											  </div> -->
 											</nav>
 											<div class="tab-content" id="nav-tabContent">
 												<div class="tab-pane fade show active" id="nav-buy" role="tabpanel" aria-labelledby="nav-buy-tab">
@@ -281,7 +281,7 @@ $page_header = 'Buy & Sell';
 															<button id="complete-crypto" class="btn btn-primary w-75">Upload Proof <span id="buy-coin-name"></span></button>
 														</div>	
 													</div>	
-													<div id="sell-crypto-text"  style="padding:12px">
+													<div id="sell-crypto-text"  style="padding:12px; display:none">
 														<h6 class="text-success">Processing</h6>
 														<p>Transaction initiated and currently processing. </p>
 													</div>

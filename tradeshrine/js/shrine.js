@@ -1,6 +1,11 @@
 $(document).ready(function () {
     var fileToUpload, SentCoinName, SentCointAount, SentCoinValue, chipperSentAmount, buyWalletAddress;
 
+    let CoursePlan ,
+    ChosenMethod,
+    CoursePrice,
+    Currency;
+
     $(document).ajaxStart(function() {
         // Replace 'yourModalSelector' with the actual selector of your modal
         $('#ajax-loader').modal('show');
@@ -898,6 +903,20 @@ $(document).ready(function () {
         $('#fund-fiat-modal').modal('show');
         
     });
+
+    $('#pay-method').change(function (e) { 
+        e.preventDefault();
+        console.log('Changed')
+        console.log('Hello World')
+        var dMethod = $('#pay-method').val();
+        if(dMethod == 'chipper'){
+            console.log(dMethod)
+            $('#fiat-proceed').hide();
+            $('#complete-chipper').show();
+        }
+        
+    });
+
     $('#fiat-proceed').click(function (e) { 
         e.preventDefault();
         var amount = $('#fiat-depo-amt').val();
@@ -981,7 +1000,9 @@ $(document).ready(function () {
             alert('File too large');
         } else {
             fileToUpload = e.target.files[0];
-            uploadProof(fileToUpload, 'Chiiper Cash', chipperSentAmount, chipperSentAmount)
+            var chipperSentAmount = $('#fiat-depo-amt').val();
+            var depositMethod = $('#pay-method').val();
+            uploadProof(fileToUpload, 'Chiiper Cash', chipperSentAmount, depositMethod)
         }
         
     });
@@ -994,8 +1015,134 @@ $(document).ready(function () {
         $(this).fadeOut(100)
         
     });
+
+    const coursePrices = {
+        'online-1': { price: 75, currency: 'USD', nairaEquivalent: 112875 },
+        'online-3': { price: 197, currency: 'USD', nairaEquivalent: 296485 },
+        'online-6': { price: 399, currency: 'USD', nairaEquivalent: 510195 },
+        'online-12': { price: 599, currency: 'USD', nairaEquivalent: 901495 },
+        'physical': { price: 300000, currency: 'NGN' },
+        'one-on-one': { price: 2000, currency: 'USD' }
+    };
     
 
+    ///////////////////////////////////////////////////
+    /////////////////Academy Registration///////////////
+    /////////////////////////////////// ///////////////
+    $("#payment-form").on("submit", function (e) {
+        e.preventDefault();
+        let valid = true;
+        let coursePlan = $("#course-plan").val();
+        let paymentMethod = $("#aca-pay-method").val();
+    
+        if (coursePlan === "") {
+            valid = false;
+            $("#pay-method-error").text("Please select a course plan.");
+        } else if (paymentMethod === "") {
+            valid = false;
+            $("#pay-method-error").text("Please select a payment method.");
+        } else {
+            $("#pay-method-error").text("");
+        }
+    
+        if (valid) {
+            // Get the price from the coursePrices object based on the selected coursePlan
+            let coursePrice = coursePrices[coursePlan].price;
+            let currency = coursePrices[coursePlan].currency;
+    
+            if (paymentMethod === 'wallet') {
+                $.ajax({
+                    type: "POST",
+                    url: "../api/academySubscription.php",
+                    data: {
+                        coursePlan: coursePlan,
+                        chosenMethod: paymentMethod,
+                        coursePrice: coursePrice,
+                        currency: currency
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        if (response == 1) {
+                            $('#make-payment-area').html(`
+                                <p class="text-success">Your enrollment was successful. Check your email for further instructions.</p>
+                            `);
+                            setTimeout(function () {
+                                location.reload();
+                            }, 3000);
+                        } else {
+                            $('#pay-method-error').text('Error: ' + response);
+                        }
+                    },
+                    error: function () {
+                        $('#pay-method-error').text("An error occurred while processing your request.");
+                    }
+                });
+            }else if(paymentMethod === "bank-transfer"){
+                $('#pay-body').hide(200);
+                $('#modal-title').text("Complete Transfer");
+                $('#bank-transfer-area').show(400);
+                $('#transfer-countdown').show(450);
+
+            }
+    
+            // Handle other payment methods (e.g., bank transfer, crypto) here if needed
+        }
+    });
+
+    // ///////Bank Transfer/////////////
+
+    $("#copy-account-number").on("click", function() {
+        const accountNumber = $("#account-number").text();
+        navigator.clipboard.writeText(accountNumber).then(() => {
+            alert("Account number copied to clipboard!");
+        }).catch(err => {
+            console.error("Failed to copy account number: ", err);
+        });
+    });
+
+    // Trigger file input when 'Enroll Now' is clicked
+    $("#transfer-proceed").on("click", function() {
+        $("#transfer-screenshot").click();
+    });
+
+    // Handle file input change event and send data via AJAX
+    $("#transfer-screenshot").on("change", function() {
+        const formData = new FormData();
+
+        formData.append("course_plan", CoursePlan);
+        formData.append("chosenMethod", "bank transfer");
+        formData.append("coursePrice", CoursePrice);
+        formData.append("currency", Currency);
+        formData.append("transfer_screenshot", this.files[0]);
+
+        $.ajax({
+            type: "POST",
+            url: "../api/academySubscription.php",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log(response);
+                if (response === "1") {
+                    $('#make-payment-area').html(`
+                        <p class="text-success">Your payment has been received. Check your email for further instructions.</p>
+                    `);
+                    setTimeout(function() {
+                        location.reload();
+                    }, 3000);
+                } else {
+                    $('#pay-method-error').text('Error: ' + response);
+                }
+            },
+            error: function() {
+                $('#pay-method-error').text('An error occurred. Please try again.');
+            }
+        });
+    });
+    
+        
+    
+    
     
     
 //test for getting url value from attr
@@ -1130,7 +1277,7 @@ $('#a').html(langArray);
 
         $('#pay-method-modal').modal('show')
 
-        $('#pay-method-btn').click(function(){
+        $('#pay-method-b').click(function(){
             var chosenMethod = $('#aca-pay-method').val()
             if(chosenMethod == 'wallet'){
                 $.ajax({
@@ -1207,6 +1354,67 @@ $('#a').html(langArray);
 
 
     })
+
+
+
+    // Signal Page
+    $('#activate-signal').on('click', function() {
+        // Get the selected subscription option
+        var selectedOption = $('#subscription-select option:selected');
+        
+        // Check if any option is selected
+        if (selectedOption.length > 0) {
+            // Get the price and value of the selected option
+            var price = selectedOption.data('price');
+            var value = selectedOption.val();
+            
+            // Send data to the backend using AJAX
+            $.ajax({
+                url: '../api/start-signal.php',
+                method: 'POST',
+                data: { price: price, value: value },
+                success: function(response) {
+                    // Handle success response from the backend
+                    console.log(response)
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors
+                    console.error('Error occurred while sending data: ' + error);
+                }
+            });
+        } else {
+            // Handle if no option is selected
+            console.error('Please select a subscription option.');
+        }
+    });
+
+
+    
+    $("#verify-form").submit(function(e) {
+        e.preventDefault(); // Prevent form from submitting the traditional way
+
+        const code = $("#verification-code").val();
+
+        $.ajax({
+            url: '../api/verifyCode.php', // Path to PHP verification file
+            type: 'POST',
+            data: { code: code },
+            success: function(response) {
+                console.log(response)
+                response = $.parseJSON(response)
+                if (response.status == 'success') {
+                    $("#message").html('<p style="color: green;">Verification successful!</p>');
+                } else {
+                    $("#message").html('<p style="color: red;">Invalid code or verification failed.</p>');
+                }
+            },
+            error: function() {
+                $("#message").html('<p style="color: red;">An error occurred. Please try again.</p>');
+            }
+        });
+    });
+        
+    
 
 
     

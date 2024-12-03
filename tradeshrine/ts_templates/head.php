@@ -1,5 +1,6 @@
 <?php
 session_start();
+ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 // Test parameter
 
@@ -10,6 +11,8 @@ if (!isset($_SESSION['isLoggedIn']) || $_SESSION['isLoggedIn'] !== true) {
     header("Location: ../signin.php");
     exit();
 }
+// echo $_SESSION['user_id'];
+
 include '../config/database.php';
 include '../models/functions.php';
 include '../models/Users.php';

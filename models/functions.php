@@ -30,8 +30,8 @@ function insertData($tableName, $columns, $values) {
         // Bind values to placeholders
         for ($i = 0; $i < count($values); $i++) {
             $stmt->bindValue($i + 1, $values[$i]);
+            // echo $i ."-".$values[$i] ."<br>";
         }
-
         // Execute the statement
         $stmt->execute();
 
@@ -184,6 +184,30 @@ function deleteRecord($tableName, $conditionField, $conditionValue) {
     } catch (PDOException $e) {
         // Handle exceptions (e.g., log the error)
         return false;
+    }
+}
+
+// Call the updateData function to update the signal_status column
+function updateSignalStatus($userID) {
+    // Define the table name, columns to update, values to set, and the condition
+    $tableName = 'users';
+    $columnsToUpdate = ['signal_status']; // Column(s) to update
+    $valuesToSet = ['active']; // Value(s) to set
+    $conditionColumn = 'user_id'; // Column for the condition
+    $conditionValue = $userID; // Value for the condition
+
+    // Call the updateData function
+    $result = updateData($tableName, $columnsToUpdate, $valuesToSet, $conditionColumn, $conditionValue);
+
+    // Check if the update was successful 
+    if ($result !== false) {
+        // Update successful
+        echo json_encode(['status' => 'success', 'msg'=>'Signal Status updated sccessfully']);
+
+    } else {
+        // Failed to update
+        echo json_encode(['status' => 'failed', 'msg'=>'Signal Status not updated']);
+
     }
 }
 

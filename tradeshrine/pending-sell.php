@@ -1,4 +1,5 @@
 <?php 
+ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 $page_title = "User Account | Tradeshrine";
 include 'ts_templates/head.php';
@@ -22,6 +23,7 @@ $page_header = 'Pending Sell';
 // die();
 
 
+
 ?>
 <body>
 
@@ -33,6 +35,7 @@ $page_header = 'Pending Sell';
     <!--*******************
         Preloader end
     ********************-->
+    
 
     <!--**********************************
         Main wrapper start
@@ -69,7 +72,7 @@ $page_header = 'Pending Sell';
             Nav header end
         ***********************************-->
 		
-	
+       <?php echo "Hello World"; ?>
 		
 		<!--**********************************
             Header start

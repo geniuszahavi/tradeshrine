@@ -1,29 +1,38 @@
 <?php
 class Payments extends Dbh{
     
-    function sellCrypto($amountPaid, $coinValue, $cointype,  $userID, $file_name){
+    function sellCrypto($amountPaid, $coinValue, $cointype, $userID, $file_name) {
         $pdo = $this->connect();
-
+    
         $tableName = 'deposit_requests';
         $columns = ['amount', 'coin_value', 'coin_type', 'user_id', 'proof'];
-        $values = [$amountPaid, $coinValue, $cointype,  $userID, $file_name];
-        $insertData =  insertDataAdvanced($tableName, $columns, $values);
-
+        $values = [$amountPaid, $coinValue, $cointype, $userID, $file_name];
+        $insertData = insertDataAdvanced($tableName, $columns, $values);
+    
         $insertId = $insertData['lastInsertId'];
-        if($insertData['rowCount'] = 1){
+        if ($insertData['rowCount'] == 1) { // Use '==' for comparison, not '='
             $transTableName = 'transaction_history';
             $transColumns = ['user_id', 'amount', 't_type', 'destination', 't_status', 'pending_id'];
-            $transValues = [$userID, $amountPaid - ($amountPaid *0.02), 'credit', $coinValue - ($coinValue * 0.02).' - '.$cointype, 'pending', $insertId];
-
+    
+            // Convert $amountPaid and $coinValue to floats before operations
+            $amountPaid = (float) $amountPaid;
+            $coinValue = (float) $coinValue;
+    
+            $transValues = [
+                $userID, 
+                $amountPaid - ($amountPaid * 0.02), 
+                'credit', 
+                ($coinValue - ($coinValue * 0.02)) . ' - ' . $cointype, 
+                'pending', 
+                $insertId
+            ];
+    
             echo insertData($transTableName, $transColumns, $transValues);
-
-
-        }else{
-            echo json_encode(["msg"=>"Error initiating crypto trade ", "stats"=>$insertData]);
+        } else {
+            echo json_encode(["msg" => "Error initiating crypto trade", "stats" => $insertData]);
         }
-
-        // coin_value, amount, coin_type, user_id,
     }
+    
 
     function sellGiftcard($amountPaid, $coinValue, $cointype,  $userID, $file_name){
         $pdo = $this->connect();

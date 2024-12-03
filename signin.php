@@ -1,7 +1,8 @@
 <?php
+ini_set('display_errors', 0);
 $page_title = "Login | Tradeshrine"; 
 // Check if the user is logged in
-if (!isset($_SESSION['isLoggedIn']) || $_SESSION['isLoggedIn'] !== true) {
+if (isset($_SESSION['isLoggedIn']) || $_SESSION['isLoggedIn'] == true) {
   header("Location: ./tradeshrine");
   exit();
 }
@@ -106,6 +107,7 @@ include 'templates/head.php';
                       <button type="button" id="btnToggle" class="form-pass__toggle"><i id="eyeIcon1"
                           class="fa fa-eye"></i></button>
                     </div>
+                    <small class="text-danger" id="num-error"></small>
                   </div>
                   
 

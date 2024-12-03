@@ -343,6 +343,7 @@ if(isset($_GET['ref'])){
   <!-- libphonenumber -->
   
   <script src="build/js/intlTelInput.js"></script>
+  
 
   <script src="assets/js/custom.js"></script>
   <script src="assets/js/auth.js"></script>

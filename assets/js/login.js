@@ -15,7 +15,7 @@ $(document).ready(function () {
 
     $('#login-form').submit(function(event) {
         event.preventDefault();
-        console.log(event)
+        // console.log(event)
 
         var email = $('#email').val();
         var password = $('#pass-1').val();
@@ -26,10 +26,16 @@ $(document).ready(function () {
         if(email ==''){
             $('#email').addClass('is-invalid')
             $('#talkBackText').html('Asterik (*) indicates requires fields');
+            setTimeout(() => {
+                $('#talkBackText').html('')
+            }, 3000);
 
         }else if (!isValidEmail(email)) {
             $('#email').addClass('is-invalid')
             $('#talkBackText').html('Asterik (*) indicates requires fields');
+            setTimeout(() => {
+                $('#talkBackText').html('')
+            }, 3000);
         }else if(!isValidPassword){
             $('#pass-1').addClass('is-invalid')
         }else {
@@ -39,7 +45,6 @@ $(document).ready(function () {
                 password: $('#pass-1').val(),
           
                 // Assuming 'iti' is already initialized
-               
             };
         
             // Perform AJAX request
@@ -51,11 +56,11 @@ $(document).ready(function () {
                     // Handle success response
                     console.log(response)
                     response = $.parseJSON(response)
-                    if(response.status =="success"){
+                    if(response.status =="success"){ 
                         $('.account__header').hide();
                         $('#login-form').html(`<p class="text-success">Logged in successfully. Redirecting... </p>`); // Display success message
                         setTimeout(function(){
-                            location.replace('dashboard');
+                            location.replace('tradeshrine');
                         }, 500)
 
                     }else{

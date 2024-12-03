@@ -18,7 +18,7 @@ $userID =  $_SESSION['user_id'];
 $Payments = new Payments();
 
 extract($_POST);
-// print_r($_FILES);
+// print_r($_POST);
 // die();
 
 
@@ -36,7 +36,7 @@ if(!in_array($ext,$ext_array) && !in_array($image_type, $allowed_types)){
 
     if(move_uploaded_file($tmp_name, $location.$file_name)){
 
-
+      
         $result = $Payments->sellCrypto($amountPaid, $coinValue, $cointype,  $userID, $file_name);
 
         
