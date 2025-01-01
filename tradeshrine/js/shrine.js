@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    console.log("Hello")
     var fileToUpload, SentCoinName, SentCointAount, SentCoinValue, chipperSentAmount, buyWalletAddress;
 
     let CoursePlan ,
@@ -1025,6 +1026,7 @@ $(document).ready(function () {
         'one-on-one': { price: 2000, currency: 'USD' }
     };
     
+    
 
     ///////////////////////////////////////////////////
     /////////////////Academy Registration///////////////
@@ -1048,6 +1050,9 @@ $(document).ready(function () {
         if (valid) {
             // Get the price from the coursePrices object based on the selected coursePlan
             let coursePrice = coursePrices[coursePlan].price;
+            let coursePriceNaira = coursePrices[coursePlan].nairaEquivalent;
+            coursePriceNaira = Number(coursePriceNaira);
+            coursePriceNaira = coursePriceNaira.toLocaleString;
             let currency = coursePrices[coursePlan].currency;
     
             if (paymentMethod === 'wallet') {
@@ -1078,10 +1083,43 @@ $(document).ready(function () {
                     }
                 });
             }else if(paymentMethod === "bank-transfer"){
-                $('#pay-body').hide(200);
-                $('#modal-title').text("Complete Transfer");
-                $('#bank-transfer-area').show(400);
-                $('#transfer-countdown').show(450);
+
+                $.ajax({
+                    type: "get",
+                    url: "../api/getRate.php",
+                    data: "data",
+                    success: function (response) {
+                        console.log(response)
+                        response = $.parseJSON(response);
+                        if(response.status == 'success'){
+                            $('#pay-body').hide(200);
+                            $('#modal-title').text("Complete Transfer");
+                            $('#bank-transfer-area').show(400);
+                            $('#timer-display').show(450);
+                            var amountToSendd = (coursePrice * response.naira_rate).toLocaleString();
+                            $('#dynamic-price').text(amountToSendd);
+
+                            CoursePlan = coursePlan;
+                            Currency = currency;
+                            CoursePrice = coursePrice;
+
+                            let element = $('#timer-display');
+                            console.log(element);
+
+                            const totalTime = 5 * 60; // 5 minutes in seconds
+
+                            const timerEndTime = getEndTime(totalTime); // Your function to get end time
+
+                            // Check every second
+                            const timerInterval = setInterval(() => updateTimer(timerEndTime, element), 1000);
+
+                            // Run once initially to set the correct time on page load
+                            updateTimer(timerEndTime, element);
+                        }
+                            
+                    }
+                });
+                
 
             }
     
@@ -1094,7 +1132,11 @@ $(document).ready(function () {
     $("#copy-account-number").on("click", function() {
         const accountNumber = $("#account-number").text();
         navigator.clipboard.writeText(accountNumber).then(() => {
-            alert("Account number copied to clipboard!");
+            $('#copy-success').text("Account number copied to clipboard!");
+            setTimeout(() => {
+                $('#copy-success').text("");
+                
+            }, 3000);
         }).catch(err => {
             console.error("Failed to copy account number: ", err);
         });
@@ -1108,12 +1150,13 @@ $(document).ready(function () {
     // Handle file input change event and send data via AJAX
     $("#transfer-screenshot").on("change", function() {
         const formData = new FormData();
+        console.log(CoursePlan)
 
-        formData.append("course_plan", CoursePlan);
+        formData.append("coursePlan", CoursePlan);
         formData.append("chosenMethod", "bank transfer");
         formData.append("coursePrice", CoursePrice);
         formData.append("currency", Currency);
-        formData.append("transfer_screenshot", this.files[0]);
+        formData.append("screenshot", this.files[0]);
 
         $.ajax({
             type: "POST",
@@ -1123,13 +1166,20 @@ $(document).ready(function () {
             contentType: false,
             success: function(response) {
                 console.log(response);
-                if (response === "1") {
-                    $('#make-payment-area').html(`
-                        <p class="text-success">Your payment has been received. Check your email for further instructions.</p>
-                    `);
-                    setTimeout(function() {
-                        location.reload();
-                    }, 3000);
+                response = $.parseJSON(response)
+                if (response.status == "success") {
+                    $('#bank-transfer-area').remove(100)
+                    $('#bank-transfer-area').hide();
+                    $('#modal-hedarr').hide();
+                    $('#detais-div').remove();
+                    $('#modal-title').text('');
+                    $('#success-modal').show(200);
+                    // $('#make-payment-area').html(`
+                    //     <p class="text-success">Your payment has been received. Check your email for further instructions.</p>
+                    // `);
+                    // setTimeout(function() {
+                    //     location.reload();
+                    // }, 3000);
                 } else {
                     $('#pay-method-error').text('Error: ' + response);
                 }
@@ -1141,7 +1191,7 @@ $(document).ready(function () {
     });
     
         
-    
+// $('#transfer-success').modal('show')    
     
     
     
@@ -1417,6 +1467,12 @@ $('#a').html(langArray);
     
 
 
+    // SIMPLE User Functions
+    $('#back-to-method').click(function (e) { 
+        e.preventDefault();
+        $('#bank-transfer-area').hide();
+        $('#pay-body').show();
+    });
     
 
   

@@ -193,12 +193,15 @@ function digitsLength(){
     });
 }
 
+// Declare timerInterval in the global or outer scope
+let timerInterval; // This makes timerInterval accessible to both updateTimer and where setInterval is called.
+
 function startTimer(duration, display) {
     let minutes, seconds;
     let interval = setInterval(function () {
         let now = new Date().getTime();
         let distance = duration - now;
-        console.log(duration + ' - ' +now)
+        console.log(duration + ' - ' + now);
 
         minutes = Math.floor(distance / (1000 * 60)); // Calculate remaining minutes
         seconds = Math.floor((distance % (1000 * 60)) / 1000); // Calculate remaining seconds
@@ -208,11 +211,51 @@ function startTimer(duration, display) {
 
         display.textContent = minutes + ":" + seconds;
 
-        if (distance <= 0) { // Adjusted to also clear the interval when the timer reaches zero
-            // Timer expired, perform any necessary action here
+        if (distance <= 0) {
             clearInterval(interval);
             display.textContent = "Transaction pending!";
         }
     }, 1000);
 }
+
+// Retrieve or initialize the timer's end time
+function getEndTime(totalTime) {
+    const storedEndTime = localStorage.getItem('timerEndTime');
+    if (storedEndTime) {
+        return parseInt(storedEndTime, 10);
+    } else {
+        const endTime = Date.now() + totalTime * 1000; // Set new end time
+        localStorage.setItem('timerEndTime', endTime);
+        return endTime;
+    }
+}
+
+// UPDATE TIMER
+function updateTimer(timerEndTime, element) {
+    const currentTime = Date.now();
+    const timeRemaining = Math.max(0, Math.floor((timerEndTime - currentTime) / 1000));
+
+    const minutes = Math.floor(timeRemaining / 60);
+    const seconds = timeRemaining % 60;
+
+    element.text(`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`);
+
+    if (timeRemaining <= 0) {
+        clearInterval(timerInterval); // Clear the interval properly
+        console.log('Timer expired')
+        // document.getElementById('timer-expired-message').style.display = 'block';
+        localStorage.removeItem('timerEndTime'); 
+        // Clear stored end time
+    }
+}
+
+// Set up the timer
+const totalTime = 5 * 60; // 5 minutes in seconds
+const timerEndTime = getEndTime(totalTime); // Get the end time
+
+// Ensure element is defined properly
+const element = $('#timer-display'); // Adjust selector based on your HTML
+
+// Start the interval and save the ID to the global variable
+timerInterval = setInterval(() => updateTimer(timerEndTime, element), 1000);
 

@@ -3,11 +3,11 @@ $page_title = "User Account | Tradeshrine";
 include 'ts_templates/head.php';
 // print_r(($userDetails));
  
-if($userDetails['verified'] !== 1){
-	header("Location: ./verify.php");
-	echo $userDetails['email'];
-    exit();
-}
+// if($userDetails['verified'] !== 1){
+// 	header("Location: ./verify.php");
+// 	echo $userDetails['email'];
+//     exit();
+// }
 
 $page_header = 'Hello, '.$userDetails['first_name'].'! '; 
 

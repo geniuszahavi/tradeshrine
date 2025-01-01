@@ -3,14 +3,14 @@ $page_title = "User Account | Tradeshrine";
 include 'ts_templates/head.php';
 // print_r(($userDetails));
  
-if($userDetails['verified'] !== 1){
-	header("Location: ./verify.php");
-	echo $userDetails['email'];
-    exit();
-}
+// if($userDetails['verified'] !== 1){
+// 	header("Location: ./verify.php");
+// 	echo $userDetails['email'];
+//     exit();
+// }
 
 
-$page_header = 'Pay With Crypto';
+$page_header = 'Fund With Crypto';
 
 
 ?>
@@ -112,46 +112,47 @@ $page_header = 'Pay With Crypto';
 														</div>
 													</div>
 													<div class="sell-element">
-														<form id="buy-crypto-form">
+														<form id="sell-crypto-form">
 															<div class="sell-blance">
-																<label class="form-label text-primary">Choose Coin To Buy</label>
+																<label class="form-label text-primary">Choose Coin To Sell</label>
 
 																<div class="input-group">
                                                                     
-                                                                    <select name="" id="buy-cointype" class="form-control">
-                                                                        <option value="BNB" data-id="BEP20">BNB (BEP20)</option>
+                                                                    <select name="" id="sell-cointype" class="form-control">
+                                                                        <option value="USDC" data-id="USDC">USDC (USDC)</option>
                                                                         <option value="BTC" data-id="">BTC</option>
                                                                         <option value="ETH" data-id="ERC20">ETH (ERC20)</option>
                                                                         <option value="USDT" data-id="TRC20">USDT (TRC20)</option>
                                                                     </select>
-                                                                    <span class="input-group-text"> <img id="coin-image" src="images/btc-logo.png" width="30" alt=""></span>
+                                                                    <span class="input-group-text"> <img id="sell-coin-image" src="images/btc-logo.png" width="30" alt=""></span>
 																	
 																</div>
 															</div>
 															<div class="sell-blance">
 																<label class="form-label text-primary">Amount</label>
 																<div class="input-group">
-																	<input type="number" id="buy-coin-amount" class="form-control" placeholder="Amount">
+																	<input type="number" id="sell-coin-amount" class="form-control" placeholder="Amount">
 																	<span class="input-group-text">$</span>
 																</div>
 															</div>
-															<div class="sell-blance">
+															<!-- <div class="sell-blance">
 																<label class="form-label text-primary">Wallet Address</label>
 																<div class="input-group">
-																	<input type="text" id="buy-coin-address" class="form-control" placeholder="Wallet Address">
+																	<input type="text" id="sell-coin-address" class="form-control" placeholder="Wallet Address">
 																</div>
-															</div>
+															</div> -->
                                                             <div class="sell-blance">
 																<!-- <label class="form-label text-primary"><b>Fee</b>: 1.7% </label> -->
-																<div class="form-label blance"><span>Total:</span>$<p id="buy-coin-total">0.00</p></div><br>
-                                                                <p class="text-justify"><small>Ensure you provide a wallet address for the exact coin and network type you select. Sending anything else may result at a loss.</small></p>
+																<div class="form-label blance"><span>Amount To Send:</span>$<p id="sell-coin-total">0.00</p></div><br>
+                                                                <!-- <p class="text-justify"><small>Ensure you provide a wallet address for the exact coin and network type you select. Sending anything else may result at a loss.</small></p> -->
 															</div>
+															<p><small id="sell-crypto-report"></small></p>
 															<div class="text-center">
-                                                                <p class="small text-danger" id="buy-crypto-report"></p>
-																<button id="buy-coin-btn" class="btn btn-primary w-75">BUY <span id="buy-coin-name"></span></button>
+                                                                <p class="small text-danger" id="sell-crypto-report"></p>
+																<button id="sell-coin-btn" class="btn btn-primary w-75">Proceed <span id="sell-coin-name"></span></button>
 															</div>	
 														</form>
-													</div>	
+													</div>
 											  
 												</div>
 												<div class="tab-pane fade" id="nav-sell" role="tabpanel" aria-labelledby="nav-sell-tab">

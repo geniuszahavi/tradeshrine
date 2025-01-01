@@ -88,6 +88,18 @@ class Payments extends Dbh{
         return $stmt->fetchAll();
     }
 
+    public function pendingAcademy($userID){
+        $sql = "SELECT * FROM academy WHERE user_id = :userID ";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    
+        $stmt->execute();
+    
+        // Debug output
+    
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function checkWithdrawal($userID){
         $sql = "SELECT * FROM profit_q WHERE user_id = '$userID'";
 

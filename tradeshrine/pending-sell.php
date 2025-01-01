@@ -9,15 +9,11 @@ $userID =  $_SESSION['user_id'];
  
 $Server = new Dbh();
  
-if($userDetails['verified'] !== 1){
-	header("Location: ./verify.php");
-	echo $userDetails['email'];
-    exit();
-}
+
 // $timerStats = $_SESSION['expirationTime'];
 
 
-$page_header = 'Pending Sell';
+$page_header = 'Pending Crypto Deposits';
 
 // echo var_dump($_SESSION);
 // die();
@@ -137,48 +133,47 @@ $page_header = 'Pending Sell';
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                            $query = "SELECT * FROM deposit_requests WHERE user_id = '$userID'";
-                                                                            // Execute the query and fetch the result
-                                                                            $result = $Server->connect()->query($query);
-                                                                            $count = 1;
+                                                                    $query = "SELECT * FROM deposit_requests WHERE user_id = ?";
+                                                                    $stmt = $Server->connect()->prepare($query);
+                                                                    $stmt->execute([$userID]);
+                                                                    $count = 1;
 
-                                                                            while($row = $result->fetch()){
-                                                                                
-                                                                                $dateTimeString = $row['req_date'];
-
-                                                                                // Create a DateTime object
-                                                                                $dateTime = new DateTime($dateTimeString);
-
-                                                                                // Format the date and time
-                                                                                $formattedDateTime = $dateTime->format('F j, Y \a\t g:ia');
-                                                                                
-                                                                                ?>
-
-                                                                            
-                                                                    <tr>
-                                                                        <td><strong><?php echo $count; ?></strong></td>
-                                                                        <td><?php echo number_format($row['amount']); ?></td>
-                                                                        <td><?php echo number_format($row['coin_value'], 5) .' '.$row['coin_type']; ?></td>
-                                                                        <td><?php echo $formattedDateTime; ?></td>
-                                                                        <td><span class="badge light badge-warning">Pending</span></td>
-                                                                        <!-- <td>$21.56</td> -->
-                                                                        <td>
-                                                                            <div class="dropdown">
-                                                                                <button type="button" class="btn btn-warning light sharp" data-bs-toggle="dropdown">
-                                                                                    <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
-                                                                                </button>
-                                                                                <div class="dropdown-menu">
-                                                                                    <a class="dropdown-item" href="#">Contact Support</a>
-                                                                                    
+                                                                    while ($row = $stmt->fetch()) {
+                                                                        try {
+                                                                            $dateTimeString = $row['req_date'];
+                                                                            $dateTime = new DateTime($dateTimeString);
+                                                                            $formattedDateTime = $dateTime->format('F j, Y \a\t g:ia');
+                                                                        } catch (Exception $e) {
+                                                                            $formattedDateTime = "Invalid date";
+                                                                        }
+                                                                        ?>
+                                                                        <tr>
+                                                                            <td><strong><?php echo $count; ?></strong></td>
+                                                                            <td><?php echo number_format(htmlspecialchars($row['amount'])); ?></td>
+                                                                            <td><?php echo number_format(htmlspecialchars($row['coin_value']), 5) . ' ' . htmlspecialchars($row['coin_type']); ?></td>
+                                                                            <td><?php echo $formattedDateTime; ?></td>
+                                                                            <td><span class="badge light badge-warning">Pending</span></td>
+                                                                            <td>
+                                                                                <div class="dropdown">
+                                                                                    <button type="button" class="btn btn-warning light sharp" data-bs-toggle="dropdown">
+                                                                                        <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
+                                                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                                                <rect x="0" y="0" width="24" height="24" />
+                                                                                                <circle fill="#000000" cx="5" cy="12" r="2" />
+                                                                                                <circle fill="#000000" cx="12" cy="12" r="2" />
+                                                                                                <circle fill="#000000" cx="19" cy="12" r="2" />
+                                                                                            </g>
+                                                                                        </svg>
+                                                                                    </button>
+                                                                                    <div class="dropdown-menu">
+                                                                                        <a class="dropdown-item" href="#">Contact Support</a>
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-
-                                                                    <?php $count++;  } ?>
-                                                                   
-                                                                    
+                                                                            </td>
+                                                                        </tr>
+                                                                    <?php $count++; } ?>
                                                                 </tbody>
+
                                                             </table>
                                                         </div>
 															

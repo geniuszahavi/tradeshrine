@@ -483,17 +483,18 @@ $page_header = 'Tradeshrine Programmes';
     <div class="modal fade" id="pay-method-modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" id="modal-hedarr">
                     <h5 class="modal-title" id="modal-title">Purchase A Course</h5>
                     <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                     
-                    <h6 id="transfer-countdown" style="display: none;">00:00</h6>
+                    <h6 id="timer-display" style="display: none;">00:00</h6>
                 </div>
 
                 <div class="modal-body" id="pay-body"  >
                     <form id="payment-form">
                         <div class="container">
                             <div class="row">
+                                
                                 <div class="col-md-12" id="make-payment-area">
                                     <p>Select the course duration and payment method that suits you.</p>
 
@@ -531,16 +532,17 @@ $page_header = 'Tradeshrine Programmes';
                         </div>
                         <div class="modal-footer" id="modal-footer-course">
                     
-                            <button type="submit" form="payment-form" id="pay-method-btn" class="btn btn-primary btn-left">Enroll Now</button>
-                            <button type="button" class="btn btn-primary "><i class="fa fa-spin fa-spinner"></i></button>
+                            <button type="submit" form="payment-form" id="pay-method-btn" class="btn btn-primary btn-left">Proceed</button>
+                            <button type="button" class="btn btn-primary disabled" style="display:none"><i class="fa fa-spin fa-spinner"></i></button>
+                            
                         </div>
                     </form>
                 </div>
                 <div class="modal-body" id="bank-transfer-area" style="display:none">
                     <div class="container">
-                        <div class="row">
+                        <div class="row" id="detais-div">
                             <div class="col-md-12" id="make-payment-area">
-                                <p>Kindly transfer the payment to the following bank details and upload the payment proof. This typical takes 2 - 5 minutes.</p>
+                                <p>Kindly transfer the payment of <span class="h6"> &#8358;<span id="dynamic-price"></span>  </span>to the following bank details and upload the payment proof. This typical takes 2 - 5 minutes.</p>
 
                                 <!-- Bank Details -->
                                 <div class="mb-3 form-group">
@@ -550,6 +552,7 @@ $page_header = 'Tradeshrine Programmes';
                                         <strong>Account Number:</strong> 
                                         <span id="account-number">1234567890</span> 
                                         <i class="fa fa-copy" id="copy-account-number"></i>
+                                        <small class="text-success" id="copy-success"></small>
                                     </p>
                                 </div>                             
 
@@ -558,13 +561,28 @@ $page_header = 'Tradeshrine Programmes';
                                     <small class="text-danger" id="pay-method-error"></small>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer" id="transfer-footer">
                         <button id="back-to-method" class="btn btn-warning">Back</button>
-                        <button type="button" id="transfer-proceed" class="btn btn-primary btn-left">Enroll Now</button>
+                        <button type="button" id="transfer-proceed" class="btn btn-primary btn-left">Upload Proof</button>
                         <input type="file" style="display:none;" id="transfer-screenshot">
                     </div>
+                </div>
+
+                <div class="modal-body" id="success-modal" style="display: none;">
+                    <div class="container">
+                        <div class="row" id="success-div">
+                                <h1 class="text-center text-warning"><i class=" fa fa-spin fa-spinner"></i></h1>
+                                <h4 class="text-warning text-center">Transfer Processing </h4>
+                                    
+                                </div>
+                                <p>Your payment has been received. Your academy subscription will be active shortly. You can check progress by clicking the link below.</p>
+                                <a href="pending-academy.php" class="btn btn-primary">Track Status</a>
+                        </div>
+                    </div>
+
                 </div>
 
 
@@ -573,14 +591,41 @@ $page_header = 'Tradeshrine Programmes';
         </div>
     </div>
 
+    <div class="modal-body" id="transfer-success">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" id="">
+
+                    <div class="mb-3 form-group">
+                        <h4>Successful <i class=" fa fa-thummbs-up"></i></h4>
+                        
+                    </div>
+                    <p>Your payment has been received. Check your email for further instructions.</p>
+
+                    
+
+                    
+
+                    <div class="mb-3">
+                        <small class="text-danger" id="pay-method-error"></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="back-to-method" class="btn btn-warning">Back</button>
+            <button type="button" id="transfer-proceed" class="btn btn-primary btn-left">Upload Proof <i class="fa fa-upload"></i></button>
+            <input type="file" style="display:none;" id="transfer-screenshot">
+        </div>
+    </div> -->
+
     <!-- Transfer Modal -->
-    <div class="modal-body" id="bank-transfer-area">
+    <!-- <div class="modal-body" id="bank-transfer-area">
         <div class="container">
             <div class="row">
                 <div class="col-md-12" id="make-payment-area">
                     <p>Please transfer the payment to the following bank details and upload the payment proof.</p>
 
-                    <!-- Bank Details -->
                     <div class="mb-3 form-group">
                         <label for="bank-details" class="form-label"><strong>Bank Details</strong></label>
                         <p><strong>Bank Name:</strong> First Bank of Nigeria</p>
@@ -594,7 +639,6 @@ $page_header = 'Tradeshrine Programmes';
 
                     
 
-                    <!-- Error Message Display -->
                     <div class="mb-3">
                         <small class="text-danger" id="pay-method-error"></small>
                     </div>
@@ -606,7 +650,9 @@ $page_header = 'Tradeshrine Programmes';
             <button type="button" id="transfer-proceed" class="btn btn-primary btn-left">Upload Proof <i class="fa fa-upload"></i></button>
             <input type="file" style="display:none;" id="transfer-screenshot">
         </div>
-    </div>
+    </div> -->
+
+
 
 
 

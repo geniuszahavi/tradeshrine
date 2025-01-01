@@ -266,4 +266,30 @@ class User extends Dbh {
 
     }
 
+    public function academySignUpFile($userName, $chosenMethod, $coursePrice, $classCategory, $expDate, $userID, $filename){
+
+        if($coursePrice >= 300){
+            $signal = 1;
+        }else{
+            $signal = 0;
+
+        }
+        $tableName = "academy";
+        $columns = ["user_id", "student_name", "payment_method", "amount_paid", "course_chosen", "status", "signal_status", "exp_date", "payment_proof"];
+        $values = [$userID, $userName, $chosenMethod, $coursePrice, $classCategory, 'pending', $signal, $expDate, $filename];
+
+        $insertedId = insertData($tableName, $columns, $values);
+
+
+        if ($insertedId) {
+        //    return $insertedId;
+        // echo "Done";
+        return true;
+        } else {
+            echo "Failed to insert data.";
+        }
+        return true;
+
+    }
+
 }

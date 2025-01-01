@@ -57,6 +57,8 @@ $userDetails = $User->getUserById($userID);
 	<link href="./fonts.googleapis.com/css2e91f.css?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="./cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.css">
 	<link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+
 
 	
 	<!-- Style css -->
