@@ -133,45 +133,14 @@ $page_header = 'Pending Crypto Deposits';
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                    $query = "SELECT * FROM deposit_requests WHERE user_id = ?";
-                                                                    $stmt = $Server->connect()->prepare($query);
-                                                                    $stmt->execute([$userID]);
-                                                                    $count = 1;
-
-                                                                    while ($row = $stmt->fetch()) {
-                                                                        try {
-                                                                            $dateTimeString = $row['req_date'];
-                                                                            $dateTime = new DateTime($dateTimeString);
-                                                                            $formattedDateTime = $dateTime->format('F j, Y \a\t g:ia');
-                                                                        } catch (Exception $e) {
-                                                                            $formattedDateTime = "Invalid date";
-                                                                        }
-                                                                        ?>
-                                                                        <tr>
-                                                                            <td><strong><?php echo $count; ?></strong></td>
-                                                                            <td><?php echo number_format(htmlspecialchars($row['amount'])); ?></td>
-                                                                            <td><?php echo number_format(htmlspecialchars($row['coin_value']), 5) . ' ' . htmlspecialchars($row['coin_type']); ?></td>
-                                                                            <td><?php echo $formattedDateTime; ?></td>
-                                                                            <td><span class="badge light badge-warning">Pending</span></td>
-                                                                            <td>
-                                                                                <div class="dropdown">
-                                                                                    <button type="button" class="btn btn-warning light sharp" data-bs-toggle="dropdown">
-                                                                                        <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-                                                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                                                <rect x="0" y="0" width="24" height="24" />
-                                                                                                <circle fill="#000000" cx="5" cy="12" r="2" />
-                                                                                                <circle fill="#000000" cx="12" cy="12" r="2" />
-                                                                                                <circle fill="#000000" cx="19" cy="12" r="2" />
-                                                                                            </g>
-                                                                                        </svg>
-                                                                                    </button>
-                                                                                    <div class="dropdown-menu">
-                                                                                        <a class="dropdown-item" href="#">Contact Support</a>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    <?php $count++; } ?>
+                                                                        $query = "SELECT * FROM deposit_requests WHERE user_id = ?";
+                                                                        $stmt = $Server->connect()->prepare($query);
+                                                                        $stmt->execute([$userID]);
+                                                                        $count = 1;
+                                                                   
+                                                                        $allFetched = $stmt->fetchAll();
+                                                                        print_r($allFetched);
+                                                                   ?>
                                                                 </tbody>
 
                                                             </table>

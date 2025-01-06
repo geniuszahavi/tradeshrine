@@ -9,6 +9,13 @@ include 'ts_templates/head.php';
 //     exit();
 // }
 
+if (isset($_GET['amount'])) {
+    $amount = htmlspecialchars($_GET['amount']); // Sanitize the input
+    // Now you can use $amount
+}else { 
+	$amount = 0; 
+}
+
 
 $page_header = 'Fund With Crypto';
 
@@ -131,7 +138,7 @@ $page_header = 'Fund With Crypto';
 															<div class="sell-blance">
 																<label class="form-label text-primary">Amount</label>
 																<div class="input-group">
-																	<input type="number" id="sell-coin-amount" class="form-control" placeholder="Amount">
+																	<input type="number" id="sell-coin-amount" class="form-control" value="<?php echo $amount; ?>">
 																	<span class="input-group-text">$</span>
 																</div>
 															</div>

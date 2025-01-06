@@ -912,6 +912,8 @@ $(document).ready(function () {
         var dMethod = $('#pay-method').val();
         if(dMethod == 'chipper'){
             console.log(dMethod)
+            $('#fiat-fund-area').hide();
+            $('#chipper-cash-area').show();
             $('#fiat-proceed').hide();
             $('#complete-chipper').show();
         }
@@ -931,6 +933,9 @@ $(document).ready(function () {
             $('#fiat-fund-back').fadeIn();
             $('#fiat-fund-area').fadeOut(200);
             $('#chipper-cash-area').fadeIn(300);
+
+        }else if(depositMethod =='crypto'){
+            location.replace('fund.php?amount='+amount)
 
         }else{
 

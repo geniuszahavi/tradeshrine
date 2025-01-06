@@ -279,15 +279,11 @@ $allTransactions = $Payments->allTransactions($userID);
 							<div class="mb-3 form-group">
 								<label class="form-label">Select list (select one):</label>
 								<select class="default-select form-control wide" id="pay-method" >
+									<option value="crypto" data-id="crypto">Fund With Crypto</option>
 									<option value="vpay">VPay (Card, Bank Transfer, etc)</option>
 									<option value="chipper" data-id="chipper">Chipper Cash</option>
 									<!-- <option value="giftcard" data-id="Gift">Gift Cards</option> -->
 									
-									<!-- <option value="SOLANA">SOLANA</option> -->
-									<!-- <option value="SHIBA INU">SHIBA INU</option>
-									<option value="DODGECOIN">DODGECOIN</option>
-									<option value="XRP">XRP</option>
-									<option value="TRX">TRX</option> -->
 								</select>
 							</div> <br> <br>
 							<div class="mb-3 form-group">
@@ -303,7 +299,7 @@ $allTransactions = $Payments->allTransactions($userID);
 							<small>Head to your Chipper cash wallet, copy the tag below and proceed with the transaction. After payment, upload a screenshot of the proof of payment. </small> <br>
 							</p>
 							<h4>Visa Direct Tag: tradeshrine</h4>
-							<h4> 4173 9600 5448 2037</h4>
+							<!-- <h4> 4173 9600 5448 2037</h4> -->
 							<input type="file" name="" id="chipper-proof" style="display: none;">
 							<!-- <button type="button" class="btn btn-dark" id="complete-chipper">Upload Screehsot</button>  -->
 						</div>
