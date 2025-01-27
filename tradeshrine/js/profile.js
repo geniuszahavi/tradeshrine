@@ -10,16 +10,16 @@ $(document).ready(function () {
               trade_id: $('#user_id').val()
         },
         success: function (response) {
-            // console.log(response);
+            console.log(response);
               if(response ==0 ){
                     // show modal to give way to intering account details on login in
-                    $('#add-bank-details').modal('show');
+                    // $('#add-bank-details').modal('show');
     
                     let dropdown = $('#locality-dropdown');
 
                     dropdown.empty();
                   
-                    dropdown.append('<option>Select Your Bank</option>');
+                    dropdown.append('<option>Select  Bank</option>');
                     dropdown.prop('selectedIndex', 0);
                     // var url;
                     // const url = '../banks.php'
@@ -54,7 +54,8 @@ $(document).ready(function () {
 
     $('#add-account-details').submit(function (e) { 
         e.preventDefault();
-        if ($('#acc_name').val() === '') {
+        alert('Submitted')
+        if ($('#acc_name').text() === '') {
             $('#acc_name_error').text('Account Name is required');
             return false;
         }else{
@@ -153,12 +154,12 @@ $(document).ready(function () {
    
 
 
-  $('#ref-link-cp').click(function (e) { 
-    e.preventDefault();
-    // alert("clicked")
-    withJquery($('#referral-link'), $('#ref-cp-alert'))
+    $('#ref-link-cp').click(function (e) { 
+        e.preventDefault();
+        // alert("clicked")
+        withJquery($('#referral-link'), $('#ref-cp-alert'))
     
-  });
+    });
 
     $('#w-method').change(function (e) { 
         e.preventDefault();

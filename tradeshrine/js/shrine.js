@@ -1,11 +1,12 @@
 $(document).ready(function () {
-    console.log("Hello")
     var fileToUpload, SentCoinName, SentCointAount, SentCoinValue, chipperSentAmount, buyWalletAddress;
 
     let CoursePlan ,
     ChosenMethod,
     CoursePrice,
     Currency;
+
+
 
     $(document).ajaxStart(function() {
         // Replace 'yourModalSelector' with the actual selector of your modal
@@ -1196,32 +1197,32 @@ $(document).ready(function () {
     });
     
         
-// $('#transfer-success').modal('show')    
-    
-    
-    
-//test for getting url value from attr
-// var img1 = $('.test').attr("data-thumbnail");
-// console.log(img1);
+    // $('#transfer-success').modal('show')    
+        
+        
+        
+    //test for getting url value from attr
+    // var img1 = $('.test').attr("data-thumbnail");
+    // console.log(img1);
 
-//test for iterating over child elements
-var langArray = [], coinToBuy = 'btc';
-$('.vodiapicker option').each(function(){
-  var img = $(this).attr("data-thumbnail");
-  var text = this.innerText;
-  var value = $(this).val();
-  var item = '<li><img src="'+ img +'" alt="" value="'+value+'"/><span>'+ text +'</span></li>';
-  langArray.push(item);
-})
+    //test for iterating over child elements
+    var langArray = [], coinToBuy = 'btc';
+    $('.vodiapicker option').each(function(){
+    var img = $(this).attr("data-thumbnail");
+    var text = this.innerText;
+    var value = $(this).val();
+    var item = '<li><img src="'+ img +'" alt="" value="'+value+'"/><span>'+ text +'</span></li>';
+    langArray.push(item);
+    })
 
-$('#a').html(langArray);
+    $('#a').html(langArray);
 
-//Set the button value to the first el of the array
+    //Set the button value to the first el of the array
     $('.btn-select').html(langArray[0]);
     $('.btn-select').attr('value', 'btc');
 
 
-//change button stuff on click
+    //change button stuff on click
     $('#a li').click(function(){
         var img = $(this).find('img').attr("src");
         var value = $(this).find('img').attr('value');
@@ -1478,9 +1479,106 @@ $('#a').html(langArray);
         $('#bank-transfer-area').hide();
         $('#pay-body').show();
     });
+
+    $('#add-account-btn').click(function (e) {
+        e.preventDefault();
+        $('#add-account-details').show();
+    });
     
 
+    $(document).ready(function () {
+
+        if (window.location.pathname.indexOf('profile.php') !== -1) {
+            referralCode = $('#ref-link').val();
+            var referralLink = "tradeshrine.com/profile?re=" + referralCode; 
+            // Replace generateReferralCode() with your logic to generate the referral code
+
+            document.documentElement.style.setProperty('--bs-breadcrumb-divider', `"${referralLink}"`);
+        }
+        
+    });
+
+
+    $('#copy-button').click(function () {
+        var referralLink = "tradeshrine.com/profile?re=" + referralCode;
+        var tempInput = $('<input>');
+        $('body').append(tempInput);
+        tempInput.val(referralLink).select();
+        document.execCommand('copy');
+        tempInput.remove();
+        alert('Referral link copied to clipboard!');
+    });
   
+   
+
+    
+
+
+    $('#acc-form').submit(function (e) { 
+        e.preventDefault();
+        if($('#acc_gigits').val() ==""){
+              $('#acc_gigits_error').text("*Please enter your account number");
+              message("Please enter your account number", 'info');
+  
+              setTimeout(function() {
+                    $('#acc_gigits_error').text('');
+                    
+              }, 4000);
+              return false;
+        }else if($('#acc_gigits').val().trim().length < 10){
+              $('#acc_gigits_error').text("*Sorry, account number should be 10 digits long");
+              message("Account Number too Short", 'info');
+  
+              setTimeout(function() {
+                    $('#acc_gigits_error').text('');
+                    
+              }, 4000);
+              return false;
+  
+  
+        }else if(isNaN($('#acc_gigits').val())){
+              message("Invalid characters", 'info');
+              setTimeout(function() {
+                    $('#acc_gigits_error').text('');
+                    
+              }, 4000);
+              return false;
+        
+        }else{
+              
+              let acc_name = $('#acc_name').val(), acc_gigits = $('#acc_gigits').val(), bank_name = $("#locality-dropdown option:selected").text();
+  // 			console.log(bank_name)
+              
+              $.ajax({
+                    type: "post",
+                    url: "bx_includes/add_details",
+                    data: {
+                          acc_name:acc_name,
+                          acc_gigits:acc_gigits,
+                          bank_name:bank_name,
+                          trade_id: $('#trade_id').val()
+                    },
+                    // dataType: "text",
+                    success: function (response) {
+                        //   console.log(response)
+                          if(response == 4){
+                                
+                                message("<b>Network Error - </b> Try later", 'danger', 'mdi mdi-access-point-network           ');
+  
+                          }else if (response == 1){
+                                success_message("<b>Bingo!</b> - Banking submitted successfully!", 'success', 'mdi mdi-check-all');
+                                $('#add_details_modal').modal('hide');
+                                setTimeout(function(){
+                                      location.reload();
+                                }, 5000);
+                          }
+                    }
+              });
+        }
+        
+    });
+
+    
 });
 
 

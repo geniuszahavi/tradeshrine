@@ -102,7 +102,7 @@ $page_header = 'Tradeshrine Programmes';
                             // Convert expiry date to timestamp
 
                             // Check if current time is past the expiry date
-                            if ($academyDetails !== false && $academyDetails['status'] !== 'pending') { ?>
+                            if ($academyDetails !== false && $academyDetails["academy_status"] !== 'pending') { ?>
                                 <div class="col-xl-6  col-lg-6">
                     
                                     <div class="card">

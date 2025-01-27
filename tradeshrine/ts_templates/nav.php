@@ -28,23 +28,23 @@
                 </a>
                 
             </li>
-            <li><a class="has- " href="javascript:void(0);" aria-expanded="false">
+            <!-- <li><a class="has- " href="javascript:void(0);" aria-expanded="false">
                     <i class="material-icons">description</i>	
                     <span class="nav-text">Referrals</span>
                 </a>
-            </li>
-            <li><a class="has- " href="javascript:void(0);" aria-expanded="false">
+            </li> -->
+            <li><a class="has- " href="profile.php" aria-expanded="false">
                 <i class="material-icons">app_registration </i>
                 <span class="nav-text">My Account</span>
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a class="has- " href="javascript:void(0);" aria-expanded="false">
                     
                     <i class="material-icons"> favorite </i>
                     <span class="nav-text">Gifts Card Trading</span>
                 </a>
-            </li>
+            </li> -->
             <li>
                 <a href="javascript:void(0);" class="" aria-expanded="false">
                     <i class="bi bi-gear-wide"></i>

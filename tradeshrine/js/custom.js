@@ -296,15 +296,15 @@ var CryptoZone = function(){
 		});
 	}
 	
-	var handleLightgallery = function(){
-		if(jQuery('#lightgallery').length > 0){
-			$('#lightgallery').lightGallery({
-				loop:true,
-				thumbnail:true,
-				exThumbImage: 'data-exthumbimage'
-			});
-		}
-	}
+	// var handleLightgallery = function(){
+	// 	if(jQuery('#lightgallery').length > 0){
+	// 		$('#lightgallery').lightGallery({
+	// 			loop:true,
+	// 			thumbnail:true,
+	// 			exThumbImage: 'data-exthumbimage'
+	// 		});
+	// 	}
+	// }
 	var handleCustomFileInput = function() {
 		$(".custom-file-input").on("change", function() {
 			var fileName = $(this).val().split("\\").pop();
@@ -317,20 +317,20 @@ var CryptoZone = function(){
         $(".chatbox .msg_card_body").css('height',ch);
     }
     
-	var domoPanel = function(){
-		const ps = new PerfectScrollbar('.dz-demo-content');
-		$('.dz-demo-trigger').on('click', function() {
-				$('.dz-demo-panel').addClass('show');
-		  });
-		  $('.dz-demo-close, .bg-close,.dz_theme_demo').on('click', function() {
-				$('.dz-demo-panel').removeClass('show');
-		  });
+	// var domoPanel = function(){
+	// 	const ps = new PerfectScrollbar('.dz-demo-content');
+	// 	$('.dz-demo-trigger').on('click', function() {
+	// 			$('.dz-demo-panel').addClass('show');
+	// 	  });
+	// 	  $('.dz-demo-close, .bg-close,.dz_theme_demo').on('click', function() {
+	// 			$('.dz-demo-panel').removeClass('show');
+	// 	  });
 		  
-		  $('.dz-demo-bx').on('click', function() {
-			  $('.dz-demo-bx').removeClass('demo-active');
-			  $(this).addClass('demo-active');
-		  });
-	} 
+	// 	  $('.dz-demo-bx').on('click', function() {
+	// 		  $('.dz-demo-bx').removeClass('demo-active');
+	// 		  $(this).addClass('demo-active');
+	// 	  });
+	// } 
 	
 	var handleDatetimepicker = function(){
 		if(jQuery("#datetimepicker1").length>0) {
@@ -556,10 +556,10 @@ var CryptoZone = function(){
 			handleshowPass();
 			heartBlast();
 			handleDzLoadMore();
-			handleLightgallery();
+			// handleLightgallery();
 			handleCustomFileInput();
 			vHeight();
-			domoPanel();
+			// domoPanel();
 			handleDatetimepicker();
 			handleCkEditor();
 			headerFix();

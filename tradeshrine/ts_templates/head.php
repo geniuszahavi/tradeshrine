@@ -25,7 +25,18 @@ $User = new User();
 
 
 $userDetails = $User->getUserById($userID);
-
+$firstName = $userDetails['first_name'];
+$fullName = $userDetails['first_name'] . ' ' . $userDetails['last_name'];
+$email = $userDetails['email'];
+$phone = $userDetails['phone'];	
+$wallet = $userDetails['wallet'];
+$referralCode = $userDetails['referl_code'];
+$referralBonus = $userDetails['referral_wallet'];
+// $referralEarnings = $userDetails['referral_earnings'];
+$referralCount = $User->getReferralDetails($userID);
+$referralCount = count($referralCount);
+// $referralEarnings = $referralEarnings['total_earnings'];
+// $referralEarnings = $referralEarnings + $referralBonus;
 
 
 

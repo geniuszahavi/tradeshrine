@@ -166,10 +166,11 @@ function getName(){
                 code: $('#locality-dropdown').val()
     },
           success: function (ac_name) {
+            console.log(ac_name)
             $('#find-loader').hide();
                 ac_name = JSON.parse(ac_name);
                 if(ac_name.status == true){
-                      $('#acc_name').val(ac_name.data.account_name)
+                      $('#acc_name').text(ac_name.data.account_name)
                 // 	$('#bank_name').val(ac_name.data)
                     //   $('#acc_name_error').text("Account name retrieved")
                 }else{
@@ -258,4 +259,9 @@ const element = $('#timer-display'); // Adjust selector based on your HTML
 
 // Start the interval and save the ID to the global variable
 timerInterval = setInterval(() => updateTimer(timerEndTime, element), 1000);
+
+
+
+ // Resolve Account details area
+ 
 

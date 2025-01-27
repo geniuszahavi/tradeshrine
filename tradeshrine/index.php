@@ -240,11 +240,8 @@ $allTransactions = $Payments->allTransactions($userID);
         <!--**********************************
             Footer start
         ***********************************-->
-        <div class="footer out-footer">
-            <div class="copyright">
-               <p>Copyright © Tradeshrine</p>
-            </div>
-        </div>
+		<?php include 'ts_templates/footer.php'; ?>
+        
         <!--**********************************
             Footer end
         ***********************************-->

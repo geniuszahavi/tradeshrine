@@ -102,6 +102,16 @@ class User extends Dbh {
 
         return $stmt->fetch();
     }
+    public function getReferralDetails($userID) {
+        $sql = "SELECT * FROM referrals WHERE referer_id = ?";
+
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$userID]);
+
+        return $stmt->fetchAll();
+    }
+
+
 
     public function eheckByEmail($email) {
         $sql = "SELECT * FROM users WHERE email = ?";
