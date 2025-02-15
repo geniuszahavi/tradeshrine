@@ -276,7 +276,7 @@ class User extends Dbh {
 
     }
 
-    public function academySignUpFile($userName, $chosenMethod, $coursePrice, $classCategory, $expDate, $userID, $filename){
+    public function academySignUpFile($userName, $chosenMethod, $coursePrice, $classCategory, $expDate, $userID, $filename, $cryptoValue = null){
 
         if($coursePrice >= 300){
             $signal = 1;
@@ -285,8 +285,8 @@ class User extends Dbh {
 
         }
         $tableName = "academy";
-        $columns = ["user_id", "student_name", "payment_method", "amount_paid", "course_chosen", "status", "signal_status", "exp_date", "payment_proof"];
-        $values = [$userID, $userName, $chosenMethod, $coursePrice, $classCategory, 'pending', $signal, $expDate, $filename];
+        $columns = ["user_id", "student_name", "payment_method", "amount_paid", "course_chosen", "academy_status", "signal_status", "exp_date", "payment_proof", 'crypto_value'];
+        $values = [$userID, $userName, $chosenMethod, $coursePrice, $classCategory, 'pending', $signal, $expDate, $filename, $cryptoValue ?? 0];
 
         $insertedId = insertData($tableName, $columns, $values);
 

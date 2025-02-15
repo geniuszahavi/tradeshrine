@@ -21,7 +21,7 @@ message = function(message, color, icon) {
 }
 
 
-function uploadProof(fileToUpload, coinName, coinAmount, coinValue){
+function uploadProof(fileToUpload, coinName, coinAmount, coinValue){ 
     let formData = new FormData();
             let xhr = new XMLHttpRequest(); 
 
@@ -222,13 +222,16 @@ function startTimer(duration, display) {
 // Retrieve or initialize the timer's end time
 function getEndTime(totalTime) {
     const storedEndTime = localStorage.getItem('timerEndTime');
-    if (storedEndTime) {
+
+    // Ensure storedEndTime is valid and in the future
+    if (storedEndTime && !isNaN(storedEndTime) && parseInt(storedEndTime, 10) > Date.now()) {
         return parseInt(storedEndTime, 10);
-    } else {
-        const endTime = Date.now() + totalTime * 1000; // Set new end time
-        localStorage.setItem('timerEndTime', endTime);
-        return endTime;
-    }
+    } 
+
+    // Otherwise, set a new end time
+    const endTime = Date.now() + totalTime * 1000;
+    localStorage.setItem('timerEndTime', endTime);
+    return endTime;
 }
 
 // UPDATE TIMER

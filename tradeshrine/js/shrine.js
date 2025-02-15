@@ -1,10 +1,7 @@
 $(document).ready(function () {
     var fileToUpload, SentCoinName, SentCointAount, SentCoinValue, chipperSentAmount, buyWalletAddress;
 
-    let CoursePlan ,
-    ChosenMethod,
-    CoursePrice,
-    Currency;
+    let CoursePlan, ChosenMethod, CoursePrice,  Currency;
 
 
 
@@ -100,6 +97,8 @@ $(document).ready(function () {
             //     $('#deposit-modal').modal('hide')
             //     $('#qr-modal').modal('show')
             // });
+
+            
             $.ajax({
                 type: "GET",
                 url: "../api/cryptoPrice.php",
@@ -239,21 +238,7 @@ $(document).ready(function () {
     })
 
 
-    $('#complete-crypto').click(function(e){
-        e.preventDefault();
-
-        $('#crypto-proof').trigger('click');
-    })
-
-    $('#crypto-proof').change(function (e) {
-        console.log(e.target.files)
-        if (e.target.files[0]['size'] > 10085867) {
-            alert('File too large');
-        } else {
-            fileToUpload = e.target.files[0];
-            uploadProof(fileToUpload, SentCoinName, SentCointAount, SentCoinValue)
-        }
-    });
+    
 
    
 
@@ -443,7 +428,7 @@ $(document).ready(function () {
     // Show rate
     $('#buy-coin-amount').on('keyup', function(){
         var amount = Number($(this).val());
-        per = amount * 0.017;
+        per = amount + 1.7;
         console.log(per);
         total = amount + per;
         $('#buy-coin-total').text( total.toLocaleString(2,2) )
@@ -615,6 +600,10 @@ $(document).ready(function () {
             $('#sell-crypto-report').text("Minimum trading amount is $10");
             console.log(total)
         }else{
+
+            $('#sell-coin-btn').hide();
+            $('#sell-coin-loader').show();
+
             $.ajax({
                 type: "GET",
                 url: "../api/cryptoPrice.php",
@@ -912,6 +901,7 @@ $(document).ready(function () {
         console.log('Hello World')
         var dMethod = $('#pay-method').val();
         if(dMethod == 'chipper'){
+            alert('Chipper')
             console.log(dMethod)
             $('#fiat-fund-area').hide();
             $('#chipper-cash-area').show();
@@ -935,8 +925,9 @@ $(document).ready(function () {
             $('#fiat-fund-area').fadeOut(200);
             $('#chipper-cash-area').fadeIn(300);
 
-        }else if(depositMethod =='crypto'){
-            location.replace('fund.php?amount='+amount)
+        } else if (depositMethod == 'crypto') {
+            localStorage.setItem('cryptoPaymentAmount', amount);
+            location.replace('pay_with_crypto.php');
 
         }else{
 
@@ -994,25 +985,7 @@ $(document).ready(function () {
         }
     });
 
-    $('#complete-chipper').click(function (e) { 
-        e.preventDefault();
-        $('#chipper-proof').trigger('click');
-        
-    });
-
-    $('#chipper-proof').change(function (e) { 
-        e.preventDefault();
-        console.log(e.target.files)
-        if (e.target.files[0]['size'] > 10085867) {
-            alert('File too large');
-        } else {
-            fileToUpload = e.target.files[0];
-            var chipperSentAmount = $('#fiat-depo-amt').val();
-            var depositMethod = $('#pay-method').val();
-            uploadProof(fileToUpload, 'Chiiper Cash', chipperSentAmount, depositMethod)
-        }
-        
-    });
+    
 
 
     $('#fiat-fund-back').click(function (e) { 
@@ -1042,6 +1015,7 @@ $(document).ready(function () {
         let valid = true;
         let coursePlan = $("#course-plan").val();
         let paymentMethod = $("#aca-pay-method").val();
+        CoursePlan = coursePlan;
     
         if (coursePlan === "") {
             valid = false;
@@ -1054,8 +1028,10 @@ $(document).ready(function () {
         }
     
         if (valid) {
+            
             // Get the price from the coursePrices object based on the selected coursePlan
-            let coursePrice = coursePrices[coursePlan].price;
+            coursePrice = coursePrices[coursePlan].price;
+            CoursePrice = coursePrice;
             let coursePriceNaira = coursePrices[coursePlan].nairaEquivalent;
             coursePriceNaira = Number(coursePriceNaira);
             coursePriceNaira = coursePriceNaira.toLocaleString;
@@ -1089,6 +1065,7 @@ $(document).ready(function () {
                     }
                 });
             }else if(paymentMethod === "bank-transfer"){
+                console.log(paymentMethod)
 
                 $.ajax({
                     type: "get",
@@ -1099,11 +1076,44 @@ $(document).ready(function () {
                         response = $.parseJSON(response);
                         if(response.status == 'success'){
                             $('#pay-body').hide(200);
-                            $('#modal-title').text("Complete Transfer");
+                            $('#modal-title').text("Pay With Bank Transfer");
                             $('#bank-transfer-area').show(400);
                             $('#timer-display').show(450);
                             var amountToSendd = (coursePrice * response.naira_rate).toLocaleString();
                             $('#dynamic-price').text(amountToSendd);
+                        
+                            let element = $('#timer-display');
+                        
+                            const totalTime = 5 * 60; // 5 minutes in seconds
+                            const timerEndTime = getEndTime(totalTime);
+                        
+                            // Start the timer
+                            const timerInterval = setInterval(() => updateTimer(timerEndTime, element), 1000);
+                            updateTimer(timerEndTime, element); // Run once immediately
+                        }
+                            
+                    }
+                });
+                
+
+            }else if(paymentMethod === "chipper"){
+                console.log('Chipper')
+
+                $.ajax({
+                    type: "get",
+                    url: "../api/getRate.php",
+                    data: "data",
+                    success: function (response) {
+                        console.log(response)
+                        response = $.parseJSON(response);
+                        if(response.status == 'success'){
+                            $('#pay-body').hide(200);
+                            $('#modal-title').text("Pay With Chipper Cash");
+                            $('#chipper-area').show(400);
+                            $('#timer-display').show(450);
+                            var amountToSendd = (coursePrice * response.naira_rate).toLocaleString();
+                            $('#dynamic-price-chipper').text(amountToSendd);
+                            chipperSentAmount = amountToSendd;
 
                             CoursePlan = coursePlan;
                             Currency = currency;
@@ -1127,6 +1137,49 @@ $(document).ready(function () {
                 });
                 
 
+            }else if(paymentMethod === "crypto"){
+                localStorage.setItem('amount', coursePrice);
+                localStorage.setItem('coursePlan', CoursePlan);
+                localStorage.setItem('currency', Currency);
+
+
+    
+
+                // Retrieve the amount from localStorage to verify
+                var storedAmount = localStorage.getItem('amount');
+                console.log('Stored amount:', storedAmount);
+
+                // Check if the amount was successfully added
+                if (storedAmount) {
+                    console.log('Amount successfully added to localStorage.');
+                    location.replace('pay_with_crypto.php');
+                }
+                // location.replace('pay_with_crypto.php?amount='+coursePrice)
+            }else if(paymentMethod === "gift-card"){
+                $('#pay-body').hide(200);
+                $('#modal-title').text("Pay With Gift Card");
+                $('#gift-card-area').show(400);
+                $('#timer-display').show(450);
+                var amountToSendd = coursePrice;
+                $('#dynamic-price-giftcard').text(amountToSendd);
+                chipperSentAmount = amountToSendd;
+
+                CoursePlan = coursePlan;
+                Currency = currency;
+                CoursePrice = coursePrice;
+
+                let element = $('#timer-display');
+                console.log(element);
+
+                const totalTime = 5 * 60; // 5 minutes in seconds
+
+                const timerEndTime = getEndTime(totalTime); // Your function to get end time
+
+                // Check every second
+                const timerInterval = setInterval(() => updateTimer(timerEndTime, element), 1000);
+
+                // Run once initially to set the correct time on page load
+                updateTimer(timerEndTime, element);
             }
     
             // Handle other payment methods (e.g., bank transfer, crypto) here if needed
@@ -1150,31 +1203,31 @@ $(document).ready(function () {
 
     // Trigger file input when 'Enroll Now' is clicked
     $("#transfer-proceed").on("click", function() {
-        $("#transfer-screenshot").click();
+        $("#bank-transfer-screenshot").click();
     });
 
     // Handle file input change event and send data via AJAX
-    $("#transfer-screenshot").on("change", function() {
+    $("#bank-transfer-screenshot").on("change", function() {
         const formData = new FormData();
-        console.log(CoursePlan)
-
+        console.log(CoursePlan);
+    
         formData.append("coursePlan", CoursePlan);
         formData.append("chosenMethod", "bank transfer");
         formData.append("coursePrice", CoursePrice);
         formData.append("currency", Currency);
-        formData.append("screenshot", this.files[0]);
-
+        formData.append("screenshot", this.files[0]); // Uncomment this line if you want to send the screenshot file
+    
         $.ajax({
             type: "POST",
             url: "../api/academySubscription.php",
             data: formData,
-            processData: false,
-            contentType: false,
+            processData: false, // Prevent jQuery from automatically transforming the data into a query string
+            contentType: false, // Set the content type to false as jQuery will tell the server its a query string request
             success: function(response) {
                 console.log(response);
-                response = $.parseJSON(response)
+                response = $.parseJSON(response);
                 if (response.status == "success") {
-                    $('#bank-transfer-area').remove(100)
+                    $('#bank-transfer-area').remove(100);
                     $('#bank-transfer-area').hide();
                     $('#modal-hedarr').hide();
                     $('#detais-div').remove();
@@ -1195,6 +1248,124 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('#complete-chipper').click(function (e) { 
+        e.preventDefault();
+        $('#chipper-proof').trigger('click');
+        
+    });
+
+    $('#chipper-proof').change(function (e) { 
+        e.preventDefault();
+        const formData = new FormData();
+        console.log(e.target.files)
+
+        formData.append("coursePlan", CoursePlan);
+        formData.append("chosenMethod", "Chipper Cash");
+        formData.append("coursePrice", CoursePrice);
+        formData.append("currency", Currency);
+        formData.append("screenshot", this.files[0]); // Uncomment this line if you want to send the screenshot file
+    
+        $.ajax({
+            type: "POST",
+            url: "../api/academySubscription.php",
+            data: formData,
+            processData: false, // Prevent jQuery from automatically transforming the data into a query string
+            contentType: false, // Set the content type to false as jQuery will tell the server its a query string request
+            success: function(response) {
+                console.log(response);
+                response = $.parseJSON(response);
+                if (response.status == "success") {
+                    $('#chipper-area').remove(100);
+                    $('#chipper-area').hide();
+                    $('#modal-hedarr').hide();
+                    $('#chipper-detais-div').remove();
+                    $('#modal-title').text('');
+                    $('#success-modal').show(200);
+                    // $('#make-payment-area').html(`
+                    //     <p class="text-success">Your payment has been received. Check your email for further instructions.</p>
+                    // `);
+                    // setTimeout(function() {
+                    //     location.reload();
+                    // }, 3000);
+                } else {
+                    $('#pay-method-error').text('Error: ' + response);
+                }
+            },
+            error: function() {
+                $('#pay-method-error').text('An error occurred. Please try again.');
+            }
+        });
+
+
+        // if (e.target.files[0]['size'] > 10085867) {
+        //     alert('File too large');
+        // } else {
+        //     fileToUpload = e.target.files[0];
+        //     var chipperSentAmount = $('#fiat-depo-amt').val();
+        //     var depositMethod = $('#pay-method').val();
+        //     uploadProof(fileToUpload, 'Chipper Cash',  chipperSentAmount)
+        // }
+        
+    });
+
+    // Crypto Payment
+    $('#complete-crypto').click(function (e) { 
+        e.preventDefault();
+        $('#crypto-proof').trigger('click');
+        
+    });
+
+    $('#crypto-proof').change(function (e) { 
+        e.preventDefault();
+        const formData = new FormData();
+        console.log(e.target.files);
+    
+        localStorage = window.localStorage;
+        coursePrice = localStorage.getItem('amount'); // Corrected method name
+        CoursePlan = localStorage.getItem('coursePlan'); // Corrected method name
+        Currency = localStorage.getItem('currency'); // Corrected method name
+        coinValue = localStorage.getItem('coinValue'); // Corrected method name
+        cryptoValue = localStorage.getItem('coinValue'); // Corrected method name
+
+        console.log(cryptoValue)
+    
+        formData.append("coursePlan", CoursePlan);
+        formData.append("chosenMethod", "Crypto");
+        formData.append("coursePrice", coursePrice);
+        formData.append("currency", Currency);
+        formData.append("cryptoValue", cryptoValue);
+        formData.append("screenshot", this.files[0]); // Uncomment this line if you want to send the screenshot file
+    
+        $.ajax({
+            type: "POST",
+            url: "../api/academySubscription.php",
+            data: formData,
+            processData: false, // Prevent jQuery from automatically transforming the data into a query string
+            contentType: false, // Set the content type to false as jQuery will tell the server its a query string request
+            success: function(response) {
+                console.log(response);
+                response = $.parseJSON(response);
+                if (response.status == "success") {
+                    $('#payment-card').hide();
+                    $('#success-modal').show(200);
+                    // $('#make-payment-area').html(`
+                    //     <p class="text-success">Your payment has been received. Check your email for further instructions.</p>
+                    // `);
+                    // setTimeout(function() {
+                    //     location.reload();
+                    // }, 3000);
+                } else {
+                    $('#pay-method-error').text('Error: ' + response);
+                }
+            },
+            error: function() {
+                $('#pay-method-error').text('An error occurred. Please try again.');
+            }
+        });
+    });
+
+
     
         
     // $('#transfer-success').modal('show')    
@@ -1280,13 +1451,15 @@ $(document).ready(function () {
                         var coinTypePriceValue = coinTypePrice.price;
                         var TSChargers = coinTypePrice.price * 0.019;
                         // var coinTypePriceValue = coinTypePrice.price - TSChargers;
-                        coinTypePrice = coinTypePriceValue - TSChargers;
+                        coinTypePrice = coinTypePriceValue + TSChargers;
                         $('#buy-coin-amt').text(walletAddress)
                         $('#buy-coin-to-send').text(coinType);
                         // $('#buy-coin-to-send-network').text('- '+coinNetwork);
                         $('#buy-crypto-modal').modal('hide')
                         $('#buy-modal').modal('show')
                         SentCoinValue = coinTypePrice
+                        localStorage.setItem('coinValue', coinTypePrice);
+
                         
                         
         
@@ -1474,9 +1647,14 @@ $(document).ready(function () {
 
 
     // SIMPLE User Functions
-    $('#back-to-method').click(function (e) { 
+    $('#back-to-method-transfer').click(function (e) { 
         e.preventDefault();
         $('#bank-transfer-area').hide();
+        $('#pay-body').show();
+    });
+    $('#back-to-method-chipper').click(function (e) { 
+        e.preventDefault();
+        $('#chipper-area').hide();
         $('#pay-body').show();
     });
 

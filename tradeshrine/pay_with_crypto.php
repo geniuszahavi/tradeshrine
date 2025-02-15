@@ -1,5 +1,5 @@
 <?php 
-$page_title = "User Account | Tradeshrine";
+$page_title = "Pay With Crypto | Tradeshrine";
 include 'ts_templates/head.php';
 // print_r(($userDetails));
  
@@ -99,7 +99,7 @@ $page_header = 'Fund With Crypto';
 						<div class="row">
 							<div class="col-xl-12 col-sm-6">
 								<div class="card h-auto">
-									<div class="card-body px-0 pt-1">
+									<div class="card-body px-0 pt-1" id="payment-card">
 										<div class="" id="buy-sell-area">
 											<nav class="buy-sell">
 											  <!-- <div class="nav nav-tabs" id="nav-tab2" role="tablist">
@@ -121,7 +121,8 @@ $page_header = 'Fund With Crypto';
 													<div class="sell-element">
 														<form id="sell-crypto-form">
 															<div class="sell-blance">
-																<label class="form-label text-primary">Choose Coin To Sell</label>
+																<h3>Pay With Crypto</h3>
+																<label class="form-label text-primary">What currency would you be paying with?</label>
 
 																<div class="input-group">
                                                                     
@@ -138,7 +139,8 @@ $page_header = 'Fund With Crypto';
 															<div class="sell-blance">
 																<label class="form-label text-primary">Amount</label>
 																<div class="input-group">
-																	<input type="number" id="sell-coin-amount" class="form-control" value="<?php echo $amount; ?>">
+																	
+																	<input type="number" id="sell-coin-amount" class="form-control diabled" disabled>
 																	<span class="input-group-text">$</span>
 																</div>
 															</div>
@@ -150,13 +152,15 @@ $page_header = 'Fund With Crypto';
 															</div> -->
                                                             <div class="sell-blance">
 																<!-- <label class="form-label text-primary"><b>Fee</b>: 1.7% </label> -->
-																<div class="form-label blance"><span>Amount To Send:</span>$<p id="sell-coin-total">0.00</p></div><br>
+																<div class="form-label blance"><span>Fee:</span>$<p id="sell-coin-total">1.70</p></div><br>
                                                                 <!-- <p class="text-justify"><small>Ensure you provide a wallet address for the exact coin and network type you select. Sending anything else may result at a loss.</small></p> -->
 															</div>
 															<p><small id="sell-crypto-report"></small></p>
 															<div class="text-center">
                                                                 <p class="small text-danger" id="sell-crypto-report"></p>
 																<button id="sell-coin-btn" class="btn btn-primary w-75">Proceed <span id="sell-coin-name"></span></button>
+																<h1 id="sell-coin-loader" style="display:none"> <span ><i class="fa fa-spin fa-spinner"></i></span></h1>
+
 															</div>	
 														</form>
 													</div>
@@ -206,7 +210,7 @@ $page_header = 'Fund With Crypto';
 															<p><small id="sell-crypto-report"></small></p>
 															<div class="text-center">
                                                                 <p class="small text-danger" id="sell-crypto-report"></p>
-																<button id="sell-coin-btn" class="btn btn-primary w-75">Sell <span id="sell-coin-name"></span></button>
+																<button id="sell-coin-btn-new" class="btn btn-primary w-75">Sell <span id="sell-coin-name"></span></button>
 															</div>	
 														</form>
 													</div>	
@@ -299,8 +303,20 @@ $page_header = 'Fund With Crypto';
 											</div>
 										</div>
 
+									</div>
+									<div class="card h-auto" id="success-modal" style="display: none;">
+										<div class="container">
+											<div class="row" id="success-div">
+													<h1 class="text-center text-warning"><i class=" fa fa-spin fa-spinner"></i></h1>
+													<h4 class="text-warning text-center">Payment Processing </h4>
+														
+													</div>
+													<p>Your payment notification has been received and it is being processed. Your academy subscription will be active shortly. You can check progress by clicking the link below.</p>
+													<a href="pending-academy.php" class="btn btn-primary">Track Status</a>
+											</div>
+										</div>
 
-
+									<!-- Card close -->
 									</div>
 								</div>
 							</div>
@@ -365,6 +381,21 @@ $page_header = 'Fund With Crypto';
 	<script src="js/demo.js"></script>
 	<script src="js/functions.js"></script>
     <script src="js/shrine.js"></script>
+
+	<script>
+
+		// Set the amount in localStorage
+
+
+
+		document.addEventListener('DOMContentLoaded', function() {
+			console.log(localStorage.getItem('amount'));
+			var amount = localStorage.getItem('amount');
+			if (amount) {
+				document.getElementById('sell-coin-amount').value = amount;
+			}
+		});
+	</script>
 	
 </body>
 

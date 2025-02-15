@@ -10,11 +10,14 @@ extract($_POST);
 // print_r($_POST);
 // die();
 
+
 $userID = $_SESSION['user_id'];
 $User = new User();
 
 $userDetails = $User->getUserById($userID);
 $academyDetails = $User->getAcademyDetails($userID); // Assuming function name is getAcademyDetails
+
+
 
 $courseDescriptions = [
     'online-1' => 'Online 1 Month',
@@ -24,6 +27,7 @@ $courseDescriptions = [
     'physical' => 'Physical - ₦300,000/Month',
     'one-on-one' => 'One-on-One With De Crypto Oracle - $2,000'
 ];
+
 
 
 
@@ -76,8 +80,6 @@ if ($coursePlan == 'online-1') {
         }
     } elseif ($chosenMethod == 'bank transfer') {
 
-
-
         $transTableName = 'transaction_history';
         $transColumns = ['user_id', 'amount', 't_type', 'destination', 't_status', 'pending_id'];
         $transValues = [$userID, $coursePrice, 'debit', 'Academy Signup', 'successful', 1];
@@ -127,11 +129,114 @@ if ($coursePlan == 'online-1') {
         }
     
         
-    } else {
+    }elseif ($chosenMethod == 'Chipper Cash') {
+        
+
         $transTableName = 'transaction_history';
         $transColumns = ['user_id', 'amount', 't_type', 'destination', 't_status', 'pending_id'];
-        $transValues = [$userID, $coursePrice, 'debit', 'Academy Purchase', 'successful', 1];
-        echo insertData($transTableName, $transColumns, $transValues);
+        $transValues = [$userID, $coursePrice, 'debit', 'Academy Signup', 'successful', 1];
+        $insertResult =  insertData($transTableName, $transColumns, $transValues);
+        if($insertResult ==1){
+            // Handle Bank Transfer Screenshot Upload
+            if (isset($_FILES['screenshot']) && $_FILES['screenshot']['error'] == 0) {
+                $targetDir = "../uploads/user/";
+                if (!is_dir($targetDir)) {
+                    mkdir($targetDir, 0755, true); // Create directory if it doesn't exist
+                }
+
+                $fileName = basename($_FILES['screenshot']['name']);
+                $targetFile = $targetDir . $fileName;
+
+                if (move_uploaded_file($_FILES['screenshot']['tmp_name'], $targetFile)) {
+                    
+
+
+                    $SubAcademy = $User->academySignUpFile(
+                        $userDetails['first_name'] . ' ' . $userDetails['last_name'],
+                        $chosenMethod,
+                        $coursePrice,
+                        $courseType,
+                        $trade_dur,
+                        $userID,
+                        $fileName
+                    );
+
+                    $duration = 30*60;
+                    // Calculate the expiration time
+                    $expirationTime = time() + $duration;
+                    // Store the expiration time in the session
+                    $_SESSION['expirationTime'] = $expirationTime;
+
+                    $_SESSION['pending-sign-up'] = 30;
+
+                    echo json_encode(['status'=>'success', 'message' => 'Academy scubscription successful.']);
+
+
+                } else {
+                    echo json_encode(['message' => 'File upload failed.']);
+                }
+            } else {
+                echo json_encode(['message' => 'No file uploaded or file upload error.']);
+            }
+        }
+
+
+    }else if($chosenMethod == 'Crypto'){
+        $transTableName = 'transaction_history';
+        $transColumns = ['user_id', 'amount', 't_type', 'destination', 't_status', 'pending_id'];
+        $transValues = [$userID, $coursePrice, 'debit', 'Academy Signup', 'successful', 1];
+        $insertResult =  insertData($transTableName, $transColumns, $transValues);
+        if($insertResult ==1){
+            // Handle Bank Transfer Screenshot Upload
+            if (isset($_FILES['screenshot']) && $_FILES['screenshot']['error'] == 0) {
+                $targetDir = "../uploads/user/";
+                if (!is_dir($targetDir)) {
+                    mkdir($targetDir, 0755, true); // Create directory if it doesn't exist
+                }
+
+                $fileName = basename($_FILES['screenshot']['name']);
+                $targetFile = $targetDir . $fileName;
+
+                if (move_uploaded_file($_FILES['screenshot']['tmp_name'], $targetFile)) {
+                    
+
+
+                    $SubAcademy = $User->academySignUpFile(
+                        $userDetails['first_name'] . ' ' . $userDetails['last_name'],
+                        $chosenMethod,
+                        $coursePrice,
+                        $courseType,
+                        $trade_dur,
+                        $userID,
+                        $fileName
+                    );
+
+                    $duration = 30*60;
+                    // Calculate the expiration time
+                    $expirationTime = time() + $duration;
+                    // Store the expiration time in the session
+                    $_SESSION['expirationTime'] = $expirationTime;
+
+                    $_SESSION['pending-sign-up'] = 30;
+
+                    echo json_encode(['status'=>'success', 'message' => 'Academy scubscription successful.']);
+
+
+                } else {
+                    echo json_encode(['message' => 'File upload failed.']);
+                }
+            } else {
+                echo json_encode(['message' => 'No file uploaded or file upload error.']);
+            }
+        }
     }
+    
+        
+    // } else {
+    //     $transTableName = 'transaction_history';
+    //     $transColumns = ['user_id', 'amount', 't_type', 'destination', 't_status', 'pending_id'];
+    //     $transValues = [$userID, $coursePrice, 'debit', 'Academy Purchase', 'successful', 1];
+    //     echo insertData($transTableName, $transColumns, $transValues);
+    // }
 
 ?>

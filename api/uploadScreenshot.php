@@ -18,8 +18,8 @@ $userID =  $_SESSION['user_id'];
 $Payments = new Payments();
 
 extract($_POST);
-// print_r($_POST);
-// die();
+print_r($_POST);
+die();
 
 
 $file = $_FILES['file']['name'];

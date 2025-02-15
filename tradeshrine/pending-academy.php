@@ -245,7 +245,7 @@ $page_header = 'Academy Subscriptions';
             }
 
             // Call initially to update the timer immediately
-            let interval = setInterval(timer, 1000); // Update timer every second
+            let interval = setInterval(timer, 5000); // Update timer every second
             
 
 
@@ -266,13 +266,13 @@ $page_header = 'Academy Subscriptions';
                             // $('#timer').text('Transaction pending');
                         }
                         // Initiate another AJAX request after a certain interval
-                        setTimeout(checkBuyRequest, 2000); // Check every 5 seconds 
+                        setTimeout(checkBuyRequest, 50000); // Check every 5 seconds 
                     }
                 });
             }
 
             // Call checkBuyRequest initially
-            checkBuyRequest();
+            // checkBuyRequest();
             
 
 

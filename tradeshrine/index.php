@@ -1,6 +1,9 @@
 <?php 
 $page_title = "User Account | Tradeshrine";
 include 'ts_templates/head.php';
+
+$userDetails = $User->getUserById($userID);
+
 // print_r(($userDetails));
  
 // if($userDetails['verified'] !== 1){
@@ -9,10 +12,9 @@ include 'ts_templates/head.php';
 //     exit();
 // }
 
-$page_header = 'Hello, '.$userDetails['first_name'].'! '; 
+$page_header = 'Hello, '.$userDetails['first_name']; 
 
-$Payments = new Payments();
-$allTransactions = $Payments->allTransactions($userID);
+
 
 ?>
 <body>
@@ -20,8 +22,8 @@ $allTransactions = $Payments->allTransactions($userID);
     <!--*******************
         Preloader start
     ********************-->
-    <div id="loader">
-	</div>
+    <!-- <div id="loader">
+	</div> -->
     <!--*******************
         Preloader end
     ********************-->
@@ -62,7 +64,6 @@ $allTransactions = $Payments->allTransactions($userID);
         ***********************************-->
 		
 		
-		
 		<!--**********************************
             Header start
         ***********************************-->
@@ -75,7 +76,7 @@ $allTransactions = $Payments->allTransactions($userID);
             Sidebar start
         ***********************************-->
 		<?php include 'ts_templates/nav.php'; ?>
-
+        
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -84,164 +85,405 @@ $allTransactions = $Payments->allTransactions($userID);
             Content body start
         ***********************************-->
         <div class="content-body">
+            <!-- row -->
 			<div class="container-fluid">
-				<!-- row -->
+                <div class="row">
+                <div class="col-xl-12 col-lg-6 col-sm-12">
+                    <div class="card ">
+                            <div class="card-body">
+                                <div class="card-wiget-info rewards">
+                                    <h6 class="count-num">Hi, <?php echo $userDetails['first_name']  ?> 👋</h6>
+                                    <p> Some deep meesage about crypto currency and digital knowledge.</p>
+                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis voluptate in odio perferendis praesentium dolores itaque cum debitis nam, totam sit amet quis quam, voluptatibus et, saepe labore! Ducimus, ipsum.</p>
+                                    
+                                    <div class="d-flex align-items-baseline reward-earn">
+                                        <button id="fiat-btn" class="btn btn-primary">Get VIP Signals</button>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>	
+                </div>
 				<div class="row">
-					<!-- column -->
-					<div class="col-xl-12">
-						<!-- row -->
-						<div class="row">
-							<!-- column -->
-							<div class="col-xl-4 col-lg-4 col-sm-4">
-								<div class="card ">
-									<div class="card-body">
-										<div class="card-wiget-info rewards">
-											<h4 class="count-num">$<?php echo number_format($userDetails['wallet']); ?></h4>
-											<p>Wallet Balance</p>
-											
-											<div class="d-flex align-items-baseline reward-earn">
-												<button id="fiat-btn" class="btn btn-primary">Fund Account</button>
-											</div>
-											
-										</div>
-									</div>
-									
-								</div>
-							</div>
-							<div class="col-xl-4 col-lg-4 col-sm-4">
-								<div class="card exchange">
-									<div class="card-header d-block border-0 pb-0">
-										<h2 class="heading"> Referral Bonus </h2>
-									</div>
-									<div class="card-body pt-0">
-										<div class="balance">
-											
-											<div class="d-flex justify-content-between align-items-baseline">
-												<h4 class="count-num">$<?php echo number_format($userDetails['referral_wallet']); ?></h4>
-												<span class="fs-14 font-w400 text-success"><i class="bi bi-caret-up-fill pe-2"></i>+ 15%</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xl-4 col-lg-4 col-sm-4">
-								<div class="card exchange">
-									<div class="card-header d-block border-0 pb-0">
-										<h2 class="heading"> Transactions </h2>
-									</div>
-									<div class="card-body pt-0">
-										<div class="balance">
-											
-											<div class="d-flex justify-content-between align-items-baseline">
-												<h4 class="count-num">$23,741.60</h4>
-												<span class="fs-14 font-w400 text-success"><i class="bi bi-caret-up-fill pe-2"></i>+ 15%</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<div class="col-xl-12">
-								<div class="card">
-									<div class="card-header justify-content-between border-0">
-										<h2 class="heading mb-0">Latest Transaction</h2>
-										<div class="d-flex align-items-center">
-											<div class="dropdown bootstrap-select">
-												<select class="image-select default-select dashboard-select width-130" aria-label="Default" tabindex="0">
-													<option selected="">This Month</option>
-													<option value="1">Weeks</option>
-													<option value="2">Today</option>
-												</select>
-											</div>
-										</div>
-									</div>
-									<div class="card-body pt-0 px-0">
-										<div class="table-responsive">
-											<table class="table-responsive tb-transaction table shadow-hover mb-4 dataTable no-footer" id="example6">
-												<tbody>
-													<?php 
-													$account = 1;
-													 foreach($allTransactions as $row){
-														// print_r($row);
-														
-														$timedate = $row['trans_date'];
-														// $formattedDate = date("Y-m-d", $timedate);
-														?>
-													<tr>
-														<td>
-															<div class="d-flex align-items-center">
-																<div class="avatar">
-																	<?php echo $account; ?>
-																</div>
-																<div class="ms-3">
-																	<h5 class="mb-0"><a class="text-secondary" href="page-error-404.html"><?php echo $row['destination']; ?></a></h5>
-																</div>
-															</div>
-														</td>
-														
-														<td class="font-w700 fs-16">$<?php echo $row['amount']; ?></td>
-														<td class="fs-14 font-w400"><?php echo $timedate; ?></td>
-													
-														<td class="text-end ps-0">
-															<div class="dropdown">
-																<a href="javascript:void(0);" class="btn-link btn sharp tp-btn btn-primary pill" data-bs-toggle="dropdown" aria-expanded="false">
-																<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-																<path d="M12.0012 9.35986C11.6543 9.35986 11.3109 9.42818 10.9904 9.56091C10.67 9.69365 10.3788 9.8882 10.1335 10.1335C9.88829 10.3787 9.69374 10.6699 9.56101 10.9903C9.42828 11.3108 9.35996 11.6542 9.35996 12.0011C9.35996 12.3479 9.42828 12.6914 9.56101 13.0118C9.69374 13.3323 9.88829 13.6234 10.1335 13.8687C10.3788 14.1139 10.67 14.3085 10.9904 14.4412C11.3109 14.5739 11.6543 14.6423 12.0012 14.6423C12.7017 14.6421 13.3734 14.3637 13.8686 13.8683C14.3638 13.3728 14.6419 12.701 14.6418 12.0005C14.6416 11.3 14.3632 10.6282 13.8677 10.133C13.3723 9.63782 12.7004 9.3597 12 9.35986H12.0012ZM3.60116 9.35986C3.25431 9.35986 2.91086 9.42818 2.59042 9.56091C2.26997 9.69365 1.97881 9.8882 1.73355 10.1335C1.48829 10.3787 1.29374 10.6699 1.16101 10.9903C1.02828 11.3108 0.959961 11.6542 0.959961 12.0011C0.959961 12.3479 1.02828 12.6914 1.16101 13.0118C1.29374 13.3323 1.48829 13.6234 1.73355 13.8687C1.97881 14.1139 2.26997 14.3085 2.59042 14.4412C2.91086 14.5739 3.25431 14.6423 3.60116 14.6423C4.30165 14.6421 4.97339 14.3637 5.4686 13.8683C5.9638 13.3728 6.24192 12.701 6.24176 12.0005C6.2416 11.3 5.96318 10.6282 5.46775 10.133C4.97231 9.63782 4.30045 9.3597 3.59996 9.35986H3.60116ZM20.4012 9.35986C20.0543 9.35986 19.7109 9.42818 19.3904 9.56091C19.07 9.69365 18.7788 9.8882 18.5336 10.1335C18.2883 10.3787 18.0937 10.6699 17.961 10.9903C17.8283 11.3108 17.76 11.6542 17.76 12.0011C17.76 12.3479 17.8283 12.6914 17.961 13.0118C18.0937 13.3323 18.2883 13.6234 18.5336 13.8687C18.7788 14.1139 19.07 14.3085 19.3904 14.4412C19.7109 14.5739 20.0543 14.6423 20.4012 14.6423C21.1017 14.6421 21.7734 14.3637 22.2686 13.8683C22.7638 13.3728 23.0419 12.701 23.0418 12.0005C23.0416 11.3 22.7632 10.6282 22.2677 10.133C21.7723 9.63782 21.1005 9.3597 20.4 9.35986H20.4012Z" fill="#A098AE"/>
-																</svg>
-																</a>
-																<div class="dropdown-menu dropdown-menu-end">
-																	<a class="dropdown-item" href="javascript:void(0);">View</a>
-																	<a class="dropdown-item" href="javascript:void(0);">Share</a>
-																</div>
-															</div>
-														</td>
-													</tr>
-													<?php $account++;} ?>
-												</tbody>
-											</table>
-										</div>
-										<div class="table-pagenation d-flex align-items-center justify-content-between">
-											<p>Showing <span> 1-5 </span> of <span> 100 </span>  </p>
-											<nav>
-												<ul class="pagination pagination-gutter pagination-primary no-bg">
-													<li class="page-item page-indicator">
-														<a class="page-link" href="javascript:void(0)">
-															<i class="fa-solid fa-angle-left"></i></a>
-													</li>
-													<li class="page-item active"><a class="page-link" href="javascript:void(0)">1</a>
-													</li>
-													<li class="page-item "><a class="page-link" href="javascript:void(0)">2</a></li>
-													<li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
-													<li class="page-item page-indicator">
-														<a class="page-link" href="javascript:void(0)">
-															<i class="fa-solid fa-angle-right"></i></a>
-													</li>
-												</ul>
-											</nav>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+
+                    <?php
+
+
+                        $userDetails = $User->getUserById($userID);
+
+                        $academyDetails = $User->getAcademyDetails($userID); 
+                        // Assuming function name is getAcademyDetails
+                            // var_dump($academyDetails); 
+
+                            // Check if academy details exist and have an expiry date
+                            // $expiryDate = strtotime($academyDetails['exp_date']); 
+                            // Convert expiry date to timestamp
+
+                            // Check if current time is past the expiry date
+                            if ($academyDetails !== false && $academyDetails["academy_status"] !== 'pending') { ?>
+                                <div class="col-xl-6  col-lg-6">
+                    
+                                    <div class="card">
+                                        <div class="card-header border-0 pb-0">
+                                            <h4 class="card-title">Your Academy Subscription Is Active</h4>
+                                        </div>
+                                        <div class="card-body p-0">
+                                            <div id="DZ_W_TimeLine" class="widget-timeline dz-scroll height70 my-4 px-4">
+                                            <p>🎉 Your academy subscription is active! You have full access to all the resources and materials for your enrolled courses. Keep learning and enjoy the journey!</p>
+                                            
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <?php     
+                            }else{
+                         
+                    ?>
+                    <div class="col-xl-4  col-lg-6">
+                    
+                        <div class="card">
+                            <div class="card-header border-0 pb-0">
+                                <h4 class="card-title">INTRODUCTION</h4>
+                            </div>
+                            <div class="card-body p-0">
+                                <div id="DZ_W_TimeLine" class="widget-timeline dz-scroll height370 my-4 px-4">
+                                    <ul class="timeline">
+                                        <!-- <li>
+                                            <div class="timeline-badge primary"></div>
+                                            <a class="timeline-panel " href="#">
+                                                <span>Course Duration: 1 Month</span>
+                                                <p class="mb-0">FEE: $50</p>
+                                            </a>
+                                        </li> -->
+                                        <li>
+                                            <div class="timeline-badge warning"></div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">Understanding Blockchain Technology</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <!-- <span>20 minutes ago</span> -->
+                                                <h6 class="mb-0">What is a currency pair?</strong></h6>
+												
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <!-- <span>30 minutes ago</span> -->
+                                                <h6 class="mb-0">What is profit and loss (P&L)</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <!-- <span>15 minutes ago</span> -->
+                                                <h6 class="mb-0">How to calculate profit (%) </h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">What is leverage/Margin and how does it work </h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Different types of Exchanges and how they work.</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Master a trading platform (Binance, Tradeshrine & Tradeview)</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge info">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">What is Long vs Short in trading.</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge primary">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">What are the entries, stops & Target.</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Types of orders in trading.</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">How to place entries, stops and targets.</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Different position sizes.</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">How to calculate Market rate </h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">What is order book and how does it work.</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Understanding digital currency</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">What is a wallet?</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Uses of wallets </h6>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Advantages/disadvantages of wallets/digital currency.</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Market/digital customers. </h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Who is a trader.</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">How to be a successful trader</h6>
+                                            </a>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                            <button class="btn btn-success subscribe-btn" data-id="1" >ENRROL NOW</button>
+                        </div>
 					</div>
-					<div class="col-xl-4">
-						<!-- row -->
-						
+					<div class="col-xl-4  col-lg-6">
+                        <div class="card">
+                            <div class="card-header border-0 pb-0">
+                                <h4 class="card-title">ADVANCE STUDIES </h4>
+                            </div>
+                            <div class="card-body p-0">
+                                <div id="DZ_W_TimeLine11" class="widget-timeline dz-scroll  height370 my-4 px-4">
+                                    <ul class="timeline">
+                                        <!-- <li>
+                                            <div class="timeline-badge primary"></div>
+                                            <a class="timeline-panel" href="#">
+                                                <span>Course Duration: 1-6 Months</span>
+                                                <p>FEE: $100</p>
+                                            </a>
+                                        </li> -->
+                                        <li>
+                                            <div class="timeline-badge info">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Trading Spot</h6>
+												
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge danger">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Trading Futures </h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge success">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">Becoming A lead or Copy trader.. </h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">⁠Online and offline trades (P2P)</h6>
+                                            </a>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                            <button class="btn btn-success subscribe-btn" data-id="2" >ENRROL NOW</button>
+                        </div>
 					</div>
+					<div class="col-xl-4  col-lg-6">
+                        <div class="card">
+                            <div class="card-header border-0 pb-0">
+                                <h4 class="card-title">TECHNICAL ANALYSIS </h4>
+                            </div>
+                            <div class="card-body p-0">
+                                <div id="DZ_W_TimeLine11" class="widget-timeline dz-scroll  height370 my-4 px-4">
+                                    <ul class="timeline">
+                                        <!-- <li>
+                                            <div class="timeline-badge primary"></div>
+                                            <a class="timeline-panel" href="#">
+                                                <span>Duration: | LIFETIME  MENTORSHIP</span>
+                                                <p>FLIGHT TICKET | VIP SIGNALS </p>
+                                            </a>
+                                        </li> -->
+                                        <li>
+                                            <div class="timeline-badge info">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Candle stick pattern</h6>
+												
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge danger">
+                                            </div>
+                                            <a class="timeline-panel" href="#">
+                                                <h6 class="mb-0">Indicators (Bollinger bands, hybrid Ema, RSI, MA, Support, Resistance) </h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge success">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">Entry , Stop loss & Take profits </h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">Identifying trends</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">⁠Chart patterns </h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">Breakout patterns</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">Strategy (Scalping, Day trading & Swing trading)</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">Trading Psychology </h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">Risk Management</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0"> ⁠Break and Retest Strategy</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-badge warning">
+                                            </div>
+                                            <a class="timeline-panel " href="#">
+                                                <h6 class="mb-0">⁠ ⁠C.E.S.T (Rules to remain profitable)</h6>
+                                            </a>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                            <button class="btn btn-success subscribe-btn" data-id="3" >ENROLL NOW</button>
+                        </div>
+					</div>
+
+                    <?php } ?>
 				</div>
             </div>
         </div>
+		
         <!--**********************************
             Content body end
         ***********************************-->
 		
 		
-		
         <!--**********************************
             Footer start
         ***********************************-->
-		<?php include 'ts_templates/footer.php'; ?>
-        
+        <?php include 'ts_templates/footer.php'; ?>
         <!--**********************************
             Footer end
         ***********************************-->
@@ -251,87 +493,223 @@ $allTransactions = $Payments->allTransactions($userID);
         ***********************************-->
 		
         <!--**********************************
-           Support ticket button end
+           Support ticket button end| Earth, Sun, Water, Air
         ***********************************-->
 
 
 	</div>
+
+    <!-- modal -->
+    <div class="modal fade " id="pay-method-modal">
+        <div class="modal-dialog modal-dialog-centered"  role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="modal-hedarr">
+                    <h5 class="modal-title" id="modal-title">Purchase A Course</h5>
+                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                    
+                    <h6 id="timer-display" style="display: none;">00:00</h6>
+                </div>
+
+                <div class="modal-body" id="pay-body"  >
+                    <form id="payment-form">
+                        <div class="container">
+                            <div class="row">
+                                
+                                <div class="col-md-12" id="make-payment-area">
+                                    <p>Select the course duration and payment method that suits you.</p>
+
+                                    <!-- Course Plan Selection -->
+                                    <div class="mb-3 form-group">
+                                        <label for="course-plan" class="form-label">Select Course Plan</label>
+                                        <select class="form-control" id="course-plan" name="course_plan" required>
+                                            <option value="">Select Course Plan</option>
+                                            <option value="online-1">Online (1 Month) - $75 (₦112,875)</option>
+                                            <option value="online-3">Online (3 Months) - $197 (₦296,485)</option>
+                                            <option value="online-6">Online (6 Months) - $399 (₦510,195)</option>
+                                            <option value="online-12">Online (1 Year) - $599 (₦901,495)</option>
+                                            <option value="physical">Physical - ₦300,000/Month</option>
+                                            <option value="one-on-one">One-on-One With De Crypto Oracle - $2,000</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Payment Method Selection -->
+                                    <div class="mb-3 form-group">
+                                        <label for="aca-pay-method" class="form-label">Select Payment Method</label>
+                                        <select class="form-control" id="aca-pay-method" name="payment_method" required>
+                                            <!-- <option value="wallet" data-id="wallet">Tradeshrine Wallet</option> -->
+                                            <option value="bank-transfer">Bank Transfer</option>
+                                            <!-- <option value="vpay">VPay (Card, Bank Transfer, etc.)</option> -->
+                                            <option value="chipper">Pay With Chipper</option>
+                                            <option value="crypto">Pay With Crypto</option>
+                                        </select>
+                                    </div>
+                                    
+
+                                    <!-- Error Message Display -->
+                                    <div class="mb-3">
+                                        <small class="text-danger" id="pay-method-error"></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" id="modal-footer-course">
+                    
+                            <button type="submit" form="payment-form" id="pay-method-btn" class="btn btn-primary btn-left">Proceed</button>
+                            <button type="button" class="btn btn-primary disabled" style="display:none"><i class="fa fa-spin fa-spinner"></i></button>
+                            
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-body" id="bank-transfer-area" style="display:none">
+                    <div class="container">
+                        <div class="row" id="detais-div">
+                            <div class="col-md-12" id="make-payment-area">
+                                <p>Kindly transfer the payment of <span class="h6"> &#8358;<span id="dynamic-price"></span>  </span>to the following bank details and upload the payment proof. This typical takes 2 - 5 minutes.</p>
+
+                                <!-- Bank Details -->
+                                <div class="mb-3 form-group">
+                                    <p><strong>Bank Name:</strong> First Bank of Nigeria</p>
+                                    <p><strong>Account Name:</strong> De Crypto Oracle Academy</p>
+                                    <p>
+                                        <strong>Account Number:</strong> 
+                                        <span id="account-number">1234567890</span> 
+                                        <i class="fa fa-copy" id="copy-account-number"></i>
+                                        <small class="text-success" id="copy-success"></small>
+                                    </p>
+                                </div>                             
+
+                                <!-- Error Message Display -->
+                                <div class="mb-3">
+                                    <small class="text-danger" id="pay-method-error"></small>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="modal-footer" id="transfer-footer">
+                        <button id="back-to-method-transfer" class="btn btn-warning">Back</button>
+                        <button type="button" id="transfer-proceed" class="btn btn-primary btn-left">Upload Proof</button>
+                        <input type="file" style="display:none;" id="bank-transfer-screenshot">
+                    </div>
+                </div>
+
+                <div class="modal-body" id="chipper-area" style="display:none">
+                    <div class="container">
+                        <div class="row" id="chipper-detais-div">
+                            <div class="col-md-12" id="make-payment-area">
+                                <p>
+                                    <small>Head to your Chipper cash wallet, copy the tag below and proceed to send <b><span class="h6"> &#8358;<span id="dynamic-price-chipper"></span></b>. After payment, upload a screenshot of the proof of payment. </small> <br>
+                                </p>
+                                <h4>Visa Direct Tag: tradeshrine</h4>
+                                <!-- <h4> 4173 9600 5448 2037</h4> -->
+                                <input type="file" name="" id="chipper-proof" style="display: none;">                            
+
+                               
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="modal-footer" id="chipper-footer">
+                        <button id="back-to-method-chipper" class="btn btn-warning">Back</button>
+                        <button type="button" id="complete-chipper" class="btn btn-primary btn-left">Upload Proof</button>
+                        <!-- <input type="file" style="display:none;" id="tran sfer-screenshot"> -->
+                    </div>
+
+                </div>
+
+                <div class="modal-body" id="success-modal" style="display: none;">
+                    <div class="container">
+                        <div class="row" id="success-div">
+                                <h1 class="text-center text-warning"><i class=" fa fa-spin fa-spinner"></i></h1>
+                                <h4 class="text-warning text-center">Payment Processing </h4>
+                                    
+                                </div>
+                                <p>Your payment has been received. Your academy subscription will be active shortly. You can check progress by clicking the link below.</p>
+                                <a href="pending-academy.php" class="btn btn-primary">Track Status</a>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body" id="transfer-success" style="display: none;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" id="">
+
+                    <div class="mb-3 form-group">
+                        <h4>Successful <i class=" fa fa-thummbs-up"></i></h4>
+                        
+                    </div>
+                    <p>Your payment has been received. Check your email for further instructions.</p>
+
+                    
+
+                    
+
+                    <div class="mb-3">
+                        <small class="text-danger" id="pay-method-error"></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="back-to-method" class="btn btn-warning">Back</button>
+            <button type="button" id="transfer-proceed" class="btn btn-primary btn-left">Upload Proof <i class="fa fa-upload"></i></button>
+            <input type="file" style="display:none;" id="transfer-screenshot">
+        </div>
+    </div> 
+
+    <!-- Transfer Modal -->
+    <!-- <div class="modal-body" id="bank-transfer-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" id="make-payment-area">
+                    <p>Please transfer the payment to the following bank details and upload the payment proof.</p>
+
+                    <div class="mb-3 form-group">
+                        <label for="bank-details" class="form-label"><strong>Bank Details</strong></label>
+                        <p><strong>Bank Name:</strong> First Bank of Nigeria</p>
+                        <p><strong>Account Name:</strong> De Crypto Oracle Academy</p>
+                        <p>
+                            <strong>Account Number:</strong> 
+                            <span id="account-number">1234567890</span> 
+                            <button class="btn btn-sm btn-secondary" id="copy-account-number">Copy</button>
+                        </p>
+                    </div>
+
+                    
+
+                    <div class="mb-3">
+                        <small class="text-danger" id="pay-method-error"></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="back-to-method" class="btn btn-warning">Back</button>
+            <button type="button" id="transfer-proceed" class="btn btn-primary btn-left">Upload Proof <i class="fa fa-upload"></i></button>
+            <input type="file" style="display:none;" id="transfer-screenshot">
+        </div>
+    </div> -->
+
+
+
+
+
+    <input type="hidden" name="" id="hidden-email" value="<?php echo $userDetails['email']; ?>">
+    <input type="hidden" name="" id="hidden-phone" value="<?php echo $userDetails['phone']; ?>">
+
+
     <!--**********************************
         Main wrapper end
     ***********************************-->
-
-	<div class="modal fade" id="fund-fiat-modal">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-
-			<div class="modal-content" id="form-holder">
-				<div class="modal-header">
-					<h5 class="modal-title">Fund Your Wallet With Fiat</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal">
-					</button>
-				</div>
-				<div class="modal-body">
-					<div id="first-area">
-						<form id="fiat-fund-area" >
-							<p>Select a payment method that suits you best</p>
-							<div class="mb-3 form-group">
-								<label class="form-label">Select list (select one):</label>
-								<select class="default-select form-control wide" id="pay-method" >
-									<option value="crypto" data-id="crypto">Fund With Crypto</option>
-									<option value="vpay">VPay (Card, Bank Transfer, etc)</option>
-									<option value="chipper" data-id="chipper">Chipper Cash</option>
-									<!-- <option value="giftcard" data-id="Gift">Gift Cards</option> -->
-									
-								</select>
-							</div> <br> <br>
-							<div class="mb-3 form-group">
-								<input type="number" class="form-control" id="fiat-depo-amt" placeholder="Enter amount">
-							</div>
-							
-						
-							<!-- <small class="text-danger">error</small> -->
-							
-						</form>
-						<div id="chipper-cash-area" style="display: none;">
-							<p>
-							<small>Head to your Chipper cash wallet, copy the tag below and proceed with the transaction. After payment, upload a screenshot of the proof of payment. </small> <br>
-							</p>
-							<h4>Visa Direct Tag: tradeshrine</h4>
-							<!-- <h4> 4173 9600 5448 2037</h4> -->
-							<input type="file" name="" id="chipper-proof" style="display: none;">
-							<!-- <button type="button" class="btn btn-dark" id="complete-chipper">Upload Screehsot</button>  -->
-						</div>
-					</div>
-					<div id="" class="text-center">
-						<p id="fiat-fund-error" class="text-danger"></p>
-					</div>
-            	</div>
-			
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger light" id="fiat-fund-back">Back</button>
-					<button type="button" class="btn btn-dark" id="complete-chipper" style="display:none">Upload Screehsot</button> 
-					<button type="button" class="btn btn-primary" id="fiat-proceed">Proceed</button>
-				</div>
-			</div>
-			<div class="modal-content" id="fund-success-modal" style="display:none">
-				<div class="modal-header">
-					<h5 class="modal-title">Successful</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal">
-					</button>
-				</div>
-				<div class="modal-body">
-					
-					<p>
-						<small>Your transaction was successful and is currently being processed. </small> <br>
-						<br>
-						Cheers.
-							</p>
-							
-            	</div>
-			
-				
-			</div>
-		</div>
-	</div>
 
     <!--**********************************
         Scripts
@@ -340,17 +718,28 @@ $allTransactions = $Payments->allTransactions($userID);
     <script src="vendor/global/global.min.js"></script>
 	<script src="vendor/chart.js/Chart.bundle.min.js"></script>
 	<script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-	<!-- Chart piety plugin files -->
-    <script src="vendor/peity/jquery.peity.min.js"></script>
-	<script src="js/user.js"></script>
+	
+	<!-- Dashboard 1 -->
+	<!-- <script src="js/dashboard/dashboard-1.js"></script> -->
+	<!-- Apex Chart -->
+	<script src="vendor/apexchart/apexchart.js"></script>
+	<script src="vendor/swiper/js/swiper-bundle.min.js"></script>
+	<!-- <script src="../../s3.tradingview.com/tv.js"></script> -->
+	<script src="./cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js"></script>
+	<script src="./cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.js"></script>
+	<script src="vendor/raphael/raphael.min.js"></script>
+	<script src="vendor/morris/morris.min.js"></script>
+	
     <script src="js/custom.js"></script>
 	<script src="js/deznav-init.js"></script>
 	<script src="js/demo.js"></script>
 	<script src="js/functions.js"></script>
 	<script src="js/shrine.js"></script>
     <!-- <script src="js/styleSwitcher.js"></script> -->
-	<script src="https://dropin-sandbox.vpay.africa/dropin/v1/initialise.js"></script>
+	<!-- <script src="js/dashboard/tradingview-1.js"></script> -->
+	<script src="https://dropin.vpay.africa/dropin/v1/initialise.js"></script>
 
+	
 </body>
 
 

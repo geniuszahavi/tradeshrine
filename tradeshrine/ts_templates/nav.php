@@ -7,13 +7,13 @@
                     <span class="nav-text">Dashboard</span>
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a class="has " href="academy.php" >
                     <i class="material-icons">currency_bitcoin</i>	
-                    <span class="nav-text">Crypto Academy</span>
+                    <span class="nav-text">Academy</span>
                 </a>
               
-            </li>
+            </li> -->
             <li>
                 <a class="has-ow " href="signal.php" aria-expanded="false">
                     <i class="material-icons">assessment </i>
